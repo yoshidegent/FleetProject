@@ -1,12 +1,16 @@
 package com.realdolmen.fleet;
 
+import com.realdolmen.fleet.converters.DateConverter;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-public class Order extends AbstractEntity {
+public class CarOrder extends AbstractEntity {
     private PhysicalCar orderedCar;
     private Employee employee;
+
+    @Convert(converter = DateConverter.class)
     private LocalDate orderDate;
 
     @Transient

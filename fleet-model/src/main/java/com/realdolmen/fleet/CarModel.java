@@ -1,15 +1,14 @@
 package com.realdolmen.fleet;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Transient;
+import com.realdolmen.fleet.converters.PeriodConverter;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Period;
 import java.util.Map;
 
 @Entity
-public class CarModel extends AbstractEntity{
+public class CarModel extends AbstractEntity {
 
     public enum FuelType{
         DIESEL,
@@ -33,8 +32,10 @@ public class CarModel extends AbstractEntity{
 
     private String pack;
 
+    @Convert(converter = PeriodConverter.class)
     private Period deliveryTime;
 
+    @Enumerated(EnumType.STRING)
     private RimType winterTyreRimType;
 
     private int idealKm;
