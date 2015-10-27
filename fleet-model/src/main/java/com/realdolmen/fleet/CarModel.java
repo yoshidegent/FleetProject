@@ -33,5 +33,4 @@ public class CarModel extends AbstractEntity{
     private Period timeOfDeliveryInMonths;
 
     private RimType winterTyreRimType;
-
 }
