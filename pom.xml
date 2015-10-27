@@ -8,6 +8,9 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<modules>
 		<module>fleet-web</module>
+		<module>fleet-model</module>
+		<module>fleet-repositories</module>
+		<module>fleet-services</module>
 	</modules>
 	<packaging>pom</packaging>
 
