@@ -22,7 +22,7 @@ public class CarModel extends AbstractEntity{
     }
 
     private int category;
-    private int co2Emition; // In grams per 100km
+    private int co2Emission; // In grams per 100km
     private int fiscalHorsePower;
 
     @Enumerated(EnumType.STRING)
@@ -33,7 +33,7 @@ public class CarModel extends AbstractEntity{
 
     private String pack;
 
-    private Period timeOfDeliveryInMonths;
+    private Period deliveryTime;
 
     private RimType winterTyreRimType;
 
@@ -57,12 +57,12 @@ public class CarModel extends AbstractEntity{
         this.category = category;
     }
 
-    public int getCo2Emition() {
-        return co2Emition;
+    public int getCo2Emission() {
+        return co2Emission;
     }
 
-    public void setCo2Emition(int co2Emition) {
-        this.co2Emition = co2Emition;
+    public void setCo2Emission(int co2Emission) {
+        this.co2Emission = co2Emission;
     }
 
     public int getFiscalHorsePower() {
@@ -105,12 +105,12 @@ public class CarModel extends AbstractEntity{
         this.pack = pack;
     }
 
-    public Period getTimeOfDeliveryInMonths() {
-        return timeOfDeliveryInMonths;
+    public Period getDeliveryTime() {
+        return deliveryTime;
     }
 
-    public void setTimeOfDeliveryInMonths(Period timeOfDeliveryInMonths) {
-        this.timeOfDeliveryInMonths = timeOfDeliveryInMonths;
+    public void setDeliveryTime(Period deliveryTime) {
+        this.deliveryTime = deliveryTime;
     }
 
     public RimType getWinterTyreRimType() {

@@ -5,5 +5,6 @@ import java.util.List;
 
 @Entity
 public class PhysicalCar {
+    private CarModel carModel;
     private List<Option> selectedOptions;
 }
