@@ -1,9 +1,10 @@
 package com.realdolmen.fleet;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @MappedSuperclass
-public class AbstractEntity {
+public class AbstractEntity implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
