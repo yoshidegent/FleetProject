@@ -6,7 +6,10 @@
 	<groupId>com.realdolmen</groupId>
 	<artifactId>fleet</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<modules>
+		<module>fleet-web</module>
+	</modules>
+	<packaging>pom</packaging>
 
 	<name>fleet</name>
 	<description>Fleet Project</description>
