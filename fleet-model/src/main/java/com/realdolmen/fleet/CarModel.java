@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.time.Period;
+import java.util.List;
 
 @Entity
 public class CarModel extends AbstractEntity{
@@ -33,4 +34,6 @@ public class CarModel extends AbstractEntity{
     private Period timeOfDeliveryInMonths;
 
     private RimType winterTyreRimType;
+
+    private List<Option> availableOptions;
 }
