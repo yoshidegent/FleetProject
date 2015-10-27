@@ -38,6 +38,5 @@ public class CarModel extends AbstractEntity{
     private int idealKm;
     private int maxKm;
 
-    private Map<Option, float> optionPriceMap;
-
+    private Map<Option, Float> optionPriceMap;
 }
