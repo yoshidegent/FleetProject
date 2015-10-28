@@ -1,6 +1,7 @@
 package com.realdolmen.fleet.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -11,6 +12,7 @@ import java.util.Properties;
 
 @Configuration
 @Profile("test")
+@ComponentScan
 public class RepositoryTestConfig {
     @Bean
     public DataSource dataSource() {

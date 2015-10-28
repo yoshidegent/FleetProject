@@ -20,7 +20,6 @@ import java.util.Properties;
 @Profile("production")
 public class RepositoryConfig {
     @Bean
-    @Profile("production")
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
@@ -51,7 +50,7 @@ public class RepositoryConfig {
     }
 
     @Bean
-    @Profile("production") Properties additionalProperties() {
+    Properties additionalProperties() {
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", "create");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
