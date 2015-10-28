@@ -27,6 +27,18 @@ public class CarOrder extends AbstractEntity {
     @Transient
     private LocalDate deliveryDate;
 
+    public CarOrder() {
+    }
+
+    public CarOrder(PhysicalCar orderedCar, Employee employee, LocalDate orderDate,
+        OrderStatus status) {
+        this.orderedCar = orderedCar;
+        this.employee = employee;
+        this.orderDate = orderDate;
+        this.status = status;
+        this.deliveryDate = deliveryDate;
+    }
+
     @PostConstruct
     public void init() {
         deliveryDate = orderDate.plus(orderedCar.getCarModel().getDeliveryTime());

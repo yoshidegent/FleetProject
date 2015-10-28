@@ -6,6 +6,6 @@ import org.springframework.context.annotation.Profile;
 
 @Configuration
 @ComponentScan(basePackages = "com.realdolmen.fleet")
-@Profile("test")
+@Profile("testService")
 public class ServicesTestConfig {
 }
