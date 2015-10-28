@@ -21,6 +21,7 @@ import java.util.Properties;
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration
+@EnableJpaRepositories(basePackages = "com.realdolmen.fleet")
 public class RepositoryConfig {
     @Bean
     @Profile("production")
@@ -46,6 +47,7 @@ public class RepositoryConfig {
     public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(emf);
+
         return transactionManager;
     }
 
