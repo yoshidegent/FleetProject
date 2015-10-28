@@ -14,6 +14,8 @@ public class CarOrder extends AbstractEntity {
     }
 
     private PhysicalCar orderedCar;
+
+    @ManyToOne
     private Employee employee;
 
     @Convert(converter = DateConverter.class)

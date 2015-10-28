@@ -9,7 +9,6 @@ import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    @Autowired private EmployeeRepository employeeRepository;
     @Autowired private CarOrderRepository orderRepository;
 
     @Override
@@ -19,7 +18,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public PhysicalCar findEmployeesCurrentCar(Employee employee) {
-        List<CarOrder> orderList = orderRepository.findEmployeesOrdersOrderedByDate(employee);
+        List<CarOrder> orderList = orderRepository.findOrdersByEmployeeOrderedByOrderDate(employee);
 
         // Filter on delivered orders. It's ordered by date descending, so the first one is the last.
         Optional<CarOrder> carOrderOptional = orderList.stream().filter(o -> o.getStatus() == CarOrder.OrderStatus.DELIVERED).findFirst();
