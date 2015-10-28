@@ -1,11 +1,14 @@
 package com.realdolmen.fleet;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import java.util.List;
 
 @Entity
-public class PhysicalCar {
+public class PhysicalCar extends AbstractEntity {
     private CarModel carModel;
+
+    @ElementCollection
     private List<Option> selectedOptions;
 
     public CarModel getCarModel() {

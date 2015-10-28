@@ -1,6 +1,7 @@
 package com.realdolmen.fleet;
 
 import com.realdolmen.fleet.config.ServicesTestConfig;
+import com.realdolmen.fleet.interfaces.CarService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

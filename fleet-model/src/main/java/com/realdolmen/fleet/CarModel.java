@@ -41,6 +41,7 @@ public class CarModel extends AbstractEntity {
     private int idealKm;
     private int maxKm;
 
+    @ElementCollection
     private Map<Option, BigDecimal> optionPriceMap;
 
     private BigDecimal listPriceInclVat;

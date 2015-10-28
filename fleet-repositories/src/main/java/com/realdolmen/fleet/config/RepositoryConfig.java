@@ -1,9 +1,11 @@
 package com.realdolmen.fleet.config;
 
-import com.realdolmen.fleet.CarModelRepository;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -17,9 +19,11 @@ import java.util.Properties;
 
 
 @Configuration
-@Profile("production")
+@ComponentScan
+@EnableAutoConfiguration
 public class RepositoryConfig {
     @Bean
+    @Profile("production")
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
@@ -30,6 +34,15 @@ public class RepositoryConfig {
     }
 
     @Bean
+    @Profile("production")
+    public Properties additionalProperties() {
+        Properties properties = new Properties();
+        properties.setProperty("hibernate.hbm2ddl.auto", "create");
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+        return properties;
+    }
+
+    @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(emf);
@@ -37,23 +50,15 @@ public class RepositoryConfig {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, Properties additionalProperties) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource());
+        em.setDataSource(dataSource);
         em.setPackagesToScan("com.realdolmen.fleet");
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
-        em.setJpaProperties(additionalProperties());
+        em.setJpaProperties(additionalProperties);
 
         return em;
-    }
-
-    @Bean
-    Properties additionalProperties() {
-        Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "create");
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-        return properties;
     }
 }
