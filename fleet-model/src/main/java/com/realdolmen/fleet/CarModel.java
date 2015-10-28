@@ -48,8 +48,35 @@ public class CarModel extends AbstractEntity {
     private BigDecimal amountUpgradeInclVat;
     private BigDecimal amountDowngradeInclVat;
 
+    private BigDecimal benefitInKindPerMonth;
+
     @Transient
     final static int VAT = 21;
+
+    public CarModel() {
+    }
+
+    public CarModel(int category, int co2Emission, int fiscalHorsePower, FuelType fuelType,
+        String brand, String type, String pack, Period deliveryTime, RimType winterTyreRimType,
+        int maxKm, int idealKm, Map<Option, BigDecimal> optionPriceMap, BigDecimal listPriceInclVat,
+        BigDecimal amountUpgradeInclVat, BigDecimal amountDowngradeInclVat, BigDecimal benefitInKindPerMonth) {
+        this.category = category;
+        this.co2Emission = co2Emission;
+        this.fiscalHorsePower = fiscalHorsePower;
+        this.fuelType = fuelType;
+        this.brand = brand;
+        this.type = type;
+        this.pack = pack;
+        this.deliveryTime = deliveryTime;
+        this.winterTyreRimType = winterTyreRimType;
+        this.maxKm = maxKm;
+        this.idealKm = idealKm;
+        this.optionPriceMap = optionPriceMap;
+        this.listPriceInclVat = listPriceInclVat;
+        this.amountUpgradeInclVat = amountUpgradeInclVat;
+        this.amountDowngradeInclVat = amountDowngradeInclVat;
+        this.benefitInKindPerMonth = benefitInKindPerMonth;
+    }
 
     public int getCategory() {
         return category;
