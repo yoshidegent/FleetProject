@@ -42,7 +42,7 @@ public class CarModel extends AbstractEntity {
     private int maxKm;
 
     @ElementCollection
-    private Map<Option, BigDecimal> optionPriceMap;
+    private Map<CarOption, BigDecimal> optionPriceMap;
 
     private BigDecimal listPriceInclVat;
     private BigDecimal amountUpgradeInclVat;
@@ -139,11 +139,11 @@ public class CarModel extends AbstractEntity {
         this.maxKm = maxKm;
     }
 
-    public Map<Option, BigDecimal> getOptionPriceMap() {
+    public Map<CarOption, BigDecimal> getOptionPriceMap() {
         return optionPriceMap;
     }
 
-    public void setOptionPriceMap(Map<Option, BigDecimal> optionPriceMap) {
+    public void setOptionPriceMap(Map<CarOption, BigDecimal> optionPriceMap) {
         this.optionPriceMap = optionPriceMap;
     }
 

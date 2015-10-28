@@ -9,7 +9,7 @@ public class PhysicalCar extends AbstractEntity {
     private CarModel carModel;
 
     @ElementCollection
-    private List<Option> selectedOptions;
+    private List<CarOption> selectedCarOptions;
 
     public CarModel getCarModel() {
         return carModel;
@@ -19,11 +19,11 @@ public class PhysicalCar extends AbstractEntity {
         this.carModel = carModel;
     }
 
-    public List<Option> getSelectedOptions() {
-        return selectedOptions;
+    public List<CarOption> getSelectedCarOptions() {
+        return selectedCarOptions;
     }
 
-    public void setSelectedOptions(List<Option> selectedOptions) {
-        this.selectedOptions = selectedOptions;
+    public void setSelectedCarOptions(List<CarOption> selectedCarOptions) {
+        this.selectedCarOptions = selectedCarOptions;
     }
 }
