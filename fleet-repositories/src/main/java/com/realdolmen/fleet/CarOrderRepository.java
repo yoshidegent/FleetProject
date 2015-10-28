@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface CarOrderRepository extends JpaRepository<CarOrder, Long> {
     @Query("SELECT o FROM CarOrder o WHERE o.employee = ?1 ORDER BY o.orderDate DESC")
-    List<CarOrder> findEmployeesOrdersOrderedByDate(Employee employee);
+    List<CarOrder> findOrdersByEmployeeOrderedByOrderDate(Employee employee);
 }
