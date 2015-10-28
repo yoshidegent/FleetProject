@@ -1,0 +1,9 @@
+.gridCell{
+    width: 10%;
+    display: inline-block;
+}
+
+
+.gridCell img{
+    width: 100%;
+}

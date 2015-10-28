@@ -58,7 +58,7 @@ public class CarModel extends AbstractEntity {
 
     public CarModel(int category, int co2Emission, int fiscalHorsePower, FuelType fuelType,
         String brand, String type, String pack, Period deliveryTime, RimType winterTyreRimType,
-        int maxKm, int idealKm, Map<Option, BigDecimal> optionPriceMap, BigDecimal listPriceInclVat,
+        int maxKm, int idealKm, Map<CarOption, BigDecimal> optionPriceMap, BigDecimal listPriceInclVat,
         BigDecimal amountUpgradeInclVat, BigDecimal amountDowngradeInclVat, BigDecimal benefitInKindPerMonth) {
         this.category = category;
         this.co2Emission = co2Emission;
