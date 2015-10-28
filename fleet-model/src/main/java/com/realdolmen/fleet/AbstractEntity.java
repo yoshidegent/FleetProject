@@ -13,4 +13,8 @@ public class AbstractEntity implements Serializable{
     @Version
     private Long version;
 
+
+    public Long getId() {
+        return id;
+    }
 }
