@@ -2,19 +2,33 @@ package com.realdolmen.fleet;
 
 import com.realdolmen.fleet.converters.DateConverter;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 public class CarOrder extends AbstractEntity {
+    public static enum OrderStatus {
+        PENDING,
+        DELIVERED
+    }
+
     private PhysicalCar orderedCar;
     private Employee employee;
 
     @Convert(converter = DateConverter.class)
     private LocalDate orderDate;
 
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
+
     @Transient
     private LocalDate deliveryDate;
+
+    @PostConstruct
+    public void init() {
+        deliveryDate = orderDate.plus(orderedCar.getCarModel().getDeliveryTime());
+    }
 
     public PhysicalCar getOrderedCar() {
         return orderedCar;
@@ -46,5 +60,13 @@ public class CarOrder extends AbstractEntity {
 
     public void setDeliveryDate(LocalDate deliveryDate) {
         this.deliveryDate = deliveryDate;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 }
