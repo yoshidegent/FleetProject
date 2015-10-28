@@ -34,9 +34,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .and()
                     .rememberMe()
-                    .useSecureCookie(true);
-                /*.and()
+                    .useSecureCookie(true)
+                .and()
                     .authorizeRequests()
-                    .antMatchers("/url").authenticated();*/
+                    .antMatchers("/").authenticated();
     }
 }

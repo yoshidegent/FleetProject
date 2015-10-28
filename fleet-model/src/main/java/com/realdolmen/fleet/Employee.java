@@ -8,10 +8,6 @@ import javax.persistence.Transient;
 @Entity
 public class Employee extends User {
 
-    @Email
-    private String email;
-    private String password;
-
     @Transient
     private PhysicalCar currentCar;
 }
