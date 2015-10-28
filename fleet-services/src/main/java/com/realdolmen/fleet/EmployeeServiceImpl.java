@@ -9,16 +9,19 @@ import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    @Autowired private EmployeeRepository employeeRepository;
-    @Autowired private CarOrderRepository orderRepository;
+
+    @Autowired
+    protected CarOrderRepository orderRepository;
+
+//    @Autowired protected EmployeeRepository employeeRepository;
+//
+//    @Override
+//    public List<Employee> findAll() {
+//        return employeeRepository.findAll();
+//    }
 
     @Override
-    public List<Employee> findAll() {
-        return employeeRepository.findAll();
-    }
-
-    @Override
-    public PhysicalCar findEmployeesCurrentCar(Employee employee) {
+    public PhysicalCar findCurrentCarForEmployee(Employee employee) {
         List<CarOrder> orderList = orderRepository.findOrdersByEmployeeOrderedByOrderDate(employee);
 
         // Filter on delivered orders. It's ordered by date descending, so the first one is the last.
