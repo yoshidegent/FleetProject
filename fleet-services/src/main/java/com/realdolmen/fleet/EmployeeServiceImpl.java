@@ -13,6 +13,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired private CarOrderRepository orderRepository;
 
     @Override
+    public List<Employee> findAll() {
+        return employeeRepository.findAll();
+    }
+
+    @Override
     public PhysicalCar findEmployeesCurrentCar(Employee employee) {
         List<CarOrder> orderList = orderRepository.findEmployeesOrdersOrderedByDate(employee);
 

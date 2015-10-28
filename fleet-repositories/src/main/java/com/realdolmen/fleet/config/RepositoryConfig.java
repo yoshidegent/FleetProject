@@ -17,9 +17,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-
 @Configuration
-@ComponentScan
+@ComponentScan(basePackages = "com.realdolmen.fleet")
 @EnableAutoConfiguration
 @EnableJpaRepositories(basePackages = "com.realdolmen.fleet")
 public class RepositoryConfig {
@@ -52,14 +51,14 @@ public class RepositoryConfig {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, Properties additionalProperties) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource);
+        em.setDataSource(dataSource());
         em.setPackagesToScan("com.realdolmen.fleet");
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
-        em.setJpaProperties(additionalProperties);
+        em.setJpaProperties(additionalProperties());
 
         return em;
     }
