@@ -1,0 +1,27 @@
+package com.realdolmen.fleet;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class EmployeeServiceImpl implements EmployeeService {
+    @Autowired private EmployeeRepository employeeRepository;
+    @Autowired private CarOrderRepository orderRepository;
+
+    @Override
+    public PhysicalCar findEmployeesCurrentCar(Employee employee) {
+        List<CarOrder> orderList = orderRepository.findEmployeesOrdersOrderedByDate(employee);
+
+        // Filter on delivered orders. It's ordered by date descending, so the first one is the last.
+        Optional<CarOrder> carOrderOptional = orderList.stream().filter(o -> o.getStatus() == CarOrder.OrderStatus.DELIVERED).findFirst();
+        // If there is one present, return its car.
+        if(carOrderOptional.isPresent()) {
+            return carOrderOptional.get().getOrderedCar();
+        }
+
+        return null;
+    }
+}

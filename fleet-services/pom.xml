@@ -11,5 +11,12 @@
 
     <artifactId>fleet-services</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.realdolmen</groupId>
+            <artifactId>fleet-repositories</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
