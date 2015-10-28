@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = { ServicesTestConfig.class })
-@ActiveProfiles("testService")
+@ActiveProfiles("test")
 @Transactional
 public abstract class AbstractServiceTest {
 }
