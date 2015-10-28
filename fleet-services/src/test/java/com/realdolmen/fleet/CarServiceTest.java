@@ -1,6 +1,6 @@
 package com.realdolmen.fleet;
 
-import com.realdolmen.fleet.config.TestConfig;
+import com.realdolmen.fleet.config.ServicesTestConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +10,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = TestConfig.class)
+@SpringApplicationConfiguration(classes = ServicesTestConfig.class)
 @WebAppConfiguration
 @ActiveProfiles("test")
-public class FleetApplicationTests {
+public class CarServiceTest {
+    @Autowired private CarService carService;
 
-	@Test
-	public void contextLoads() {
-
-	}
-
+    @Test
+    public void carServiceTest() {
+        System.out.println(carService);
+    }
 }

@@ -7,5 +7,5 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 @ComponentScan
 @Profile("test")
-public class RepositoryTestConfig {
+public class ServicesTestConfig {
 }
