@@ -1,4 +1,5 @@
 package com.realdolmen.fleet;
 
-public class EmployeeRepositoryTest {
+
+public class EmployeeRepositoryTest extends AbstractRepositoryTest {
 }
