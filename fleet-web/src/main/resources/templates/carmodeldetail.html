@@ -32,50 +32,25 @@
 
     <script>
         $(document).ready(function(){
-            $(".gridCell").click(function(){
-                console.log("gridCell click");
-
-                var form = jQuery(this).find("form");
-                form.submit();
-            });
+            var gridWidth = $('#mainContainer').width();
+            console.log(gridWidth);
         });
     </script>
 </head>
 <body>
 <div id="mainContainer" class="container">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">WebSiteName</a>
-            </div>
-            <div>
-                <ul class="nav navbar-nav">
-                    <li class="active"><a th:href="@{/home}">Home</a></li>
-                    <li><a href="#">Page 2</a></li>
-                    <li><a href="#">Page 3</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <header>
+        <h1 th:text='${carModel.brand + " " +  carModel.type}'></h1>
+    </header>
+    <figure>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Audi_A3_8V_1.4_TFSI_Ambiente_Misanorot.JPG" width="500" />
+    </figure>
     <div>
-        <header>
-            <h1>Welcome <span th:text="${employeeName}"></span></h1>
-        </header>
-        <form>
-
-        </form>
-    </div>
-    <div id="carModelGrid">
-        <div class="gridCellWrapper" th:each="carModel : ${carModelList}">
-            <div class="gridCell">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Audi_A3_8V_1.4_TFSI_Ambiente_Misanorot.JPG"/>
-                <p class="carModelTitle" th:text="${carModel.type}"></p>
-
-                <form th:action="@{/carModelDetail}">
-                    <input type="hidden" th:value="${carModel.id}"/>
-                </form>
-            </div>
-        </div>
+        <p></p><br />
+        <p></p><br />
+        <p></p><br />
+        <p></p><br />
+        <p></p><br />
     </div>
 </div>
 </body>
