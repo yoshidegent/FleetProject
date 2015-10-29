@@ -3,7 +3,9 @@ package com.realdolmen.fleet.controllers;
 import com.realdolmen.fleet.CarModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.math.BigDecimal;
 import java.time.Period;
@@ -12,9 +14,12 @@ import java.time.Period;
 @RequestMapping("/carModelDetail")
 public class CarModelDetailController {
 
-    @RequestMapping
-    public String carModelDetail(Model model)
+    @RequestMapping(value={"/{carModelId}"}, method = RequestMethod.GET)
+    public String carModelDetail(@PathVariable(value="carModelId") final String id, Model model)
     {
+        //TODO: parse this id to an integer and use it to find the matching carModel, return to home page if the String is not parsable
+        System.out.print("carModelId=" + id);
+
         //TODO: get these cars from the database
         CarModel carModel = new CarModel(2, 89, 9, CarModel.FuelType.DIESEL, "Audi",
             "A3 sportback 1,6tdi 110pk ultra attraction", "Pack intuition Plus attraction",
