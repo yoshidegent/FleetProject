@@ -46,13 +46,21 @@
             </div>
             <div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a th:href="@{/index}">Home</a></li>
+                    <li class="active"><a th:href="@{/home}">Home</a></li>
                     <li><a href="#">Page 2</a></li>
                     <li><a href="#">Page 3</a></li>
                 </ul>
             </div>
         </div>
     </nav>
+    <div>
+        <header>
+            <h1>Welcome <span th:text="${employeeName}"></span></h1>
+        </header>
+        <form>
+
+        </form>
+    </div>
     <div id="carModelGrid">
         <div class="gridCellWrapper" th:each="carModel : ${carModelList}">
             <div class="gridCell">
