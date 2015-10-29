@@ -1,3 +1,13 @@
+@font-face {
+    font-family: champagneAndLimousinesBold;
+    src: url("../fonts/champagneAndLimousines/Champagne%20&%20Limousines%20Bold.ttf");
+}
+
+@font-face {
+    font-family: robotoLight;
+    src: url("../fonts/roboto/Roboto-Light.ttf");
+}
+
 body {
     background-color: rgb(240, 240, 240);
     font-family: sans-serif;
@@ -58,6 +68,8 @@ body {
 }
 
 .carModelTitle {
-    padding: 10px;
-    font-weight: bold;
+    padding: 25px;
+    font-family: robotoLight, sans-serif;
+    font-size: 2rem;
+    font-weight: bolder;
 }
