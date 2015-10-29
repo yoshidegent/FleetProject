@@ -1,0 +1,75 @@
+@font-face {
+    font-family: champagneAndLimousinesBold;
+    src: url("../fonts/champagneAndLimousines/Champagne%20&%20Limousines%20Bold.ttf");
+}
+
+@font-face {
+    font-family: robotoLight;
+    src: url("../fonts/roboto/Roboto-Light.ttf");
+}
+
+body {
+    background-color: rgb(240, 240, 240);
+    font-family: sans-serif;
+}
+
+#mainContainer {
+    width: 90%;
+}
+
+.gridCellWrapper {
+    width: 20%;
+    float: left;
+    padding: 10px;
+}
+
+.gridCell {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: white;
+    box-shadow: 2px 2px 10px #888888;
+}
+
+.gridCell:hover {
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 1600px) {
+    .gridCellWrapper {
+        width: 25%;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .gridCellWrapper {
+        width: 33.33%;
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    .gridCellWrapper {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .gridCellWrapper {
+        width: 100%;
+    }
+}
+
+.gridCell img {
+    width: 100%;
+}
+
+#carModelGrid {
+    margin: 0;
+    padding: 0;
+}
+
+.carModelTitle {
+    padding: 25px;
+    font-family: robotoLight, sans-serif;
+    font-size: 2rem;
+    font-weight: bolder;
+}
