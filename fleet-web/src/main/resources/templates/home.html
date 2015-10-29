@@ -15,10 +15,11 @@
           crossorigin="anonymous"/>
 
     <!-- Optional theme -->
+    <!--
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"
           integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX"
-          crossorigin="anonymous"/>
+          crossorigin="anonymous"/>-->
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
@@ -26,15 +27,38 @@
             crossorigin="anonymous"></script>
 
     <!--Custom css files-->
+    <link rel="stylesheet" th:href="@{/css/normalize.css}" />
     <link rel="stylesheet" th:href="@{/css/main.css}" />
+
+    <script>
+        $(document).ready(function(){
+            var gridWidth = $('#mainContainer').width();
+            console.log(gridWidth);
+        });
+    </script>
 </head>
 <body>
-<div id="mainContainer">
-    <div class="grid">
-        <div th:each="carModel : ${carModelList}" class="gridCell">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Audi_A3_8V_1.4_TFSI_Ambiente_Misanorot.JPG"/>
-
-            <p th:text="${carModel.type}"></p>
+<div id="mainContainer" class="container">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">WebSiteName</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a th:href="@{/index}">Home</a></li>
+                    <li><a href="#">Page 2</a></li>
+                    <li><a href="#">Page 3</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="carModelGrid">
+        <div class="gridCellWrapper" th:each="carModel : ${carModelList}">
+            <div class="gridCell">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Audi_A3_8V_1.4_TFSI_Ambiente_Misanorot.JPG"/>
+                <p class="carModelTitle" th:text="${carModel.type}"></p>
+            </div>
         </div>
     </div>
 </div>

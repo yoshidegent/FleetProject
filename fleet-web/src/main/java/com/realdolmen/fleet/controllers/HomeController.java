@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Controller @RequestMapping("/index") public class HomeController {
+@Controller @RequestMapping("/home") public class HomeController {
 
     @RequestMapping(method = RequestMethod.GET) public List<CarModel> getAllCarModels() {
         //TODO: get these cars from the database
