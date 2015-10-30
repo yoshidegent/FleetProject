@@ -10,20 +10,31 @@ public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<Car
     public CarModel mapRow(List<String> values) {
         CarModel carModel = new CarModel();
 
+        // If the values are null, or empty, or if the first String value (Category) is empty, return null;
+        if(values == null)
+            return null;
+        if(!values.isEmpty() && values.get(0).isEmpty())
+            return null;
+
         for(int i = 0; i < values.size(); i++) {
             String value = values.get(i);
 
+            /**
+             * Apache POI always returns a double for a numeric cell. Cell value "2" would return "2.0".
+             * To solve this, I always parse a double where needed and then cast it to an integer.
+             * If there's a better solution, let me know!
+             */
             switch(i) {
                 case 0: // Category
-                    carModel.setCategory(Integer.parseInt(value));
+                    carModel.setCategory((int) Double.parseDouble(value));
                     break;
 
                 case 1: // Emission
-                    carModel.setCo2Emission(Integer.parseInt(value));
+                    carModel.setCo2Emission((int) Double.parseDouble(value));
                     break;
 
                 case 2: // Fiscal HP
-                    carModel.setFiscalHorsePower(Integer.parseInt(value));
+                    carModel.setFiscalHorsePower((int) Double.parseDouble(value));
                     break;
 
                 case 3: // Fuel type
@@ -50,11 +61,11 @@ public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<Car
                     break;
 
                 case 12:
-                    carModel.setIdealKm(Integer.parseInt(value));
+                    carModel.setIdealKm((int) Double.parseDouble(value));
                     break;
 
                 case 13:
-                    carModel.setMaxKm(Integer.parseInt(value));
+                    carModel.setMaxKm((int) Double.parseDouble(value));
                     break;
 
                 case 14:
@@ -62,11 +73,17 @@ public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<Car
                     break;
 
                 case 16:
-                    carModel.setAmountUpgradeInclVat(new BigDecimal(value));
+                    if(value.isEmpty())
+                        carModel.setAmountUpgradeInclVat(null);
+                    else
+                        carModel.setAmountUpgradeInclVat(new BigDecimal(value));
                     break;
 
                 case 17:
-                    carModel.setAmountDowngradeInclVat(new BigDecimal(value));
+                    if(value.isEmpty())
+                        carModel.setAmountDowngradeInclVat(null);
+                    else
+                        carModel.setAmountDowngradeInclVat(new BigDecimal(value));
                     break;
             }
         }

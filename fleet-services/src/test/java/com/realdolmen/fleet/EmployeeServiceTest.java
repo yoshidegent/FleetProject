@@ -24,6 +24,7 @@ public class EmployeeServiceTest extends AbstractServiceTest {
 
     @Before public void before() {
         employeeService = new EmployeeServiceImpl();
+        carOrderRepositoryMock = Mockito.mock(CarOrderRepository.class);
         ((EmployeeServiceImpl) employeeService).orderRepository = carOrderRepositoryMock;
 
         employee = new Employee();

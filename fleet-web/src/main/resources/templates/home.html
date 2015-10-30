@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
     <title>Home</title>
 
     <!--JQUERY-->
@@ -29,17 +28,6 @@
     <!--Custom css files-->
     <link rel="stylesheet" th:href="@{/css/normalize.css}" />
     <link rel="stylesheet" th:href="@{/css/main.css}" />
-
-    <script>
-        $(document).ready(function(){
-            $(".gridCell").click(function(){
-                console.log("gridCell click");
-
-                var form = jQuery(this).find("form");
-                form.submit();
-            });
-        });
-    </script>
 </head>
 <body>
 <div id="mainContainer" class="container">
@@ -59,7 +47,7 @@
     </nav>
     <div>
         <header>
-            <h1>Welcome <span th:text="${employeeName}"></span></h1>
+            <h1>Welcome <span th:text="${userName}"></span></h1>
         </header>
         <form>
 
