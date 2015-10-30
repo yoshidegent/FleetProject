@@ -1,4 +1,4 @@
-package com.realdolmen.fleet.interfaces;
+package com.realdolmen.fleet;
 
 import com.realdolmen.fleet.Employee;
 import com.realdolmen.fleet.PhysicalCar;

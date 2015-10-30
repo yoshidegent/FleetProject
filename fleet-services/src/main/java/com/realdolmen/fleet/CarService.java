@@ -1,4 +1,4 @@
-package com.realdolmen.fleet.interfaces;
+package com.realdolmen.fleet;
 
 import com.realdolmen.fleet.CarModel;
 
