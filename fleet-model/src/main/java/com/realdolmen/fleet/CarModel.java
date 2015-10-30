@@ -11,8 +11,18 @@ import java.util.Map;
 public class CarModel extends AbstractEntity {
 
     public enum FuelType{
-        DIESEL,
-        GASOLINE
+        DIESEL("Diesel"),
+        GASOLINE("Gasoline");
+
+        private final String displayName;
+
+        FuelType(String displayName) {
+            this.displayName = displayName;
+        }
+
+        public String getDisplayName() {
+            return displayName;
+        }
     }
 
     public enum RimType{

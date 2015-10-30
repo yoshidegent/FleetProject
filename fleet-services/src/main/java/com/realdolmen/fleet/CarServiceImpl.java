@@ -17,11 +17,26 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public void saveCarModel(CarModel carModel) {
+        carModelRepository.save(carModel);
+    }
+
+    @Override
     public List<CarModel> findAllCarModels() {
         return carModelRepository.findAll();
     }
 
+    @Override
+    public CarModel findCarModel(Long id) {
+        return carModelRepository.findOne(id);
+    }
+
     @Override public void deleteAllCarModels() {
         carModelRepository.deleteAll();
+    }
+
+    @Override
+    public void deleteCarModel(Long id) {
+        carModelRepository.delete(id);
     }
 }
