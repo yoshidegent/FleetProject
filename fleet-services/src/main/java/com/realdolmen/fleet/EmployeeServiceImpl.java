@@ -46,7 +46,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             return null;
 
         Long age = ChronoUnit.YEARS.between(dateOfBirth, now);
-        return (int) (long) age;
+        return Math.abs((int) (long) age);
     }
 
     @Override public Period calculateSeniority(Employee employee) {
