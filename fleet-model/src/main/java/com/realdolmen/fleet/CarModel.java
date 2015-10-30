@@ -201,4 +201,25 @@ public class CarModel extends AbstractEntity {
     public static int getVAT() {
         return VAT;
     }
+
+    @Override public String toString() {
+        return "CarModel{" +
+            "category=" + category +
+            ", co2Emission=" + co2Emission +
+            ", fiscalHorsePower=" + fiscalHorsePower +
+            ", fuelType=" + fuelType +
+            ", brand='" + brand + '\'' +
+            ", type='" + type + '\'' +
+            ", pack='" + pack + '\'' +
+            ", deliveryTime=" + deliveryTime +
+            ", winterTyreRimType=" + winterTyreRimType +
+            ", idealKm=" + idealKm +
+            ", maxKm=" + maxKm +
+            ", optionPriceMap=" + optionPriceMap +
+            ", listPriceInclVat=" + listPriceInclVat +
+            ", amountUpgradeInclVat=" + amountUpgradeInclVat +
+            ", amountDowngradeInclVat=" + amountDowngradeInclVat +
+            ", benefitInKindPerMonth=" + benefitInKindPerMonth +
+            '}';
+    }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 @Service
 public class CarServiceImpl implements CarService {
-    @Autowired private CarModelRepository carModelRepository;
+    @Autowired protected CarModelRepository carModelRepository;
     @Autowired private PhysicalCarRepository physicalCarRepository;
     @Autowired private OptionRepository optionRepository;
 
@@ -19,5 +19,9 @@ public class CarServiceImpl implements CarService {
     @Override
     public List<CarModel> findAllCarModels() {
         return carModelRepository.findAll();
+    }
+
+    @Override public void deleteAllCarModels() {
+        carModelRepository.deleteAll();
     }
 }
