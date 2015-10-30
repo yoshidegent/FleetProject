@@ -20,6 +20,8 @@ public class CarModel extends AbstractEntity {
         ALUMINIUM
     }
 
+    private String pictureUrl;
+
     private int category;
     private int co2Emission; // In grams per 100km
     private int fiscalHorsePower;
@@ -59,7 +61,7 @@ public class CarModel extends AbstractEntity {
     public CarModel(int category, int co2Emission, int fiscalHorsePower, FuelType fuelType,
         String brand, String type, String pack, Period deliveryTime, RimType winterTyreRimType,
         int maxKm, int idealKm, Map<CarOption, BigDecimal> optionPriceMap, BigDecimal listPriceInclVat,
-        BigDecimal amountUpgradeInclVat, BigDecimal amountDowngradeInclVat, BigDecimal benefitInKindPerMonth) {
+        BigDecimal amountUpgradeInclVat, BigDecimal amountDowngradeInclVat, BigDecimal benefitInKindPerMonth, String pictureUrl) {
         this.category = category;
         this.co2Emission = co2Emission;
         this.fiscalHorsePower = fiscalHorsePower;
@@ -76,6 +78,7 @@ public class CarModel extends AbstractEntity {
         this.amountUpgradeInclVat = amountUpgradeInclVat;
         this.amountDowngradeInclVat = amountDowngradeInclVat;
         this.benefitInKindPerMonth = benefitInKindPerMonth;
+        this.pictureUrl = pictureUrl;
     }
 
     public int getCategory() {
@@ -200,6 +203,22 @@ public class CarModel extends AbstractEntity {
 
     public static int getVAT() {
         return VAT;
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
+    }
+
+    public BigDecimal getBenefitInKindPerMonth() {
+        return benefitInKindPerMonth;
+    }
+
+    public void setBenefitInKindPerMonth(BigDecimal benefitInKindPerMonth) {
+        this.benefitInKindPerMonth = benefitInKindPerMonth;
     }
 
     @Override public String toString() {

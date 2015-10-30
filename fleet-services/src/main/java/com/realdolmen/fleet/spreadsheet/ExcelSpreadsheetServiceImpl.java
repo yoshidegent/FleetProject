@@ -5,11 +5,13 @@ import com.realdolmen.fleet.spreadsheet.mapper.ExcelCarModelSpreadsheetMapperImp
 import com.realdolmen.fleet.spreadsheet.mapper.SpreadsheetMapper;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
+@Service
 public class ExcelSpreadsheetServiceImpl implements SpreadsheetService<CarModel> {
     private SpreadsheetMapper<CarModel> excelCarModelSpreadsheetMapperImpl = new ExcelCarModelSpreadsheetMapperImpl();
 

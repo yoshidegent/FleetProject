@@ -21,22 +21,19 @@
         <header>
             <h1>Welcome <span th:text="${userName}"></span></h1>
         </header>
-        <form>
-
-        </form>
     </div>
     <div id="carModelGrid">
         <div class="gridCellWrapper" th:each="carModel : ${carModelList}">
             <a th:href="@{'/carModelDetail/' + ${carModel.id}}" style="text-decoration:none; color:black;">
                 <div class="gridCell">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Audi_A3_8V_1.4_TFSI_Ambiente_Misanorot.JPG"/>
-                    <p class="carModelTitle" th:text="${carModel.type}"></p>
+                    <figure th:if="${carModel.pictureUrl != null}">
+                        <img th:src="${carModel.pictureUrl}"/>
+                    </figure>
+                    <figure th:if="${carModel.pictureUrl == null}">
+                        <img th:src="@{/images/car-shadow.png}"/>
+                    </figure>
 
-                    <!--
-                    <form th:action="@{/carModelDetail}">
-                        <input type="hidden" th:value="${carModel.id}"/>
-                    </form>
-                    -->
+                    <p class="carModelTitle" th:text="${carModel.type}"></p>
                 </div>
             </a>
         </div>

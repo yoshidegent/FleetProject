@@ -3,6 +3,7 @@ package com.realdolmen.fleet.spreadsheet.mapper;
 import com.realdolmen.fleet.CarModel;
 
 import java.math.BigDecimal;
+import java.time.Period;
 import java.util.List;
 
 public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<CarModel> {
@@ -57,7 +58,8 @@ public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<Car
                     break;
 
                 case 7: // Delivery Time
-                    carModel.setDeliveryTime(null);
+                    //TODO: use real value and no hard-coded one
+                    carModel.setDeliveryTime(Period.ofMonths(1));
                     break;
 
                 case 12:
@@ -85,6 +87,8 @@ public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<Car
                     else
                         carModel.setAmountDowngradeInclVat(new BigDecimal(value));
                     break;
+
+                //TODO: add benefit conversion
             }
         }
 
