@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:replace="fragments/layout :: head" />
+
+    <title>Home</title>
+</head>
+<body>
+<div id="mainContainer" class="container">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Fleet Admin</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a th:href="@{/admin/car-model}">Car Models</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><p class="navbar-text">Signed in as <span th:text="${user.getEmail()}">someone</span></p></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                Image ...
+            </div>
+            <div class="col-sm-8">
+                <form action="#" th:action="@{/admin/car-model}" method="post" th:object="${carModel}" role="form" data-toggle="validator" class="form-horizontal">
+                    <div class="form-group has-feedback">
+                        <label class="col-sm-2 control-label" for="brand">Brand</label>
+                        <div class="col-sm-10">
+                            <input id="brand" type="text" class="form-control" th:field="*{brand}" required="required" />
+                            <div class="help-block with-errors"></div>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label class="col-sm-2 control-label" for="type">Type</label>
+                        <div class="col-sm-10">
+                            <input id="type" type="text" class="form-control" th:field="*{type}" required="required" />
+                            <div class="help-block with-errors"></div>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label class="col-sm-2 control-label" for="pack">Pack</label>
+                        <div class="col-sm-10">
+                            <input id="pack" type="text" class="form-control" th:field="*{pack}" required="required" />
+                            <div class="help-block with-errors"></div>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label class="col-sm-2 control-label" for="fuelType">Fuel type</label>
+                        <div class="col-sm-10">
+                            <select id="fuelType" class="form-control" th:field="*{type}">
+                                <option th:each="type : ${T(com.realdolmen.fleet.CarModel.FuelType).values()}"
+                                        th:value="${type}" th:text="${type.displayName}"></option>
+                            </select>
+                        </div>
+                        <div class="help-block with-errors"></div>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label class="col-sm-2 control-label" for="category">Category</label>
+                        <div class="col-sm-10">
+                            <input id="category" type="number" class="form-control" th:field="*{category}" required="required" />
+                            <div class="help-block with-errors"></div>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label class="col-sm-2 control-label" for="emission">Emission</label>
+                        <div class="col-sm-10">
+                            <input id="emission" type="number" class="form-control" th:field="*{co2Emission}" required="required" />
+                            <div class="help-block with-errors"></div>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label class="col-sm-2 control-label" for="fiscalHorsePower">Fiscal HP</label>
+                        <div class="col-sm-10">
+                            <input id="fiscalHorsePower" type="number" class="form-control" th:field="*{fiscalHorsePower}" required="required" />
+                            <div class="help-block with-errors"></div>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label class="col-sm-2 control-label" for="listPrice">List price</label>
+                        <div class="col-sm-10">
+                            <input id="listPrice" type="number" class="form-control" th:field="*{listPriceInclVat}" required="required" />
+                            <div class="help-block with-errors"></div>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label class="col-sm-2 control-label" for="idealKm">Ideal km</label>
+                        <div class="col-sm-10">
+                            <input id="idealKm" type="number" class="form-control" th:field="*{idealKm}" required="required" />
+                            <div class="help-block with-errors"></div>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label class="col-sm-2 control-label" for="maxKm">Max. km</label>
+                        <div class="col-sm-10">
+                            <input id="maxKm" type="number" class="form-control" th:field="*{maxKm}" required="required" />
+                            <div class="help-block with-errors"></div>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label class="col-sm-2 control-label" for="deliveryTime">Delivery time</label>
+                        <div class="col-sm-10">
+                            <input id="deliveryTime" type="text" class="form-control" th:field="*{deliveryTime}" required="required" />
+                            <div class="help-block with-errors"></div>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script th:src="@{/js/validator.min.js}"></script>
+<script>
+    (function($) {
+        $(document).ready(function() {
+            $('form').validator();
+        });
+    })(jQuery);
+</script>
+</body>
+</html>
