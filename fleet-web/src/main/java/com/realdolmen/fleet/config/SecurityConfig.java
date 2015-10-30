@@ -1,12 +1,13 @@
 package com.realdolmen.fleet.config;
 
+import com.realdolmen.fleet.authentication.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -18,12 +19,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Override
+    protected UserDetailsService userDetailsService() {
+        return userDetailsService;
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .usersByUsernameQuery("SELECT email, password, true FROM user WHERE email = ?")
-                .authoritiesByUsernameQuery("SELECT email, roles FROM user_roles r INNER JOIN user u ON r.User_id = u.id WHERE email = ?")
+        auth.userDetailsService(userDetailsService())
                 .passwordEncoder(new BCryptPasswordEncoder());
     }
 
@@ -45,4 +51,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .authorizeRequests()
                     .anyRequest().authenticated();*/
     }
+
+
 }
