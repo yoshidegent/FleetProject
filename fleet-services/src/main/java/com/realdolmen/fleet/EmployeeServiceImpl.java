@@ -4,6 +4,10 @@ import com.realdolmen.fleet.interfaces.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Transient;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,5 +36,22 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         return null;
+    }
+
+    @Override public Integer calculateAgeOfEmployee(Employee employee) {
+        LocalDate dateOfBirth = employee.getDateOfBirth();
+        LocalDate now = LocalDate.now();
+
+        if(dateOfBirth == null)
+            return null;
+
+        Long age = ChronoUnit.YEARS.between(dateOfBirth, now);
+        return (int) (long) age;
+    }
+
+    @Override public Period calculateSeniority(Employee employee) {
+        LocalDate dateOfBirth = employee.getHireDate();
+        LocalDate now = LocalDate.now();
+        return Period.between(dateOfBirth, now);
     }
 }
