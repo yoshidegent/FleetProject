@@ -13,6 +13,9 @@ public class DateConverter implements AttributeConverter<LocalDate, Date> {
 
     @Override
     public LocalDate convertToEntityAttribute(Date dbData) {
+        if(dbData == null)
+            return null;
+
         return dbData.toLocalDate();
     }
 }

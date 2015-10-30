@@ -2,6 +2,7 @@ package com.realdolmen.fleet.spreadsheet;
 
 import com.realdolmen.fleet.CarModel;
 import com.realdolmen.fleet.spreadsheet.mapper.ExcelCarModelSpreadsheetMapperImpl;
+import com.realdolmen.fleet.spreadsheet.mapper.SpreadsheetMapper;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 
@@ -9,8 +10,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
-public class ExcelSpreadsheetServiceImpl implements SpreadsheetService {
-    private ExcelCarModelSpreadsheetMapperImpl excelCarModelSpreadsheetMapperImpl;
+public class ExcelSpreadsheetServiceImpl implements SpreadsheetService<CarModel> {
+    private SpreadsheetMapper<CarModel> excelCarModelSpreadsheetMapperImpl = new ExcelCarModelSpreadsheetMapperImpl();
 
     @Override
     public Map<Integer, String> getSheetNames(InputStream stream) {
@@ -51,10 +52,19 @@ public class ExcelSpreadsheetServiceImpl implements SpreadsheetService {
                 List<String> cellValues = new ArrayList<>();
                 while(cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
-                    cellValues.add(cell.getStringCellValue());
+
+                    Object value;
+                    if(cell.getCellType() == Cell.CELL_TYPE_NUMERIC)
+                        value = cell.getNumericCellValue();
+                    else
+                        value = cell.getStringCellValue();
+
+                    cellValues.add(String.valueOf(value));
                 }
 
-                carModels.add(excelCarModelSpreadsheetMapperImpl.mapRow(cellValues));
+                CarModel carModel = excelCarModelSpreadsheetMapperImpl.mapRow(cellValues);
+                if(carModel != null)
+                    carModels.add(excelCarModelSpreadsheetMapperImpl.mapRow(cellValues));
             }
         }
 

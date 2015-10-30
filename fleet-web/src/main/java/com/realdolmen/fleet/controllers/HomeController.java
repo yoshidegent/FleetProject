@@ -2,9 +2,11 @@ package com.realdolmen.fleet.controllers;
 
 import com.realdolmen.fleet.CarModel;
 import com.realdolmen.fleet.Employee;
+import com.realdolmen.fleet.User;
+import com.realdolmen.fleet.authentication.CurrentUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -15,16 +17,11 @@ import java.util.Arrays;
 import java.util.List;
 
 @Controller @RequestMapping({"/", "/home"}) public class HomeController {
-
-    @RequestMapping(method = RequestMethod.GET) public String  home(Model model) {
-
-        //TODO: get the active logged in employee
-        Employee employee = new Employee();
-        employee.setFirstName("Yoshi");
-        employee.setLastName("Degent");
-
-
-        model.addAttribute("employeeName", employee.getFirstName() + " " + employee.getLastName());
+    @RequestMapping(method = RequestMethod.GET) public String  home(@CurrentUser User user, Model model) {
+        if(user instanceof Employee)
+            model.addAttribute("userName", ((Employee)user).getFirstName() + " " + ((Employee)user).getLastName());
+        else
+            model.addAttribute("userName", user.getEmail());
 
         //TODO: get these cars from the database
         CarModel carModel = new CarModel(2, 89, 9, CarModel.FuelType.DIESEL, "Audi",

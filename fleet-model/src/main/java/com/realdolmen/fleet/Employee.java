@@ -1,7 +1,9 @@
 package com.realdolmen.fleet;
 
+import com.realdolmen.fleet.converters.DateConverter;
 import org.hibernate.validator.constraints.Email;
 
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 import java.time.LocalDate;
@@ -18,8 +20,10 @@ public class Employee extends User {
     private String firstName;
     private String lastName;
 
+    @Convert(converter = DateConverter.class)
     private LocalDate dateOfBirth;
 
+    @Convert(converter = DateConverter.class)
     private LocalDate hireDate;
 
     private String function;
