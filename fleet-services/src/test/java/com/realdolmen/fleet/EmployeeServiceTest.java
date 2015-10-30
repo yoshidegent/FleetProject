@@ -22,9 +22,9 @@ public class EmployeeServiceTest extends AbstractServiceTest {
 
     @Before public void before() {
         employeeService = new EmployeeServiceImpl();
+        carOrderRepositoryMock = Mockito.mock(CarOrderRepository.class);
         ((EmployeeServiceImpl) employeeService).orderRepository = carOrderRepositoryMock;
 
-        carOrderRepositoryMock = Mockito.mock(CarOrderRepository.class);
         employee = new Employee();
 
         List<CarOrder> dummyCarOrders = new ArrayList<CarOrder>(Arrays.asList(

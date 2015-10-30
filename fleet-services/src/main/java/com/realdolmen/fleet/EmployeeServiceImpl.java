@@ -4,7 +4,6 @@ import com.realdolmen.fleet.interfaces.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Transient;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
