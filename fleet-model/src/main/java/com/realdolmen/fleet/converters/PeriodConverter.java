@@ -12,6 +12,9 @@ public class PeriodConverter implements AttributeConverter<Period, String> {
 
     @Override
     public Period convertToEntityAttribute(String dbData) {
+        if(dbData == null)
+            return null;
+
         return Period.parse(dbData);
     }
 }
