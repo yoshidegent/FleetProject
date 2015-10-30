@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,5 +44,40 @@ public class EmployeeServiceTest extends AbstractServiceTest {
         Assert.assertNotNull(physicalCar);
         Mockito.verify(carOrderRepositoryMock.findOrdersByEmployeeOrderedByOrderDate(employee),
             Mockito.times(1));
+    }
+
+    @Test public void testCalculateAgeForEmployee()
+    {
+        //Check if no dateOfBirth was specified
+        Assert.assertNull(employeeService.calculateAgeOfEmployee(employee));
+
+        //Valid birth date
+        employee.setDateOfBirth(LocalDate.of(1993, 10, 19));
+        Integer age = (int) (long) ChronoUnit.YEARS.between(LocalDate.now(), employee.getDateOfBirth());
+        Assert.assertEquals(age, employeeService.calculateAgeOfEmployee(employee));
+
+        //New born
+        employee.setDateOfBirth(LocalDate.now());
+        age = 0;
+        Assert.assertEquals(age, employeeService.calculateAgeOfEmployee(employee));
+    }
+
+    @Test public void testCalculateSeniority()
+    {
+        //TODO: implement this test
+        Assert.fail("To be implemented");
+
+        //Check if no dateOfBirth was specified
+        Assert.assertNull(employeeService.calculateAgeOfEmployee(employee));
+
+        //Valid birth date
+        employee.setDateOfBirth(LocalDate.of(1993, 10, 19));
+        Integer age = (int) (long) ChronoUnit.YEARS.between(LocalDate.now(), employee.getDateOfBirth());
+        Assert.assertEquals(age, employeeService.calculateAgeOfEmployee(employee));
+
+        //New born
+        employee.setDateOfBirth(LocalDate.now());
+        age = 0;
+        Assert.assertEquals(age, employeeService.calculateAgeOfEmployee(employee));
     }
 }
