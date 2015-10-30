@@ -1,7 +1,7 @@
 package com.realdolmen.fleet.controllers.admin;
 
 import com.realdolmen.fleet.CarModel;
-import com.realdolmen.fleet.interfaces.CarService;
+import com.realdolmen.fleet.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;

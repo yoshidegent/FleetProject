@@ -70,11 +70,11 @@
 			<version>1.10.19</version>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
-		<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<version>1.4.190</version>
-			<scope>test</scope>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.12</version>
 		</dependency>
 	</dependencies>
 
