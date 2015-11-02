@@ -3,6 +3,7 @@ package com.realdolmen.fleet;
 import com.realdolmen.fleet.converters.DateConverter;
 import org.hibernate.validator.constraints.Email;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
@@ -27,11 +28,6 @@ public class Employee extends User {
     private LocalDate hireDate;
 
     private String function;
-
-    @Transient
-    private int age;
-    @Transient
-    private Period seniority; //time active in company
 
     public PhysicalCar getCurrentCar() {
         return currentCar;
@@ -87,21 +83,5 @@ public class Employee extends User {
 
     public void setFunction(String function) {
         this.function = function;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public Period getSeniority() {
-        return seniority;
-    }
-
-    public void setSeniority(Period seniority) {
-        this.seniority = seniority;
     }
 }
