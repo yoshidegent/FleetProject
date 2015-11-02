@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
           xmlns:th="http://www.thymeleaf.org">
 <body>
-    <div th:fragment="head">
+    <th:block th:fragment="head">
         <!--JQUERY-->
         <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
@@ -29,6 +29,8 @@
         <!--Custom css files-->
         <link rel="stylesheet" th:href="@{/css/normalize.css}" />
         <link rel="stylesheet" th:href="@{/css/main.css}" />
-    </div>
+
+        <link th:if="${admin}" rel="stylesheet" th:href="@{/css/admin.css}" />
+    </th:block>
 </body>
 </html>
