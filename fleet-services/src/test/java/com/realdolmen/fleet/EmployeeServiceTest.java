@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +24,6 @@ public class EmployeeServiceTest extends AbstractServiceTest {
 
     @Before public void before() {
         employeeService = new EmployeeServiceImpl();
-        carOrderRepositoryMock = Mockito.mock(CarOrderRepository.class);
         ((EmployeeServiceImpl) employeeService).orderRepository = carOrderRepositoryMock;
 
         employee = new Employee();
@@ -65,7 +65,14 @@ public class EmployeeServiceTest extends AbstractServiceTest {
 
     @Test public void testCalculateSeniority()
     {
-        //TODO: implement this test
-        Assert.fail("To be implemented");
+        Assert.assertNull(employeeService.calculateSeniority(employee));
+
+        employee.setHireDate(LocalDate.of(2015, 9, 1));
+        Period seniority = Period.between(employee.getHireDate(), LocalDate.now());
+        Assert.assertEquals(seniority, employeeService.calculateSeniority(employee));
+
+        employee.setHireDate(LocalDate.now());
+        seniority = Period.between(employee.getHireDate(), LocalDate.now());
+        Assert.assertEquals(seniority, employeeService.calculateSeniority(employee));
     }
 }

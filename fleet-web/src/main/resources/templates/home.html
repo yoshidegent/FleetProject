@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragments/layout :: head">
-    <title>Home</title>
+<head>
+    <th:block th:include="fragments/head::head" />
+
+    <!--Custom scripts-->
+    <script src="/scripts/grid.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('.gridCell').responsiveEqualHeightGrid();
+        });
+    </script>
 </head>
 <body>
 <div id="mainContainer" class="container">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Fleet</a>
-            </div>
-            <div>
-                <ul class="nav navbar-nav">
-                    <li class="active"><a th:href="@{/home}">Car Models</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div th:replace="fragments/header::header">
+    </div>
     <div>
         <header>
             <h1>Welcome <span th:text="${userName}"></span></h1>
@@ -26,14 +25,15 @@
         <div class="gridCellWrapper" th:each="carModel : ${carModelList}">
             <a th:href="@{'/carModelDetail/' + ${carModel.id}}" style="text-decoration:none; color:black;">
                 <div class="gridCell">
-                    <figure th:if="${carModel.pictureUrl != null}">
+                    <figure class="carFigure" th:if="${carModel.pictureUrl != null}">
                         <img th:src="${carModel.pictureUrl}"/>
                     </figure>
-                    <figure th:if="${carModel.pictureUrl == null}">
+                    <figure class="carFigure" th:if="${carModel.pictureUrl == null}">
                         <img th:src="@{/images/car-shadow.png}"/>
                     </figure>
-
-                    <p class="carModelTitle" th:text="${carModel.type}"></p>
+                    <div class="carModelTitle">
+                        <p th:text="${carModel.brand + ' ' + carModel.type}"></p>
+                    </div>
                 </div>
             </a>
         </div>

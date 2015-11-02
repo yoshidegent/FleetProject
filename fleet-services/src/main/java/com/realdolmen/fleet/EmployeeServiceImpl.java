@@ -48,8 +48,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override public Period calculateSeniority(Employee employee) {
-        LocalDate dateOfBirth = employee.getHireDate();
+
+        LocalDate hireDate = employee.getHireDate();
+        if(hireDate == null)
+            return null;
+
         LocalDate now = LocalDate.now();
-        return Period.between(dateOfBirth, now);
+        return Period.between(hireDate, now);
     }
 }
