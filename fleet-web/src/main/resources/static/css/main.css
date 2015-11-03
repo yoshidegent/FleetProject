@@ -23,14 +23,15 @@ body {
 }
 
 .gridCellWrapper {
+    display: flex;
+    flex-wrap: wrap;
+
     width: 20%;
-    float: left;
     padding: 10px;
 }
 
 .gridCell {
     width: 100%;
-    box-sizing: border-box;
     background-color: #293d49;
     box-shadow: 2px 2px 10px #888888;
 }
@@ -68,8 +69,8 @@ body {
 }
 
 #carModelGrid {
-    margin: 0;
-    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .carFigure {
