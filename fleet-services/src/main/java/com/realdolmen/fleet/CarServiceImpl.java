@@ -49,4 +49,9 @@ public class CarServiceImpl implements CarService {
         for(Long id : ids)
             carModelRepository.delete(id);
     }
+
+    @Override
+    public void saveOption(CarOption carOption) {
+        optionRepository.save(carOption);
+    }
 }

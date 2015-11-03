@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <var name="carOrder" class="com.realdolmen.fleet.CarOrder" />
+
+    <on-start>
+        <set name="carOrder.orderedCar" value="new com.realdolmen.fleet.PhysicalCar()" />
+        <evaluate expression="carServiceImpl.findCarModel(requestParameters.id)"
+                  result="flowScope.carModel" result-type="com.realdolmen.fleet.CarModel" />
+    </on-start>
+    
+    <view-state id="optionSelection" model="carOrder" view="order/option-selection">
+        <transition to="summary" on="submit" />
+    </view-state>
+
+    <view-state id="summary" model="carOrder" view="order/summary">
+        <transition to="saveOrder" on="submit" />
+    </view-state>
+
+    <action-state id="saveOrder">
+        <evaluate expression="orderService.saveOrder(carOrder)" />
+        <transition to="end" />
+    </action-state>
+
+    <end-state id="end" view="order/end" />
+</flow>

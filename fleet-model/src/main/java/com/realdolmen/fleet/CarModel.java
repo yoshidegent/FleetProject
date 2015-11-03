@@ -53,7 +53,7 @@ public class CarModel extends AbstractEntity {
     private int idealKm;
     private int maxKm;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private Map<CarOption, BigDecimal> optionPriceMap;
 
     private BigDecimal listPriceInclVat;
