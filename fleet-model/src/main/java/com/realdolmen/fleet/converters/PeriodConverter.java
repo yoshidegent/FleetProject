@@ -7,6 +7,9 @@ public class PeriodConverter implements AttributeConverter<Period, String> {
 
     @Override
     public String convertToDatabaseColumn(Period attribute) {
+        if(attribute == null)
+            return null;
+
         return attribute.toString();
     }
 

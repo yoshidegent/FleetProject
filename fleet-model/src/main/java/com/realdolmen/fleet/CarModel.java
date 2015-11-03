@@ -233,7 +233,8 @@ public class CarModel extends AbstractEntity {
 
     @Override public String toString() {
         return "CarModel{" +
-            "category=" + category +
+            "id=" + id +
+            ", category=" + category +
             ", co2Emission=" + co2Emission +
             ", fiscalHorsePower=" + fiscalHorsePower +
             ", fuelType=" + fuelType +

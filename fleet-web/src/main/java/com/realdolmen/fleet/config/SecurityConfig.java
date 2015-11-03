@@ -43,17 +43,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                    .formLogin()
+                .formLogin()
                     .loginPage("/login")
                     .permitAll()
-                .and()
-                    .logout()
+                    .and()
+                .logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .and()
-                    .rememberMe()
+                    .and()
+                .rememberMe()
                     .useSecureCookie(true)
-                .and()
-                    .authorizeRequests().anyRequest().permitAll();
+                    .and()
+                .authorizeRequests()
+                    .anyRequest()
+                    .authenticated();
                 /*.and()
                     .authorizeRequests()
                     .anyRequest().authenticated();*/

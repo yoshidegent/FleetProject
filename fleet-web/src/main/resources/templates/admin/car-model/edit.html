@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link th:replace="fragments/layout :: head" />
+    <th:block th:include="fragments/layout :: head" />
 
     <title>Home</title>
 </head>
@@ -25,11 +25,19 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-sm-4">
-                Image ...
-            </div>
-            <div class="col-sm-8">
-                <form action="#" th:action="@{/admin/car-model}" method="post" th:object="${carModel}" role="form" data-toggle="validator" class="form-horizontal">
+            <form action="#" th:action="@{/admin/car-model}" method="post" enctype="multipart/form-data" th:object="${editForm}" role="form" data-toggle="validator" class="form-horizontal">
+                <div class="col-sm-4">
+                    <img class="img-responsive" th:if="${editForm.pictureUrl == null}" th:src="@{/images/car-shadow.png}" src="#" />
+                    <img class="img-responsive" th:if="${editForm.pictureUrl != null}" th:src="${editForm.pictureUrl}" src="#" />
+                    <div class="form-group">
+                        <label th:field="*{pictureUrl}">URL</label>
+                        <input class="form-control" type="text" th:field="*{pictureUrl}" />
+                    </div>
+
+                    <!--<label th:field="*{imageFile}">Upload image</label>
+                    <input type="file" th:field="*{imageFile}" />-->
+                </div>
+                <div class="col-sm-8">
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label" for="brand">Brand</label>
                         <div class="col-sm-10">
@@ -60,7 +68,7 @@
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label" for="fuelType">Fuel type</label>
                         <div class="col-sm-10">
-                            <select id="fuelType" class="form-control" th:field="*{type}">
+                            <select id="fuelType" class="form-control" th:field="*{fuelType}">
                                 <option th:each="type : ${T(com.realdolmen.fleet.CarModel.FuelType).values()}"
                                         th:value="${type}" th:text="${type.displayName}"></option>
                             </select>
@@ -80,9 +88,11 @@
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label" for="emission">Emission</label>
                         <div class="col-sm-10">
-                            <input id="emission" type="number" class="form-control" th:field="*{co2Emission}" required="required" />
+                            <div class="input-group">
+                                <input id="emission" type="number" class="form-control" th:field="*{co2Emission}" required="required" />
+                                <div class="input-group-addon">g/km</div>
+                            </div>
                             <div class="help-block with-errors"></div>
-                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
                     </div>
 
@@ -98,7 +108,10 @@
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label" for="listPrice">List price</label>
                         <div class="col-sm-10">
-                            <input id="listPrice" type="number" class="form-control" th:field="*{listPriceInclVat}" required="required" />
+                            <div class="input-group">
+                                <div class="input-group-addon">€</div>
+                                <input id="listPrice" type="number" class="form-control" th:field="*{listPriceInclVat}" required="required" />
+                            </div>
                             <div class="help-block with-errors"></div>
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
@@ -107,37 +120,53 @@
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label" for="idealKm">Ideal km</label>
                         <div class="col-sm-10">
-                            <input id="idealKm" type="number" class="form-control" th:field="*{idealKm}" required="required" />
+                            <div class="input-group">
+                                <input id="idealKm" type="number" class="form-control" th:field="*{idealKm}" required="required" />
+                                <div class="input-group-addon">km</div>
+                            </div>
                             <div class="help-block with-errors"></div>
-                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
                     </div>
 
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label" for="maxKm">Max. km</label>
                         <div class="col-sm-10">
-                            <input id="maxKm" type="number" class="form-control" th:field="*{maxKm}" required="required" />
+                            <div class="input-group">
+                                <input id="maxKm" type="number" class="form-control" th:field="*{maxKm}" required="required" />
+                                <div class="input-group-addon">km</div>
+                            </div>
                             <div class="help-block with-errors"></div>
-                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
                     </div>
 
                     <div class="form-group has-feedback">
+                        <label class="col-sm-2 control-label" for="deliveryTimeMonths">Delivery time</label>
+                        <div class="col-sm-10">
+                            <input id="deliveryTimeMonths" type="number" class="form-control" th:field="*{deliveryTimeMonths}" required="required" />
+                            <input id="deliveryTimeDays" type="number" class="form-control" th:field="*{deliveryTimeDays}" required="required" />
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <!--<div class="form-group has-feedback">
                         <label class="col-sm-2 control-label" for="deliveryTime">Delivery time</label>
                         <div class="col-sm-10">
                             <input id="deliveryTime" type="text" class="form-control" th:field="*{deliveryTime}" required="required" />
                             <div class="help-block with-errors"></div>
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
-                    </div>
+                    </div>-->
+
+                    <input type="hidden" th:field="*{id}" />
+                    <input type="hidden" th:field="*{version}" />
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <button type="submit" class="btn btn-default">Save</button>
                         </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
 
     </div>
