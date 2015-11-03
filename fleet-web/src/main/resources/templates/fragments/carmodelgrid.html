@@ -5,8 +5,8 @@
 <body>
     <th:block th:fragment="carmodelgrid">
         <div class="gridCellWrapper" th:each="carModel : ${carModelList}">
-            <a th:href="@{'/carModelDetail/' + ${carModel.id}}" style="text-decoration:none; color:black;">
-                <div class="gridCell">
+            <div class="gridCell">
+                <a th:href="@{'/carModelDetail/' + ${carModel.id}}" style="text-decoration:none; color:black;">
                     <figure class="carFigure">
                         <img th:if="${carModel.pictureUrl != null}" th:src="${carModel.pictureUrl}"/>
                         <img th:if="${carModel.pictureUrl == null}" th:src="@{/images/car-shadow.png}"/>
@@ -14,8 +14,8 @@
                     <div class="carModelTitle">
                         <p th:text="${carModel.brand + ' ' + carModel.type}"></p>
                     </div>
-                </div>
-            </a>
+                </a>
+            </div>
         </div>
     </th:block>
 </body>
