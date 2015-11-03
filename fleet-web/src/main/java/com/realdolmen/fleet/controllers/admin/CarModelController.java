@@ -19,7 +19,6 @@ import static org.springframework.web.servlet.mvc.method.annotation.MvcUriCompon
 @Controller
 @RequestMapping("/admin/car-model")
 public class CarModelController {
-    @Autowired private ServletContext servletContext;
     @Autowired private CarService carService;
 
     @RequestMapping({"", "/"})
@@ -43,7 +42,7 @@ public class CarModelController {
 
     @RequestMapping("/new")
     public String newGet(Model model) {
-        model.addAttribute("carModel", new EditForm());
+        model.addAttribute("editForm", new EditForm());
 
         return "admin/car-model/edit";
     }

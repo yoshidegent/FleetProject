@@ -12,16 +12,38 @@
         <h1 th:text='${carModel.brand + " " +  carModel.type}'></h1>
     </header>
     <div class="row">
-        <figure class="col-sm-4 carPictureContainer">
-            <img th:if="${carModel.pictureUrl != null}" th:src="${carModel.pictureUrl}"/>
-            <img th:if="${carModel.pictureUrl == null}" th:src="@{/images/car-shadow.png}"/>
-        </figure>
         <div class="col-sm-4">
-            <p></p><br />
-            <p></p><br />
-            <p></p><br />
-            <p></p><br />
-            <p></p><br />
+            <div class="carPictureContainer">
+                <img th:if="${carModel.pictureUrl != null}" th:src="${carModel.pictureUrl}" />
+                <img th:if="${carModel.pictureUrl == null}" th:src="@{/images/car-shadow.png}" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <dl class="dl-horizontal">
+                <dt>Brand</dt>
+                <dd th:text="${carModel.brand}"></dd>
+
+                <dt>Type</dt>
+                <dd th:text="${carModel.type}"></dd>
+
+                <dt>Pack</dt>
+                <dd th:text="${carModel.pack}"></dd>
+
+                <dt>Fuel type</dt>
+                <dd th:text="${carModel.fuelType.displayName}"></dd>
+
+                <dt>Brand</dt>
+                <dd th:text="${carModel.brand}"></dd>
+
+                <dt>Brand</dt>
+                <dd th:text="${carModel.brand}"></dd>
+
+                <dt>Brand</dt>
+                <dd th:text="${carModel.brand}"></dd>
+
+                <dt>Brand</dt>
+                <dd th:text="${carModel.brand}"></dd>
+            </dl>
         </div>
     </div>
 
