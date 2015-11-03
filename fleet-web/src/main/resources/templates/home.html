@@ -8,7 +8,6 @@
 
     <script th:inline="javascript">
         $(document).ready(function(){
-
             var category = $('#categoryInput');
 
             var retrieveCarModels = function() {
@@ -27,13 +26,7 @@
                 $('#carModelGrid').load(url);
             };
 
-            $('.gridCell').load(function(){
-                console.log('gridCell ready....... height:' + $(this).height());
-                $(this).responsiveEqualHeightGrid();
-            });
-
             retrieveCarModels();
-
             category.change(retrieveCarModels);
         });
     </script>
