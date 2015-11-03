@@ -89,6 +89,8 @@ public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<Car
                     break;
 
                 //TODO: add benefit conversion
+                //TODO: add options
+                //TODO: add winterTyreRimType
             }
         }
 
