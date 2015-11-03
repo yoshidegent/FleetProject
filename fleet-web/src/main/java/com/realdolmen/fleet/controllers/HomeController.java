@@ -49,6 +49,6 @@ import java.util.List;
     {
         List<CarModel> allCarModels = carService.findCarModelsByCategory(category);
         model.addAttribute("carModelList", allCarModels);
-        return "home :: carmodelgrid";
+        return "fragments/carmodelgrid :: carmodelgrid";
     }
 }

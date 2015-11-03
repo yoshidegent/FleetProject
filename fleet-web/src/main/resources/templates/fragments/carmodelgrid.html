@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <body>
-    <div id="carModelGrid" th:fragment="carmodelgrid">
+    <th:block th:fragment="carmodelgrid">
         <div class="gridCellWrapper" th:each="carModel : ${carModelList}">
             <a th:href="@{'/carModelDetail/' + ${carModel.id}}" style="text-decoration:none; color:black;">
                 <div class="gridCell">
@@ -17,6 +17,6 @@
                 </div>
             </a>
         </div>
-    </div>
+    </th:block>
 </body>
 </html>
