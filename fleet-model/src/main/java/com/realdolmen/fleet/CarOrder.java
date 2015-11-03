@@ -50,7 +50,8 @@ public class CarOrder extends AbstractEntity {
 
     @PostConstruct
     public void init() {
-        deliveryDate = orderDate.plus(orderedCar.getCarModel().getDeliveryTime());
+        if(orderedCar != null)
+            deliveryDate = orderDate.plus(orderedCar.getCarModel().getDeliveryTime());
     }
 
     public PhysicalCar getOrderedCar() {
