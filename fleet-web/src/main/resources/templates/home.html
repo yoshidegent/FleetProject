@@ -3,22 +3,25 @@
 <head>
     <th:block th:include="fragments/head::head" />
 
-    <!--Custom scripts-->
-    <script src="/scripts/grid.js"></script>
-
     <script th:inline="javascript">
+        /*<![CDATA[*/
         $(document).ready(function(){
             var category = $('#categoryInput');
+
+            if(category.val() == category.attr('min'))
+                $('#decrementBtn').attr('disabled', true);
+
+            if(category.val() == category.attr('max'))
+                $('#incrementBtn').attr('disabled', true);
 
             var retrieveCarModels = function() {
                 console.log('retrieveCarModels');
 
-                /*<![CDATA[*/
                 var url =  /*[[@{/carmodels}]]*/'';
-                /*]]>*/
+
 
                 if (category.val() != '') {
-                    url = url + '/' + category.val();
+                    url = url + '/' + category.attr('value');
                 }
 
                 console.log('requestUrl: ' + url);
@@ -27,8 +30,42 @@
             };
 
             retrieveCarModels();
-            category.change(retrieveCarModels);
+
+            $('#incrementBtn').click(function(){
+                $('#decrementBtn').attr('disabled', false);
+
+                if(category.val() < category.attr('max'))
+                    category.attr('value', parseInt(category.val()) + 1);
+
+                if(category.val() < category.attr('max'))
+                {
+                    $('#incrementBtn').attr('disabled', false);
+                }
+                else
+                {
+                    $('#incrementBtn').attr('disabled', true);
+                }
+                retrieveCarModels();
+            });
+
+            $('#decrementBtn').click(function(){
+                $('#incrementBtn').attr('disabled', false);
+
+                if(category.val() > category.attr('min'))
+                    category.attr('value', parseInt(category.val()) - 1);
+
+                if(category.val() > category.attr('min'))
+                {
+                    $('#decrementBtn').attr('disabled', false);
+                }
+                else
+                {
+                    $('#decrementBtn').attr('disabled', true);
+                }
+                retrieveCarModels();
+            });
         });
+        /*]]>*/
     </script>
 </head>
 <body>
@@ -37,11 +74,12 @@
     <div>
         <header>
             <h1>Welcome <span th:text="${employeeName}"></span></h1>
-            <form>
+            <div>
                 <label for="categoryInput">Category: </label>
-                <input id="categoryInput" type="number" th:value="${employee.functionalLevel}" th:max="${maxCategory}" th:min="${minCategory}"/>
-                <button></button>
-            </form>
+                <input id="categoryInput" type="number" th:value="${employee.functionalLevel}" th:max="${maxCategory}" th:min="${minCategory}" disabled="true" style="text-align: right;"/>
+                <button id="incrementBtn" class="btn btn-success">+</button>
+                <button id="decrementBtn" class="btn btn-danger">-</button>
+            </div>
         </header>
     </div>
     <div id="carModelGrid"></div>
