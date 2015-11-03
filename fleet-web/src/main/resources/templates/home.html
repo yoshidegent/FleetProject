@@ -18,18 +18,19 @@
     </div>
     <div>
         <header>
-            <h1>Welcome <span th:text="${userName}"></span></h1>
+            <h1>Welcome <span th:text="${employeeName}"></span></h1>
+            <form>
+                <input type="number" th:value="${employee.functionalLevel}" th:max="${maxCategory}" th:min="${minCategory}"/>
+            </form>
         </header>
     </div>
     <div id="carModelGrid">
         <div class="gridCellWrapper" th:each="carModel : ${carModelList}">
             <a th:href="@{'/carModelDetail/' + ${carModel.id}}" style="text-decoration:none; color:black;">
                 <div class="gridCell">
-                    <figure class="carFigure" th:if="${carModel.pictureUrl != null}">
-                        <img th:src="${carModel.pictureUrl}"/>
-                    </figure>
-                    <figure class="carFigure" th:if="${carModel.pictureUrl == null}">
-                        <img th:src="@{/images/car-shadow.png}"/>
+                    <figure class="carFigure">
+                        <img th:if="${carModel.pictureUrl != null}" th:src="${carModel.pictureUrl}"/>
+                        <img th:if="${carModel.pictureUrl == null}" th:src="@{/images/car-shadow.png}"/>
                     </figure>
                     <div class="carModelTitle">
                         <p th:text="${carModel.brand + ' ' + carModel.type}"></p>

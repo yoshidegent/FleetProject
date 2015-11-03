@@ -56,4 +56,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         LocalDate now = LocalDate.now();
         return Period.between(hireDate, now);
     }
+
+    @Override public int getHighestAllowedCategory(Employee employee) {
+        if(employee.getFunctionalLevel() >= 7)
+            return 7;
+        else
+            return employee.getFunctionalLevel() + 1;
+    }
+
+    @Override public int getLowestAllowedCategory(Employee employee) {
+        if(employee.getFunctionalLevel() <= 2)
+            return 2;
+        else
+            return employee.getFunctionalLevel() - 1;
+    }
 }
