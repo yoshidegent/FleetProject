@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div id="carModelGrid" th:fragment="carmodelgrid">
+        <div class="gridCellWrapper" th:each="carModel : ${carModelList}">
+            <a th:href="@{'/carModelDetail/' + ${carModel.id}}" style="text-decoration:none; color:black;">
+                <div class="gridCell">
+                    <figure class="carFigure">
+                        <img th:if="${carModel.pictureUrl != null}" th:src="${carModel.pictureUrl}"/>
+                        <img th:if="${carModel.pictureUrl == null}" th:src="@{/images/car-shadow.png}"/>
+                    </figure>
+                    <div class="carModelTitle">
+                        <p th:text="${carModel.brand + ' ' + carModel.type}"></p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

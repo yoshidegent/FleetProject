@@ -5,6 +5,7 @@ import com.realdolmen.fleet.authentication.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -31,8 +32,6 @@ import java.util.List;
 
             model.addAttribute("employeeName",
                 employee.getFirstName() + " " + employee.getLastName());
-
-            getCarModels(model, employee.getFunctionalLevel());
         }
 
         /**
@@ -46,10 +45,10 @@ import java.util.List;
         return "home";
     }
 
-    @RequestMapping(method = RequestMethod.GET) public String getCarModels(Model model, int category)
+    @RequestMapping(value = "/carmodels/{category}",method = RequestMethod.GET) public String getCarModels(Model model, @PathVariable("category") int category)
     {
         List<CarModel> allCarModels = carService.findCarModelsByCategory(category);
         model.addAttribute("carModelList", allCarModels);
-        return "home";
+        return "home :: carmodelgrid";
     }
 }

@@ -6,11 +6,7 @@
     <!--Custom scripts-->
     <script src="/scripts/grid.js"></script>
 
-    <script>
-        $(document).ready(function(){
-            $('.gridCell').responsiveEqualHeightGrid();
-        });
-    </script>
+    <script src="/scripts/carmodelgrid.js"></script>
 </head>
 <body>
 <div id="mainContainer" class="container">
@@ -20,25 +16,11 @@
         <header>
             <h1>Welcome <span th:text="${employeeName}"></span></h1>
             <form>
-                <input type="number" th:value="${employee.functionalLevel}" th:max="${maxCategory}" th:min="${minCategory}"/>
+                <input id="categoryInput" type="number" th:value="${employee.functionalLevel}" th:max="${maxCategory}" th:min="${minCategory}"/>
             </form>
         </header>
     </div>
-    <div id="carModelGrid">
-        <div class="gridCellWrapper" th:each="carModel : ${carModelList}">
-            <a th:href="@{'/carModelDetail/' + ${carModel.id}}" style="text-decoration:none; color:black;">
-                <div class="gridCell">
-                    <figure class="carFigure">
-                        <img th:if="${carModel.pictureUrl != null}" th:src="${carModel.pictureUrl}"/>
-                        <img th:if="${carModel.pictureUrl == null}" th:src="@{/images/car-shadow.png}"/>
-                    </figure>
-                    <div class="carModelTitle">
-                        <p th:text="${carModel.brand + ' ' + carModel.type}"></p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
+    <div id="carModelGrid"></div>
 </div>
 </body>
 </html>
