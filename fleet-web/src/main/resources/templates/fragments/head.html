@@ -4,6 +4,8 @@
           xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:fragment="head">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css' />
+
     <!--JQUERY-->
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
@@ -28,5 +30,7 @@
 
     <!--Custom css files-->
     <link rel="stylesheet" th:href="@{/css/main.css}" />
+
+    <link th:if="${admin}" rel="stylesheet" th:href="@{/css/admin.css}" />
 </th:block>
 </html>
