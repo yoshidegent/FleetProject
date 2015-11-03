@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.ServletContext;
-import java.io.File;
-import java.io.IOException;
-import java.time.Instant;
 import java.util.List;
 
 import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.fromMappingName;
@@ -22,7 +19,6 @@ import static org.springframework.web.servlet.mvc.method.annotation.MvcUriCompon
 @Controller
 @RequestMapping("/admin/car-model")
 public class CarModelController {
-    @Autowired private ServletContext servletContext;
     @Autowired private CarService carService;
 
     @RequestMapping({"", "/"})
@@ -46,7 +42,7 @@ public class CarModelController {
 
     @RequestMapping("/new")
     public String newGet(Model model) {
-        model.addAttribute("carModel", new EditForm());
+        model.addAttribute("editForm", new EditForm());
 
         return "admin/car-model/edit";
     }
@@ -77,6 +73,13 @@ public class CarModelController {
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable("id") Long id) {
         carService.deleteCarModel(id);
+
+        return "redirect:" + fromMappingName("CMC#overview").build();
+    }
+
+    @RequestMapping("/delete/{ids}/m")
+    public String deleteMultiple(@PathVariable Long[] ids) {
+        carService.deleteCarModels(ids);
 
         return "redirect:" + fromMappingName("CMC#overview").build();
     }

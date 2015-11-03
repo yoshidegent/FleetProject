@@ -52,9 +52,7 @@ import java.time.Period;
             model.addAttribute("carModel", carModel);
             return "carmodeldetail";
         }
-        else
-        {
-            return "redirect:/";
-        }
+
+        return "redirect:/";
     }
 }
