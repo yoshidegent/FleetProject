@@ -54,8 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .useSecureCookie(true)
                     .and()
                 .authorizeRequests()
-                    .anyRequest()
-                    .authenticated();
+                    .antMatchers("/css/**", "/fonts/**", "/images/**", "/js/**", "/scripts/**").permitAll()
+                    .anyRequest().authenticated();
                 /*.and()
                     .authorizeRequests()
                     .anyRequest().authenticated();*/

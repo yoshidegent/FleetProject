@@ -33,7 +33,7 @@
         <table class="table table-striped table-bordered table-hover">
             <thead>
             <tr>
-                <th><input type="checkbox" name="select-all" /></th>
+                <th><input type="checkbox" class="select-all" /></th>
                 <th>Id</th>
                 <th>Brand</th>
                 <th>Type</th>
@@ -43,7 +43,7 @@
             </thead>
             <tbody>
             <tr th:each="carModel : ${carModels}">
-                <td><input type="checkbox" name="select" /></td>
+                <td><input type="checkbox" class="select" /></td>
                 <td th:text="${carModel.id}"></td>
                 <td th:text="${carModel.brand}"></td>
                 <td th:text="${carModel.type}"></td>
@@ -81,6 +81,7 @@
     /*<![CDATA[*/
     (function($) {
         var deleteUrl = /*[[@{/admin/car-model/delete/}]]*/ '/admin/car-model/delete/';
+        var selectedRows = [];
 
         $(document).ready(function() {
             var $table = $('table');
@@ -89,35 +90,88 @@
 
             $table.find('tbody').on('click', 'tr', onRowClick);
             $table.find('tbody').on('click', 'button[data-title="Delete"]', onDeleteButtonClick);
+            $table.find('tbody').on('click', '.select', onSelectClick);
+            $table.on('draw', function() {
+                updateDataTableSelectAllCtrl($table);
+            });
+        });
 
-            function onRowClick() {
-                $(this).toggleClass('selected');
-            }
+        function updateDataTableSelectAllCtrl(table){
+            var $table             = table.table().node();
+            var $chkbox_all        = $('tbody .select', $table);
+            var $chkbox_checked    = $('tbody .select:checked', $table);
+            var chkbox_select_all  = $('thead .select-all', $table).get(0);
 
-            function onDeleteButtonClick() {
-                var that = this;
-                var $button = $(that);
-                if($button !== undefined) {
-                    var id = $button.attr('data-model-id');
-                    var modalId = $button.attr('data-target');
-                    var $deleteLink = $(modalId + ' .modal-confirmation-button');
-                    //$deleteLink.attr('href', $deleteLink.attr('href').replace('(id)', id));
-                    $deleteLink.click(function() {
-                        onModalDeleteButtonClick.apply(that, [id]);
-                    });
+            // If none of the checkboxes are checked
+            if($chkbox_checked.length === 0){
+                chkbox_select_all.checked = false;
+                if('indeterminate' in chkbox_select_all){
+                    chkbox_select_all.indeterminate = false;
+                }
+
+                // If all of the checkboxes are checked
+            } else if ($chkbox_checked.length === $chkbox_all.length){
+                chkbox_select_all.checked = true;
+                if('indeterminate' in chkbox_select_all){
+                    chkbox_select_all.indeterminate = false;
+                }
+
+                // If some of the checkboxes are checked
+            } else {
+                chkbox_select_all.checked = true;
+                if('indeterminate' in chkbox_select_all){
+                    chkbox_select_all.indeterminate = true;
                 }
             }
+        }
 
-            function onModalDeleteButtonClick(id) {
-                var that = this;
-                $.get(deleteUrl + id, function() {
-                    dataTable
-                            .row($(that).parents('tr'))
-                            .remove()
-                            .draw(false);
+        function onModalDeleteButtonClick(id) {
+            var that = this;
+            $.get(deleteUrl + id, function() {
+                dataTable
+                        .row($(that).parents('tr'))
+                        .remove()
+                        .draw(false);
+            });
+        }
+
+        function onSelectClick(e) {
+            var $row = $(this).closest('tr');
+            var data = dataTable.row($row).data();
+            var rowId = data[0];
+            var index = $.inArray(rowId, selectedRows);
+            if(this.checked && index === -1) {
+                selectedRows.push(rowId);
+            } else if (!this.checked && index !== -1){
+                selectedRows.splice(index, 1);
+            }
+
+            if(this.checked){
+                $row.addClass('selected');
+            } else {
+                $row.removeClass('selected');
+            }
+
+            e.stopPropagation();
+        }
+
+        function onRowClick() {
+            console.log(selectedRows);
+        }
+
+        function onDeleteButtonClick() {
+            var that = this;
+            var $button = $(that);
+            if($button !== undefined) {
+                var id = $button.attr('data-model-id');
+                var modalId = $button.attr('data-target');
+                var $deleteLink = $(modalId + ' .modal-confirmation-button');
+                //$deleteLink.attr('href', $deleteLink.attr('href').replace('(id)', id));
+                $deleteLink.click(function() {
+                    onModalDeleteButtonClick.apply(that, [id]);
                 });
             }
-        });
+        }
     })(jQuery);
     /*]]>*/
 </script>
