@@ -8,10 +8,19 @@ import java.time.LocalDate;
 
 @Entity
 public class CarOrder extends AbstractEntity {
-    public static enum OrderStatus {
+    public enum OrderStatus {
         PENDING,
         DELIVERED
     }
+
+    public enum UpgradeStatus {
+        DOWNGRADE,
+        NORMAL,
+        UPGRADE
+    }
+
+    @Enumerated(EnumType.STRING)
+    private UpgradeStatus upgradeStatus = UpgradeStatus.NORMAL;
 
     private PhysicalCar orderedCar;
 
