@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.ServletContext;
-import java.io.File;
-import java.io.IOException;
-import java.time.Instant;
 import java.util.List;
 
 import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.fromMappingName;
@@ -77,6 +74,13 @@ public class CarModelController {
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable("id") Long id) {
         carService.deleteCarModel(id);
+
+        return "redirect:" + fromMappingName("CMC#overview").build();
+    }
+
+    @RequestMapping("/delete/{ids}/m")
+    public String deleteMultiple(@PathVariable Long[] ids) {
+        carService.deleteCarModels(ids);
 
         return "redirect:" + fromMappingName("CMC#overview").build();
     }

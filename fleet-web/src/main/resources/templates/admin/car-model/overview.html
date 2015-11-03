@@ -26,7 +26,7 @@
 
     <div class="container-fluid">
         <div class="action-bar">
-            <a class="btn btn-danger">Delete selection</a>
+            <a class="btn btn-danger delete-selection-button">Delete selection</a>
             <a class="btn btn-primary" th:href="@{/admin/car-model/new}">Create new</a>
         </div>
 
@@ -88,13 +88,52 @@
             var dataTable = $table.DataTable();
             $('[data-toggle="tooltip"]').tooltip();
 
-            $table.find('tbody').on('click', 'tr', onRowClick);
+            $('.delete-selection-button').click(function() {
+                onDeleteSelectionClick.apply(this, [dataTable]);
+            });
+
+            $('.select-all').on('click', function(e) {
+                onSelectAllClick.apply(this, [e]);
+            });
+
             $table.find('tbody').on('click', 'button[data-title="Delete"]', onDeleteButtonClick);
-            $table.find('tbody').on('click', '.select', onSelectClick);
+            $table.find('tbody').on('click', '.select', function(e) {
+                onSelectClick.apply(this, [dataTable]);
+                e.stopPropagation();
+            });
             $table.on('draw', function() {
-                updateDataTableSelectAllCtrl($table);
+                updateDataTableSelectAllCtrl.apply(this, [$table]);
             });
         });
+
+        function onSelectAllClick(e) {
+            if(this.checked){
+                $('tbody .select:not(:checked)').trigger('click');
+            } else {
+                $('tbody .select:checked').trigger('click');
+            }
+
+            e.stopPropagation();
+        }
+
+        function onDeleteSelectionClick(dataTable) {
+            if(selectedRows.length < 1)
+                return;
+
+            var selectedIds = [];
+            for(var i = 0, len = selectedRows.length; i < len; i++) {
+                selectedIds.push(dataTable.row(selectedRows[i]).data()[1]);
+            }
+
+            $.get(deleteUrl + selectedIds.join(',') + '/m', deleteSuccessful);
+
+            function deleteSuccessful() {
+                dataTable
+                        .rows(selectedRows)
+                        .remove()
+                        .draw(false);
+            }
+        }
 
         function updateDataTableSelectAllCtrl(table){
             var $table             = table.table().node();
@@ -127,18 +166,21 @@
 
         function onModalDeleteButtonClick(id) {
             var that = this;
-            $.get(deleteUrl + id, function() {
+            $.get(deleteUrl + id, deleteSuccessful);
+
+            function deleteSuccessful() {
                 dataTable
                         .row($(that).parents('tr'))
                         .remove()
                         .draw(false);
-            });
+            }
         }
 
-        function onSelectClick(e) {
+        function onSelectClick(dataTable) {
             var $row = $(this).closest('tr');
-            var data = dataTable.row($row).data();
-            var rowId = data[0];
+            //var data = dataTable.row($row).data();
+            //var rowId = data[1];
+            var rowId = dataTable.row($row).index();
             var index = $.inArray(rowId, selectedRows);
             if(this.checked && index === -1) {
                 selectedRows.push(rowId);
@@ -151,11 +193,6 @@
             } else {
                 $row.removeClass('selected');
             }
-
-            e.stopPropagation();
-        }
-
-        function onRowClick() {
             console.log(selectedRows);
         }
 

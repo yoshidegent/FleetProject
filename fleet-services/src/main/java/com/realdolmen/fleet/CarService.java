@@ -12,4 +12,5 @@ public interface CarService {
     void deleteAllCarModels();
 
     void deleteCarModel(Long id);
+    void deleteCarModels(Long[] ids);
 }
