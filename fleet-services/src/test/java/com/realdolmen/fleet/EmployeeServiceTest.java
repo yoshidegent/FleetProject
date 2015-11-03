@@ -43,8 +43,8 @@ public class EmployeeServiceTest extends AbstractServiceTest {
     @Test public void testFindCurrentCarForEmployee() {
         PhysicalCar physicalCar = employeeService.findCurrentCarForEmployee(employee);
         Assert.assertNotNull(physicalCar);
-        Mockito.verify(carOrderRepositoryMock, Mockito.times(1)).findOrdersByEmployeeOrderedByOrderDate(
-            employee);
+        Mockito.verify(carOrderRepositoryMock,
+            Mockito.times(1)).findOrdersByEmployeeOrderedByOrderDate(employee);
     }
 
     @Test public void testCalculateAgeForEmployee()
@@ -74,5 +74,41 @@ public class EmployeeServiceTest extends AbstractServiceTest {
         employee.setHireDate(LocalDate.now());
         seniority = Period.between(employee.getHireDate(), LocalDate.now());
         Assert.assertEquals(seniority, employeeService.calculateSeniority(employee));
+    }
+
+    @Test public void testGetHighestAllowedCategory()
+    {
+        employee.setFunctionalLevel(7);
+        Assert.assertEquals(employeeService.getHighestAllowedCategory(employee), 7);
+
+        employee.setFunctionalLevel(3);
+        Assert.assertEquals(employeeService.getHighestAllowedCategory(employee), 4);
+
+        employee.setFunctionalLevel(-10);
+        Assert.assertEquals(employeeService.getHighestAllowedCategory(employee), 3);
+
+        employee.setFunctionalLevel(4);
+        Assert.assertEquals(employeeService.getHighestAllowedCategory(employee), 5);
+
+        employee.setFunctionalLevel(20);
+        Assert.assertEquals(employeeService.getHighestAllowedCategory(employee), 7);
+    }
+
+    @Test public void testGetLowestAllowedCategory()
+    {
+        employee.setFunctionalLevel(2);
+        Assert.assertEquals(employeeService.getLowestAllowedCategory(employee), 2);
+
+        employee.setFunctionalLevel(3);
+        Assert.assertEquals(employeeService.getLowestAllowedCategory(employee), 2);
+
+        employee.setFunctionalLevel(-10);
+        Assert.assertEquals(employeeService.getLowestAllowedCategory(employee), 2);
+
+        employee.setFunctionalLevel(4);
+        Assert.assertEquals(employeeService.getLowestAllowedCategory(employee), 3);
+
+        employee.setFunctionalLevel(20);
+        Assert.assertEquals(employeeService.getLowestAllowedCategory(employee), 6);
     }
 }

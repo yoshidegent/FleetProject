@@ -7,6 +7,8 @@ import javax.annotation.PostConstruct;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -16,6 +18,8 @@ public class Employee extends User {
     @Transient
     private PhysicalCar currentCar;
 
+    @Max(7)
+    @Min(2)
     private int functionalLevel; //according to this field the available categories of companyCars will be determined
 
     private String firstName;
@@ -42,7 +46,14 @@ public class Employee extends User {
     }
 
     public void setFunctionalLevel(int functionalLevel) {
+
         this.functionalLevel = functionalLevel;
+
+        if(functionalLevel < 2)
+            this.functionalLevel = 2;
+
+        if(functionalLevel > 7)
+            this.functionalLevel = 7;
     }
 
     public String getFirstName() {

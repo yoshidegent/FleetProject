@@ -7,6 +7,7 @@ public interface CarService {
     void saveCarModel(CarModel carModel);
 
     List<CarModel> findAllCarModels();
+    List<CarModel> findCarModelsByCategory(int category);
     CarModel findCarModel(Long id);
     void deleteAllCarModels();
 

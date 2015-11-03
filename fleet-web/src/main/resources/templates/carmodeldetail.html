@@ -1,36 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragments/layout :: head">
-    <title>Home</title>
+<head>
+    <title>Fleet - Details</title>
+    <th:block th:include="fragments/head::head" />
 </head>
 <body>
 <div id="mainContainer" class="container">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Fleet</a>
-            </div>
-            <div>
-                <ul class="nav navbar-nav">
-                    <li class="active"><a th:href="@{/home}">Car Models</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+    <div th:replace="fragments/header::header">
+    </div>
     <header>
         <h1 th:text='${carModel.brand + " " +  carModel.type}'></h1>
     </header>
-    <figure>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Audi_A3_8V_1.4_TFSI_Ambiente_Misanorot.JPG" width="500" />
-    </figure>
-    <div>
-        <p></p><br />
-        <p></p><br />
-        <p></p><br />
-        <p></p><br />
-        <p></p><br />
+    <div class="row">
+        <figure class="col-sm-4 carPictureContainer">
+            <img th:if="${carModel.pictureUrl != null}" th:src="${carModel.pictureUrl}"/>
+            <img th:if="${carModel.pictureUrl == null}" th:src="@{/images/car-shadow.png}"/>
+        </figure>
+        <div class="col-sm-4">
+            <p></p><br />
+            <p></p><br />
+            <p></p><br />
+            <p></p><br />
+            <p></p><br />
+        </div>
     </div>
+
 </div>
 </body>
 </html>
