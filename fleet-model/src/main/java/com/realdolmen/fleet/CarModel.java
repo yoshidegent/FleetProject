@@ -40,7 +40,7 @@ public class CarModel extends AbstractEntity {
     private FuelType fuelType;
 
     private String brand;
-    private String type;
+    private String model;
 
     private String pack;
 
@@ -69,7 +69,7 @@ public class CarModel extends AbstractEntity {
     }
 
     public CarModel(int category, int co2Emission, int fiscalHorsePower, FuelType fuelType,
-        String brand, String type, String pack, Period deliveryTime, RimType winterTyreRimType,
+        String brand, String model, String pack, Period deliveryTime, RimType winterTyreRimType,
         int maxKm, int idealKm, List<CarOption> options, BigDecimal listPriceInclVat,
         BigDecimal amountUpgradeInclVat, BigDecimal amountDowngradeInclVat, BigDecimal benefitInKindPerMonth, String pictureUrl) {
         this.category = category;
@@ -77,7 +77,7 @@ public class CarModel extends AbstractEntity {
         this.fiscalHorsePower = fiscalHorsePower;
         this.fuelType = fuelType;
         this.brand = brand;
-        this.type = type;
+        this.model = model;
         this.pack = pack;
         this.deliveryTime = deliveryTime;
         this.winterTyreRimType = winterTyreRimType;
@@ -131,12 +131,12 @@ public class CarModel extends AbstractEntity {
         this.brand = brand;
     }
 
-    public String getType() {
-        return type;
+    public String getModel() {
+        return model;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public String getPack() {
@@ -231,7 +231,7 @@ public class CarModel extends AbstractEntity {
             ", fiscalHorsePower=" + fiscalHorsePower +
             ", fuelType=" + fuelType +
             ", brand='" + brand + '\'' +
-            ", type='" + type + '\'' +
+            ", model='" + model + '\'' +
             ", pack='" + pack + '\'' +
             ", deliveryTime=" + deliveryTime +
             ", winterTyreRimType=" + winterTyreRimType +

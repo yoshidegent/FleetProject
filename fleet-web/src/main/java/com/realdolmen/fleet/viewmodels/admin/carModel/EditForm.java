@@ -50,7 +50,7 @@ public class EditForm {
         this.fiscalHorsePower = carModel.getFiscalHorsePower();
         this.fuelType = carModel.getFuelType();
         this.brand = carModel.getBrand();
-        this.type = carModel.getType();
+        this.type = carModel.getModel();
         this.pack = carModel.getPack();
         this.deliveryTimeMonths = carModel.getDeliveryTime().getMonths();
         this.deliveryTimeDays = carModel.getDeliveryTime().minusMonths(this.deliveryTimeMonths).getDays();
@@ -75,7 +75,7 @@ public class EditForm {
         carModel.setFiscalHorsePower(this.fiscalHorsePower);
         carModel.setFuelType(this.fuelType);
         carModel.setBrand(this.brand);
-        carModel.setType(this.type);
+        carModel.setModel(this.type);
         carModel.setPack(this.pack);
         carModel.setDeliveryTime(Period.of(0, this.deliveryTimeMonths, this.deliveryTimeDays));
         carModel.setWinterTyreRimType(this.winterTyreRimType);
