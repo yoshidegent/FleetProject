@@ -61,11 +61,11 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<CarOption> findOptionsByIds(List<Long> ids) {
-        return optionRepository.findAll(ids);
+        return carOptionRepository.findAll(ids);
     }
 
     @Override
     public CarOption findOptionById(Long id) {
-        return optionRepository.findOne(id);
+        return carOptionRepository.findOne(id);
     }
 }
