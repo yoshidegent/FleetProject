@@ -5,6 +5,7 @@ import com.realdolmen.fleet.converters.PeriodConverter;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Period;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -54,7 +55,7 @@ public class CarModel extends AbstractEntity {
     private int maxKm;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private Map<CarOption, BigDecimal> optionPriceMap;
+    private List<CarOption> optionPriceMap;
 
     private BigDecimal listPriceInclVat;
     private BigDecimal amountUpgradeInclVat;
