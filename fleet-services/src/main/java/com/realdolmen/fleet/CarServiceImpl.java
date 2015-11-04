@@ -56,7 +56,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override public CarOption findCarOptionByNameIgnoreCase(String s) {
-        return findCarOptionByNameIgnoreCase(s);
+        return carOptionRepository.findByNameIgnoreCase(s);
     }
 
     @Override

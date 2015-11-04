@@ -5,12 +5,14 @@ import com.realdolmen.fleet.CarOption;
 import com.realdolmen.fleet.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<CarModel> {
 
     @Autowired
