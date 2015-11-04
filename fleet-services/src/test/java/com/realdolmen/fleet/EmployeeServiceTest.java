@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -29,11 +30,11 @@ public class EmployeeServiceTest extends AbstractServiceTest {
         employee = new Employee();
 
         List<CarOrder> dummyCarOrders = new ArrayList<CarOrder>(Arrays.asList(
-            new CarOrder(new PhysicalCar(), new Employee(), LocalDate.of(2010, 1, 1),
+            new CarOrder(new PhysicalCar(), new Employee(), LocalDateTime.of(2010, 1, 1, 0, 0),
                 CarOrder.OrderStatus.DELIVERED),
-            new CarOrder(new PhysicalCar(), new Employee(), LocalDate.of(2014, 1, 1),
+            new CarOrder(new PhysicalCar(), new Employee(), LocalDateTime.of(2014, 1, 1, 0, 0),
                 CarOrder.OrderStatus.DELIVERED),
-            new CarOrder(new PhysicalCar(), new Employee(), LocalDate.of(2015, 1, 1),
+            new CarOrder(new PhysicalCar(), new Employee(), LocalDateTime.of(2015, 1, 1, 0, 0),
                 CarOrder.OrderStatus.DELIVERED)));
 
         Mockito.when(carOrderRepositoryMock.findOrdersByEmployeeOrderedByOrderDate(employee))

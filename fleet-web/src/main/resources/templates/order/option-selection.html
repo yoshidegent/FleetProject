@@ -22,7 +22,7 @@
         <form method="post" th:object="${optionSelectionList}" th:action="${''}">
             <ul>
                 <li th:each="option : ${optionSelectionList.data}">
-                    <input type="checkbox" th:field="*{selection}" th:value="${option}" />
+                    <input type="checkbox" th:field="*{selection}" th:value="${option.id}" />
                     <label th:text="${option.name}"></label>
                 </li>
             </ul>

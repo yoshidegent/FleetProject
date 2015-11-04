@@ -127,14 +127,15 @@
             }
 
             $.get(deleteUrl + selectedIds.join(',') + '/m', deleteSuccessful);
-            selectedRows = [];
-            $('.select-all').prop('checked', false);
 
             function deleteSuccessful() {
                 dataTable
                         .rows(selectedRows)
                         .remove()
                         .draw(false);
+
+                selectedRows = [];
+                $('.select-all').prop('checked', false);
             }
         }
 

@@ -1,9 +1,11 @@
 package com.realdolmen.fleet;
 
-import org.junit.*;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class CarOrderRepositoryTest extends AbstractRepositoryTest{
@@ -24,18 +26,18 @@ public class CarOrderRepositoryTest extends AbstractRepositoryTest{
 
         CarOrder carOrder1 = new CarOrder();
         carOrder1.setEmployee(employee);
-        carOrder1.setOrderDate(LocalDate.now());
+        carOrder1.setOrderDate(LocalDateTime.now());
         carOrderRepository.save(carOrder1);
 
         CarOrder carOrder2 = new CarOrder();
         carOrder2.setEmployee(employee);
-        carOrder2.setOrderDate(LocalDate.of(2003, 10, 1));
+        carOrder2.setOrderDate(LocalDateTime.of(2003, 10, 1, 0, 0));
         carOrderRepository.save(carOrder2);
 
 
         CarOrder carOrder3 = new CarOrder();
         carOrder3.setEmployee(employee);
-        carOrder3.setOrderDate(LocalDate.of(1999, 10, 19));
+        carOrder3.setOrderDate(LocalDateTime.of(1999, 10, 19, 0, 0));
         carOrderRepository.save(carOrder3);
     }
 

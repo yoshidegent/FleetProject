@@ -5,11 +5,19 @@
 
     <var name="carOrder" class="com.realdolmen.fleet.CarOrder" />
 
+    <on-start>
+        <evaluate expression="currentUser.principal" result="flashScope.principal"
+                  result-type="com.realdolmen.fleet.authentication.FleetPrincipal" />
+        <evaluate expression="flashScope.principal.getUser()" result="carOrder.employee"
+                  result-type="com.realdolmen.fleet.Employee" />
+        <set name="carOrder.status" value="T(com.realdolmen.fleet.CarOrder.OrderStatus).valueOf('PENDING')" />
+    </on-start>
+
     <view-state id="optionSelection" model="optionSelectionList" view="order/option-selection">
         <on-entry>
-            <set name="carOrder.orderedCar" value="new com.realdolmen.fleet.PhysicalCar()"/>
+            <set name="carOrder.orderedCar" value="new com.realdolmen.fleet.PhysicalCar()" />
             <evaluate expression="carServiceImpl.findCarModel(requestParameters.id)"
-                      result="carOrder.orderedCar.carModel" result-type="com.realdolmen.fleet.CarModel"/>
+                      result="carOrder.orderedCar.carModel" result-type="com.realdolmen.fleet.CarModel" />
 
             <set name="viewScope.carModel" value="carOrder.orderedCar.carModel" />
             <evaluate expression="new com.realdolmen.fleet.viewmodels.order.OptionSelectionListModel(carModel.availableOptions)"
@@ -18,6 +26,11 @@
         </on-entry>
 
         <transition to="summary" on="submit" />
+
+        <on-exit>
+            <evaluate expression="carServiceImpl.findOptionsByIds(viewScope.optionSelectionList.selection)"
+                      result="carOrder.orderedCar.selectedCarOptions" />
+        </on-exit>
     </view-state>
 
     <view-state id="summary" model="carOrder" view="order/summary">

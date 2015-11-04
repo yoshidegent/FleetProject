@@ -11,6 +11,10 @@
         <ul>
             <li th:each="option : ${carOrder.orderedCar.selectedCarOptions}" th:text="${option.name}"></li>
         </ul>
+
+        <form method="post" th:object="${optionSelectionList}" th:action="${''}">
+            <input type="submit" name="_eventId_submit" value="Confirm" />
+        </form>
     </div>
 </body>
 </html>

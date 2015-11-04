@@ -1,7 +1,6 @@
 package com.realdolmen.fleet.config;
 
 import com.realdolmen.fleet.authentication.CurrentUserHandlerMethodArgumentResolver;
-import com.realdolmen.fleet.converters.CarOptionFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +23,6 @@ import java.util.List;
 @EnableTransactionManagement
 public class MvcConfig extends WebMvcConfigurerAdapter {
     @Autowired private CurrentUserHandlerMethodArgumentResolver currentUserHandlerMethodArgumentResolver;
-    @Autowired private CarOptionFormatter carOptionFormatter;
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
@@ -53,11 +51,5 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         handlerAdapter.setSaveOutputToFlashScopeOnRedirect(true);
         return handlerAdapter;
     }
-
-    @Override
-    public void addFormatters(FormatterRegistry registry) {
-        registry.addFormatter(carOptionFormatter);
-    }
-
 
 }

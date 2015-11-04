@@ -24,9 +24,6 @@ import java.security.Principal;
 @EnableWebMvcSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    private DataSource dataSource;
-
-    @Autowired
     private UserDetailsService userDetailsService;
 
     @Override

@@ -1,10 +1,11 @@
 package com.realdolmen.fleet;
 
-import com.realdolmen.fleet.converters.DateConverter;
+import com.realdolmen.fleet.converters.DateTimeConverter;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 public class CarOrder extends AbstractEntity {
@@ -22,13 +23,14 @@ public class CarOrder extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private UpgradeStatus upgradeStatus = UpgradeStatus.NORMAL;
 
+    @OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     private PhysicalCar orderedCar;
 
     @ManyToOne
     private Employee employee;
 
-    @Convert(converter = DateConverter.class)
-    private LocalDate orderDate;
+    @Convert(converter = DateTimeConverter.class)
+    private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
@@ -39,19 +41,18 @@ public class CarOrder extends AbstractEntity {
     public CarOrder() {
     }
 
-    public CarOrder(PhysicalCar orderedCar, Employee employee, LocalDate orderDate,
+    public CarOrder(PhysicalCar orderedCar, Employee employee, LocalDateTime orderDate,
         OrderStatus status) {
         this.orderedCar = orderedCar;
         this.employee = employee;
         this.orderDate = orderDate;
         this.status = status;
-        this.deliveryDate = deliveryDate;
     }
 
     @PostConstruct
     public void init() {
         if(orderedCar != null)
-            deliveryDate = orderDate.plus(orderedCar.getCarModel().getDeliveryTime());
+            deliveryDate = orderDate.plus(orderedCar.getCarModel().getDeliveryTime()).toLocalDate();
     }
 
     public PhysicalCar getOrderedCar() {
@@ -70,11 +71,11 @@ public class CarOrder extends AbstractEntity {
         this.employee = employee;
     }
 
-    public LocalDate getOrderDate() {
+    public LocalDateTime getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(LocalDate orderDate) {
+    public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = orderDate;
     }
 
@@ -92,5 +93,13 @@ public class CarOrder extends AbstractEntity {
 
     public void setStatus(OrderStatus status) {
         this.status = status;
+    }
+
+    public UpgradeStatus getUpgradeStatus() {
+        return upgradeStatus;
+    }
+
+    public void setUpgradeStatus(UpgradeStatus upgradeStatus) {
+        this.upgradeStatus = upgradeStatus;
     }
 }
