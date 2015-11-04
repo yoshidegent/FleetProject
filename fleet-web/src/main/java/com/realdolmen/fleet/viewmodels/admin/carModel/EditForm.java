@@ -23,7 +23,7 @@ public class EditForm {
     private CarModel.FuelType fuelType;
 
     private String brand;
-    private String type;
+    private String model;
 
     private String pack;
 
@@ -52,7 +52,7 @@ public class EditForm {
         this.fiscalHorsePower = carModel.getFiscalHorsePower();
         this.fuelType = carModel.getFuelType();
         this.brand = carModel.getBrand();
-        this.type = carModel.getModel();
+        this.model = carModel.getModel();
         this.pack = carModel.getPack();
         this.deliveryTimeMonths = carModel.getDeliveryTime().getMonths();
         this.deliveryTimeDays = carModel.getDeliveryTime().minusMonths(this.deliveryTimeMonths).getDays();
@@ -78,7 +78,7 @@ public class EditForm {
         carModel.setFiscalHorsePower(this.fiscalHorsePower);
         carModel.setFuelType(this.fuelType);
         carModel.setBrand(this.brand);
-        carModel.setModel(this.type);
+        carModel.setModel(this.model);
         carModel.setPack(this.pack);
         carModel.setDeliveryTime(Period.of(0, this.deliveryTimeMonths, this.deliveryTimeDays));
         carModel.setWinterTyreRimType(this.winterTyreRimType);
@@ -159,12 +159,12 @@ public class EditForm {
         this.brand = brand;
     }
 
-    public String getType() {
-        return type;
+    public String getModel() {
+        return model;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public String getPack() {

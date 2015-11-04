@@ -7,7 +7,7 @@ import java.util.List;
 
 public class OptionSelectionListModel implements Serializable {
     private List<CarOption> data;
-    private List<CarOption> selection;
+    private List<Long> selection;
 
     public OptionSelectionListModel(List<CarOption> data) {
         this.data = data;
@@ -21,11 +21,11 @@ public class OptionSelectionListModel implements Serializable {
         this.data = data;
     }
 
-    public List<CarOption> getSelection() {
+    public List<Long> getSelection() {
         return selection;
     }
 
-    public void setSelection(List<CarOption> selection) {
+    public void setSelection(List<Long> selection) {
         this.selection = selection;
     }
 }
