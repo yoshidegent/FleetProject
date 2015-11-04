@@ -6,7 +6,7 @@
     <th:block th:fragment="carmodelgrid">
         <div class="gridCellWrapper" th:each="carModel : ${carModelList}">
             <div class="gridCell">
-                <a th:href="@{'/carModelDetail/' + ${carModel.id}}" style="text-decoration:none; color:black;">
+                <a class="gridCellLink" th:href="@{'/carModelDetail/' + ${carModel.id}}" >
                     <figure class="carFigure">
                         <img th:if="${carModel.pictureUrl != null}" th:src="${carModel.pictureUrl}"/>
                         <img th:if="${carModel.pictureUrl == null}" th:src="@{/images/car-shadow.png}"/>
