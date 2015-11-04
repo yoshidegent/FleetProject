@@ -25,6 +25,10 @@ public class Employee extends User {
     private String firstName;
     private String lastName;
 
+    public Employee() {
+        this.setFunctionalLevel(2);
+    }
+
     @Convert(converter = DateConverter.class)
     private LocalDate dateOfBirth;
 

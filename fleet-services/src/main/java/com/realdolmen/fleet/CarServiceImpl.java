@@ -9,7 +9,7 @@ import java.util.List;
 public class CarServiceImpl implements CarService {
     @Autowired protected CarModelRepository carModelRepository;
     @Autowired private PhysicalCarRepository physicalCarRepository;
-    @Autowired private OptionRepository optionRepository;
+    @Autowired private CarOptionRepository carOptionRepository;
 
     @Override
     public void saveCarModels(List<CarModel> carModels) {
@@ -52,7 +52,11 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void saveOption(CarOption carOption) {
-        optionRepository.save(carOption);
+        carOptionRepository.save(carOption);
+    }
+
+    @Override public CarOption findCarOptionByNameIgnoreCase(String s) {
+        return findCarOptionByNameIgnoreCase(s);
     }
 
     @Override

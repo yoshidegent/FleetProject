@@ -1,12 +1,21 @@
 package com.realdolmen.fleet.spreadsheet.mapper;
 
 import com.realdolmen.fleet.CarModel;
+import com.realdolmen.fleet.CarOption;
+import com.realdolmen.fleet.CarService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<CarModel> {
+
+    @Autowired
+    private CarService carService;
+
     @Override
     public CarModel mapRow(List<String> values) {
         CarModel carModel = new CarModel();
@@ -88,12 +97,79 @@ public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<Car
                         carModel.setAmountDowngradeInclVat(new BigDecimal(value));
                     break;
 
-                //TODO: add benefit conversion
-                //TODO: add options
-                //TODO: add winterTyreRimType
+                //benefit in kind/month
+                case 15:
+                    if(value.isEmpty())
+                        carModel.setBenefitInKindPerMonth(null);
+                    else
+                        carModel.setBenefitInKindPerMonth(new BigDecimal(value));
+                    break;
+
+                //Possibility of towing bracket
+                case 8:
+                    if(!value.isEmpty())
+                    {
+                        if("yes".equals(value.toLowerCase()))
+                        {
+                            carModel.addAvailableOption(carService.findCarOptionByNameIgnoreCase("towing bracket"));
+                        }
+                    }
+                    break;
+
+                //GPS
+                case 9:
+                    if(!value.isEmpty())
+                    {
+                        if("yes".equals(value.toLowerCase()))
+                        {
+                            carModel.addDefaultOption(
+                                carService.findCarOptionByNameIgnoreCase("gps"));
+                        }
+                        else if("no".equals(value.toLowerCase()))
+                        {
+                            carModel.addAvailableOption(carService.findCarOptionByNameIgnoreCase("gps"));
+                        }
+                    }
+                    break;
+
+                //GSM Bluetooth
+                case 10:
+                    if(!value.isEmpty())
+                    {
+                        if("yes".equals(value.toLowerCase()))
+                        {
+                            carModel.addDefaultOption(carService.findCarOptionByNameIgnoreCase("gsm bluetooth"));
+                        }
+                        else if("no".equals(value.toLowerCase()))
+                        {
+                            carModel.addAvailableOption(carService.findCarOptionByNameIgnoreCase("gsm bluetooth"));
+                        }
+                    }
+                    break;
+
+                //Winter tyre rim type
+                case 11:
+                    if(!value.isEmpty()) {
+                        if (value.trim().toUpperCase().equals("STEEL"))
+                            carModel.setWinterTyreRimType(CarModel.RimType.STEEL);
+
+                        if (value.trim().toUpperCase().equals("ALUMINIUM"))
+                            carModel.setWinterTyreRimType(CarModel.RimType.ALUMINIUM);
+                    }
+                    else
+                        carModel.setWinterTyreRimType(null);
+                    break;
             }
         }
 
         return carModel;
+    }
+
+    public CarService getCarService() {
+        return carService;
+    }
+
+    public void setCarService(CarService carService) {
+        this.carService = carService;
     }
 }

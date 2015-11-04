@@ -15,7 +15,6 @@ public class EmployeeRepositoryTest extends AbstractRepositoryTest {
     {
         Employee employee = new Employee();
         Assert.assertNull(employee.getId());
-        Assert.assertNull(employee.getVersion());
         employee = employeeRepository.save(employee);
         Assert.assertNotNull(employee.getId());
         Assert.assertNotNull(employee.getVersion());

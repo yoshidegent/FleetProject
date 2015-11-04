@@ -5,7 +5,9 @@ import com.realdolmen.fleet.converters.PeriodConverter;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 public class CarModel extends AbstractEntity {
@@ -53,14 +55,16 @@ public class CarModel extends AbstractEntity {
     private int idealKm;
     private int maxKm;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<CarOption> options;
-
     private BigDecimal listPriceInclVat;
     private BigDecimal amountUpgradeInclVat;
     private BigDecimal amountDowngradeInclVat;
 
     private BigDecimal benefitInKindPerMonth;
+
+    @ManyToMany
+    private List<CarOption> defaultOptions;
+    @ManyToMany
+    private List<CarOption> availableOptions;
 
     @Transient
     final static int VAT = 21;
@@ -68,10 +72,12 @@ public class CarModel extends AbstractEntity {
     public CarModel() {
     }
 
-    public CarModel(int category, int co2Emission, int fiscalHorsePower, FuelType fuelType,
-        String brand, String model, String pack, Period deliveryTime, RimType winterTyreRimType,
-        int maxKm, int idealKm, List<CarOption> options, BigDecimal listPriceInclVat,
-        BigDecimal amountUpgradeInclVat, BigDecimal amountDowngradeInclVat, BigDecimal benefitInKindPerMonth, String pictureUrl) {
+    public CarModel(String pictureUrl, int category, int co2Emission, int fiscalHorsePower,
+        FuelType fuelType, String brand, String model, String pack, Period deliveryTime,
+        RimType winterTyreRimType, int idealKm, int maxKm, BigDecimal listPriceInclVat,
+        BigDecimal amountUpgradeInclVat, BigDecimal amountDowngradeInclVat,
+        BigDecimal benefitInKindPerMonth) {
+        this.pictureUrl = pictureUrl;
         this.category = category;
         this.co2Emission = co2Emission;
         this.fiscalHorsePower = fiscalHorsePower;
@@ -81,14 +87,12 @@ public class CarModel extends AbstractEntity {
         this.pack = pack;
         this.deliveryTime = deliveryTime;
         this.winterTyreRimType = winterTyreRimType;
-        this.maxKm = maxKm;
         this.idealKm = idealKm;
-        this.options = options;
+        this.maxKm = maxKm;
         this.listPriceInclVat = listPriceInclVat;
         this.amountUpgradeInclVat = amountUpgradeInclVat;
         this.amountDowngradeInclVat = amountDowngradeInclVat;
         this.benefitInKindPerMonth = benefitInKindPerMonth;
-        this.pictureUrl = pictureUrl;
     }
 
     public List<CarOption> getOptions() {
@@ -231,9 +235,24 @@ public class CarModel extends AbstractEntity {
         this.benefitInKindPerMonth = benefitInKindPerMonth;
     }
 
+
+    public void addDefaultOption(CarOption carOption)
+    {
+        if(defaultOptions == null)
+            defaultOptions = new ArrayList<>();
+        defaultOptions.add(carOption);
+    }
+
+    public void addAvailableOption(CarOption carOption)
+    {
+        if(availableOptions == null)
+            availableOptions = new ArrayList<>();
+        availableOptions.add(carOption);
+    }
+
     @Override public String toString() {
         return "CarModel{" +
-            "id=" + id +
+            "pictureUrl='" + pictureUrl + '\'' +
             ", category=" + category +
             ", co2Emission=" + co2Emission +
             ", fiscalHorsePower=" + fiscalHorsePower +
@@ -245,11 +264,12 @@ public class CarModel extends AbstractEntity {
             ", winterTyreRimType=" + winterTyreRimType +
             ", idealKm=" + idealKm +
             ", maxKm=" + maxKm +
-            ", options=" + options +
             ", listPriceInclVat=" + listPriceInclVat +
             ", amountUpgradeInclVat=" + amountUpgradeInclVat +
             ", amountDowngradeInclVat=" + amountDowngradeInclVat +
             ", benefitInKindPerMonth=" + benefitInKindPerMonth +
+            ", defaultOptions=" + defaultOptions +
+            ", availableOptions=" + availableOptions +
             '}';
     }
 }

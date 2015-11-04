@@ -8,6 +8,9 @@ public class DateConverter implements AttributeConverter<LocalDate, Date> {
 
     @Override
     public Date convertToDatabaseColumn(LocalDate attribute) {
+        if(attribute == null)
+            return null;
+
         return Date.valueOf(attribute);
     }
 

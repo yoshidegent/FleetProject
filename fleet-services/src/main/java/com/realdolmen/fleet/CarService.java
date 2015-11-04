@@ -18,4 +18,6 @@ public interface CarService {
 
     List<CarOption> findOptionsByIds(List<Long> ids);
     CarOption findOptionById(Long id);
+
+    CarOption findCarOptionByNameIgnoreCase(String s);
 }
