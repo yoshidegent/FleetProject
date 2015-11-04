@@ -98,7 +98,7 @@ public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<Car
                     break;
 
                 //benefit in kind/month
-                case 15:
+                /*case 15:
                     if(value.isEmpty())
                         carModel.setBenefitInKindPerMonth(null);
                     else
@@ -158,7 +158,7 @@ public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<Car
                     }
                     else
                         carModel.setWinterTyreRimType(null);
-                    break;
+                    break;*/
             }
         }
 
