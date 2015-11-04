@@ -9,7 +9,7 @@
     <div th:replace="fragments/header::header">
     </div>
     <header>
-        <h1 th:text='${carModel.brand + " " +  carModel.type}'></h1>
+        <h1 th:text='${carModel.brand + " " +  carModel.model}'></h1>
     </header>
     <div class="row">
         <div class="col-sm-4">
@@ -24,7 +24,7 @@
                 <dd th:text="${carModel.brand}"></dd>
 
                 <dt>Type</dt>
-                <dd th:text="${carModel.type}"></dd>
+                <dd th:text="${carModel.model}"></dd>
 
                 <dt>Pack</dt>
                 <dd th:text="${carModel.pack}"></dd>

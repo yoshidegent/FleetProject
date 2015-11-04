@@ -50,7 +50,7 @@ public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<Car
                     break;
 
                 case 5: // Model
-                    carModel.setType(value);
+                    carModel.setModel(value);
                     break;
 
                 case 6: // Pack

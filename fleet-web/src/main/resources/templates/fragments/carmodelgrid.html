@@ -12,7 +12,7 @@
                         <img th:if="${carModel.pictureUrl == null}" th:src="@{/images/car-shadow.png}"/>
                     </figure>
                     <div class="carModelTitle">
-                        <p th:text="${carModel.brand + ' ' + carModel.type}"></p>
+                        <p th:text="${carModel.brand + ' ' + carModel.model}"></p>
                     </div>
                 </a>
             </div>
