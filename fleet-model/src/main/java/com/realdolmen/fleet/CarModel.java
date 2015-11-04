@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Period;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 public class CarModel extends AbstractEntity {
@@ -54,8 +53,8 @@ public class CarModel extends AbstractEntity {
     private int idealKm;
     private int maxKm;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<CarOption> optionPriceMap;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<CarOption> options;
 
     private BigDecimal listPriceInclVat;
     private BigDecimal amountUpgradeInclVat;
@@ -71,7 +70,7 @@ public class CarModel extends AbstractEntity {
 
     public CarModel(int category, int co2Emission, int fiscalHorsePower, FuelType fuelType,
         String brand, String type, String pack, Period deliveryTime, RimType winterTyreRimType,
-        int maxKm, int idealKm, Map<CarOption, BigDecimal> optionPriceMap, BigDecimal listPriceInclVat,
+        int maxKm, int idealKm, List<CarOption> options, BigDecimal listPriceInclVat,
         BigDecimal amountUpgradeInclVat, BigDecimal amountDowngradeInclVat, BigDecimal benefitInKindPerMonth, String pictureUrl) {
         this.category = category;
         this.co2Emission = co2Emission;
@@ -84,7 +83,7 @@ public class CarModel extends AbstractEntity {
         this.winterTyreRimType = winterTyreRimType;
         this.maxKm = maxKm;
         this.idealKm = idealKm;
-        this.optionPriceMap = optionPriceMap;
+        this.options = options;
         this.listPriceInclVat = listPriceInclVat;
         this.amountUpgradeInclVat = amountUpgradeInclVat;
         this.amountDowngradeInclVat = amountDowngradeInclVat;
@@ -180,14 +179,6 @@ public class CarModel extends AbstractEntity {
         this.maxKm = maxKm;
     }
 
-    public Map<CarOption, BigDecimal> getOptionPriceMap() {
-        return optionPriceMap;
-    }
-
-    public void setOptionPriceMap(Map<CarOption, BigDecimal> optionPriceMap) {
-        this.optionPriceMap = optionPriceMap;
-    }
-
     public BigDecimal getListPriceInclVat() {
         return listPriceInclVat;
     }
@@ -246,7 +237,7 @@ public class CarModel extends AbstractEntity {
             ", winterTyreRimType=" + winterTyreRimType +
             ", idealKm=" + idealKm +
             ", maxKm=" + maxKm +
-            ", optionPriceMap=" + optionPriceMap +
+            ", options=" + options +
             ", listPriceInclVat=" + listPriceInclVat +
             ", amountUpgradeInclVat=" + amountUpgradeInclVat +
             ", amountDowngradeInclVat=" + amountDowngradeInclVat +
