@@ -55,6 +55,7 @@ body {
     width: 100%;
     background-color: #293d49;
     box-shadow: 2px 2px 10px #888888;
+    display: flex;
 }
 
 .gridCell:hover {
@@ -101,9 +102,15 @@ body {
 .carModelTitle {
     padding: 25px;
     font-family: 'Roboto Light', sans-serif;
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: bolder;
     color: white;
+    display: flex;
+    flex: 1;
+}
+
+.carModelTitle p {
+    align-self: flex-end;
 }
 
 .carPictureContainer {
@@ -123,4 +130,34 @@ body {
 
 #navBarLogo:hover {
     color: #2CABE0;
+}
+
+#pictureBlock {
+    overflow: hidden;
+    width: 350px;
+    height: 250px;
+    box-shadow: 2px 2px 10px #888888;
+    background-color: white;
+    vertical-align: middle;
+    margin: 1rem;
+    position: relative;
+}
+
+#pictureBlock img {
+    max-width:100%;
+    max-height:100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.gridCellLink {
+    text-decoration:none;
+    color:black;
+    display: flex;
+    flex-direction: column;
 }
