@@ -2,6 +2,8 @@ package com.realdolmen.fleet;
 
 import com.realdolmen.fleet.spreadsheet.ExcelSpreadsheetServiceImpl;
 import com.realdolmen.fleet.spreadsheet.SpreadsheetService;
+import com.realdolmen.fleet.spreadsheet.mapper.ExcelCarModelSpreadsheetMapperImpl;
+import com.realdolmen.fleet.spreadsheet.mapper.SpreadsheetMapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +21,7 @@ public class SpreadsheetServiceTest extends AbstractServiceTest {
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
     private SpreadsheetService spreadsheetService = new ExcelSpreadsheetServiceImpl();
+    private SpreadsheetMapper<CarModel> spreadsheetMapper = new ExcelCarModelSpreadsheetMapperImpl();
 
     @Autowired
     private CarService carServiceMock;
@@ -26,6 +29,7 @@ public class SpreadsheetServiceTest extends AbstractServiceTest {
     @Before
     public void before()
     {
+        spreadsheetService.setSpreadsheetMapper(spreadsheetMapper);
         spreadsheetService.getSpreadsheetMapper().setCarService(carServiceMock);
         Mockito.when(carServiceMock.findCarOptionByNameIgnoreCase("towing bracket")).thenReturn(
             new CarOption("Towing Bracket"));
