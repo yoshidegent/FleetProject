@@ -13,7 +13,7 @@
     </header>
 
     <ul>
-        <li th:each="optionEntry : ${carModel.optionPriceMap}">
+        <li th:each="optionEntry : ${carModel.options}">
             <span th:text="${optionEntry.key}"></span>
             <label
         </li>
