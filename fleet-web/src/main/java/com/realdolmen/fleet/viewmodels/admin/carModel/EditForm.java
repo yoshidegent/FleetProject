@@ -59,9 +59,8 @@ public class EditForm {
         this.winterTyreRimType = carModel.getWinterTyreRimType();
         this.idealKm = carModel.getIdealKm();
         this.maxKm = carModel.getMaxKm();
-        // TODO: change when done
-        this.availableOptions = carModel.getOptions();
-        this.defaultOptions = carModel.getOptions();
+        this.availableOptions = carModel.getAvailableOptions();
+        this.defaultOptions = carModel.getDefaultOptions();
         this.listPriceInclVat = carModel.getListPriceInclVat();
         this.amountDowngradeInclVat = carModel.getAmountDowngradeInclVat();
         this.amountUpgradeInclVat = carModel.getAmountUpgradeInclVat();
@@ -85,8 +84,8 @@ public class EditForm {
         carModel.setWinterTyreRimType(this.winterTyreRimType);
         carModel.setIdealKm(this.idealKm);
         carModel.setMaxKm(this.maxKm);
-        // TODO: change when done
-        carModel.setOptions(this.availableOptions);
+        carModel.setAvailableOptions(this.availableOptions);
+        carModel.setDefaultOptions(this.defaultOptions);
         carModel.setListPriceInclVat(this.listPriceInclVat);
         carModel.setAmountDowngradeInclVat(this.amountDowngradeInclVat);
         carModel.setAmountUpgradeInclVat(this.amountUpgradeInclVat);

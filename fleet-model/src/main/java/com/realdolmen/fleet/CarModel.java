@@ -95,12 +95,20 @@ public class CarModel extends AbstractEntity {
         this.benefitInKindPerMonth = benefitInKindPerMonth;
     }
 
-    public List<CarOption> getOptions() {
-        return options;
+    public List<CarOption> getDefaultOptions() {
+        return defaultOptions;
     }
 
-    public void setOptions(List<CarOption> options) {
-        this.options = options;
+    public void setDefaultOptions(List<CarOption> defaultOptions) {
+        this.defaultOptions = defaultOptions;
+    }
+
+    public List<CarOption> getAvailableOptions() {
+        return availableOptions;
+    }
+
+    public void setAvailableOptions(List<CarOption> availableOptions) {
+        this.availableOptions = availableOptions;
     }
 
     public int getCategory() {
