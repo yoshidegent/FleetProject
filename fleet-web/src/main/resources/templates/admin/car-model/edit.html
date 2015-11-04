@@ -7,21 +7,40 @@
 
     <script>
         /*<![CDATA[*/
-        $(document).ready(function()
+        $(document).ready(function() {
 
             var pictureUrl = $('#pictureUrlInput');
             var img = $('#carImage');
             var default_url = /*[[@{/images/car-shadow.png}]]*/'';
 
+            var resizePicture = function() {
+                var blockHeight = $('#pictureBlock').height();
+                var blockWidth = $('#pictureBlock').width();
+
+                var imgHeight = img.height();
+                var imgWidth = img.width();
+                /*
+                if(imgWidth >= imgHeight) {
+                    img.css('width', blockWidth);
+                }
+                else {
+                    img.css('height', blockHeight);
+                }
+                */
+            };
+
             var getPictureFromUrl = function(){
                 var img_url = pictureUrl.val();
                 img.attr('src', img_url);
+                resizePicture();
             };
 
+            resizePicture();
             pictureUrl.change(getPictureFromUrl);
 
             img.error(function() {
-                $(this).attr('src', default_url)
+                $(this).attr('src', default_url);
+                resizePicture();
             });
 
         });
