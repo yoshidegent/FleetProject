@@ -1,15 +1,16 @@
 package com.realdolmen.fleet;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class CarOption extends AbstractEntity {
     private String name;
-    private boolean isDefault;
 
-    public CarOption(String name, boolean isDefault) {
+    public CarOption() {}
+
+    public CarOption(String name) {
         this.name = name;
-        this.isDefault = isDefault;
     }
 
     public String getName() {
@@ -20,11 +21,16 @@ public class CarOption extends AbstractEntity {
         this.name = name;
     }
 
-    public boolean isDefault() {
-        return isDefault;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CarOption carOption = (CarOption) o;
+        return Objects.equals(id, carOption.id);
     }
 
-    public void setIsDefault(boolean isDefault) {
-        this.isDefault = isDefault;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

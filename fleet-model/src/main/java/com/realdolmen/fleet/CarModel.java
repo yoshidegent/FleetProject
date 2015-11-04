@@ -91,6 +91,14 @@ public class CarModel extends AbstractEntity {
         this.pictureUrl = pictureUrl;
     }
 
+    public List<CarOption> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<CarOption> options) {
+        this.options = options;
+    }
+
     public int getCategory() {
         return category;
     }

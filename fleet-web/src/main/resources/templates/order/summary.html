@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <title></title>
+    <title>Fleet - Details</title>
+    <th:block th:include="fragments/head::head" />
 </head>
 <body>
-Summary
+    <div id="mainContainer" class="container">
+        <div th:replace="fragments/header::header"></div>
+
+        <ul>
+            <li th:each="option : ${carOrder.orderedCar.selectedCarOptions}" th:text="${option.name}"></li>
+        </ul>
+    </div>
 </body>
 </html>

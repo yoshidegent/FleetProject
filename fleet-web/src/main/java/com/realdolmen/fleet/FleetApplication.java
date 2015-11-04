@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContext;
 
 import javax.persistence.Persistence;
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,12 +25,11 @@ public class FleetApplication {
             app.getClass().getResourceAsStream("/excel/RealDolmenWagenparktabelMei2015.xlsx"), 0);
 
         CarService carService = app.getBean(CarServiceImpl.class);
-        Map<CarOption, BigDecimal> p = new HashMap<>();
-        CarOption carOption = new CarOption();
-        carOption.setName("Trekhaak");
+
+        CarOption carOption = new CarOption("Trekhaak");
         carService.saveOption(carOption);
-        p.put(carOption, BigDecimal.valueOf(123));
-        carModels.get(0).setOptionPriceMap(p);
+        carModels.get(0).setOptions(Collections.singletonList(carOption));
+
         carService.saveCarModels(carModels);
     }
 }

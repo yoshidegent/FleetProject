@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.time.Period;
+import java.util.List;
 import java.util.Map;
 
 public class EditForm {
@@ -34,7 +35,8 @@ public class EditForm {
     private Integer idealKm;
     private Integer maxKm;
 
-    private Map<CarOption, BigDecimal> optionPriceMap;
+    private List<CarOption> availableOptions;
+    private List<CarOption> defaultOptions;
 
     private BigDecimal listPriceInclVat;
     private BigDecimal amountUpgradeInclVat;
@@ -57,7 +59,9 @@ public class EditForm {
         this.winterTyreRimType = carModel.getWinterTyreRimType();
         this.idealKm = carModel.getIdealKm();
         this.maxKm = carModel.getMaxKm();
-        this.optionPriceMap = carModel.getOptionPriceMap();
+        // TODO: change when done
+        this.availableOptions = carModel.getOptions();
+        this.defaultOptions = carModel.getOptions();
         this.listPriceInclVat = carModel.getListPriceInclVat();
         this.amountDowngradeInclVat = carModel.getAmountDowngradeInclVat();
         this.amountUpgradeInclVat = carModel.getAmountUpgradeInclVat();
@@ -81,7 +85,8 @@ public class EditForm {
         carModel.setWinterTyreRimType(this.winterTyreRimType);
         carModel.setIdealKm(this.idealKm);
         carModel.setMaxKm(this.maxKm);
-        carModel.setOptionPriceMap(this.optionPriceMap);
+        // TODO: change when done
+        carModel.setOptions(this.availableOptions);
         carModel.setListPriceInclVat(this.listPriceInclVat);
         carModel.setAmountDowngradeInclVat(this.amountDowngradeInclVat);
         carModel.setAmountUpgradeInclVat(this.amountUpgradeInclVat);
@@ -211,12 +216,20 @@ public class EditForm {
         this.maxKm = maxKm;
     }
 
-    public Map<CarOption, BigDecimal> getOptionPriceMap() {
-        return optionPriceMap;
+    public List<CarOption> getAvailableOptions() {
+        return availableOptions;
     }
 
-    public void setOptionPriceMap(Map<CarOption, BigDecimal> optionPriceMap) {
-        this.optionPriceMap = optionPriceMap;
+    public void setAvailableOptions(List<CarOption> availableOptions) {
+        this.availableOptions = availableOptions;
+    }
+
+    public List<CarOption> getDefaultOptions() {
+        return defaultOptions;
+    }
+
+    public void setDefaultOptions(List<CarOption> defaultOptions) {
+        this.defaultOptions = defaultOptions;
     }
 
     public BigDecimal getListPriceInclVat() {

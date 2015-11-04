@@ -15,4 +15,7 @@ public interface CarService {
     void deleteCarModels(Long[] ids);
 
     void saveOption(CarOption carOption);
+
+    List<CarOption> findOptionsByIds(List<Long> ids);
+    CarOption findOptionById(Long id);
 }

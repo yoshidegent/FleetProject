@@ -54,4 +54,14 @@ public class CarServiceImpl implements CarService {
     public void saveOption(CarOption carOption) {
         optionRepository.save(carOption);
     }
+
+    @Override
+    public List<CarOption> findOptionsByIds(List<Long> ids) {
+        return optionRepository.findAll(ids);
+    }
+
+    @Override
+    public CarOption findOptionById(Long id) {
+        return optionRepository.findOne(id);
+    }
 }

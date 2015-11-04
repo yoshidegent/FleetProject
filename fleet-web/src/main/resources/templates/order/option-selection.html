@@ -5,19 +5,30 @@
     <th:block th:include="fragments/head::head" />
 </head>
 <body>
-<div id="mainContainer" class="container">
-    <div th:replace="fragments/header::header">
-    </div>
-    <header>
-        <h1 th:text='${carModel.brand + " " +  carModel.model}'></h1>
-    </header>
+    <div id="mainContainer" class="container">
+        <div th:replace="fragments/header::header"></div>
+        <header>
+            <h1 th:text='${carModel.brand + " " +  carModel.model}'></h1>
+        </header>
 
-    <ul>
-        <li th:each="optionEntry : ${carModel.options}">
-            <span th:text="${optionEntry.key}"></span>
-            <label
-        </li>
-    </ul>
-</div>
+        <!--<ul>
+            <li th:each="option : ${carModel.defaultOptions}">
+                <span th:text="${option.name}"></span>
+            </li>
+        </ul>-->
+
+        <!--/* th:action is required for the CSRF token to be injected by Thymeleaf,
+               hence the "stupid" syntax for an empty action */-->
+        <form method="post" th:object="${optionSelectionList}" th:action="${''}">
+            <ul>
+                <li th:each="option : ${optionSelectionList.data}">
+                    <input type="checkbox" th:field="*{selection}" th:value="${option}" />
+                    <label th:text="${option.name}"></label>
+                </li>
+            </ul>
+
+            <input type="submit" name="_eventId_submit" value="Continue" />
+        </form>
+    </div>
 </body>
 </html>
