@@ -5,12 +5,14 @@
 
     <var name="carOrder" class="com.realdolmen.fleet.CarOrder" />
 
-    <view-state id="optionSelection" model="carOrder" view="order/option-selection">
-        <on-entry>
-            <set name="carOrder.orderedCar" value="new com.realdolmen.fleet.PhysicalCar()" />
-            <evaluate expression="carServiceImpl.findCarModel(requestParameters.id)"
-                      result="carOrder.orderedCar.carModel" result-type="com.realdolmen.fleet.CarModel" />
+    <on-start>
+        <set name="carOrder.orderedCar" value="new com.realdolmen.fleet.PhysicalCar()"/>
+        <evaluate expression="carServiceImpl.findCarModel(requestParameters.id)"
+                  result="carOrder.orderedCar.carModel" result-type="com.realdolmen.fleet.CarModel"/>
+    </on-start>
 
+    <view-state id="optionSelection" model="optionSelectionList" view="order/option-selection">
+        <on-entry>
             <set name="viewScope.carModel" value="carOrder.orderedCar.carModel" />
             <evaluate expression="new com.realdolmen.fleet.viewmodels.order.OptionSelectionListModel(carModel.options)"
                       result="viewScope.optionSelectionList"

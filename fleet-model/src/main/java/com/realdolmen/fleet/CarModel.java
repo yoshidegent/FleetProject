@@ -61,9 +61,11 @@ public class CarModel extends AbstractEntity {
 
     private BigDecimal benefitInKindPerMonth;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "carmodel_defaultoptions")
     private List<CarOption> defaultOptions;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "carmodel_availableoptions")
     private List<CarOption> availableOptions;
 
     @Transient
