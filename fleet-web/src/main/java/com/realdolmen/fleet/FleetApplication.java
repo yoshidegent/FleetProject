@@ -15,6 +15,7 @@ import java.util.Map;
 
 @SpringBootApplication
 public class FleetApplication {
+
     public static void main(String[] args) {
         ApplicationContext app = SpringApplication.run(FleetApplication.class, args);
 
@@ -26,8 +27,7 @@ public class FleetApplication {
 
         CarService carService = app.getBean(CarServiceImpl.class);
 
-        CarOption carOption = new CarOption("Trekhaak");
-        carService.saveOption(carOption);
+        CarOption carOption = carService.findCarOptionByNameIgnoreCase("towing bracket");
         carModels.get(0).setOptions(Collections.singletonList(carOption));
 
         carService.saveCarModels(carModels);
