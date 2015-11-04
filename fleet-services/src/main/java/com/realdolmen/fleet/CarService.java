@@ -15,4 +15,6 @@ public interface CarService {
     void deleteCarModels(Long[] ids);
 
     void saveOption(CarOption carOption);
+
+    CarOption findCarOptionByNameIgnoreCase(String s);
 }

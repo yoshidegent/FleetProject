@@ -1,6 +1,7 @@
 package com.realdolmen.fleet.config;
 
 import com.realdolmen.fleet.CarOrderRepository;
+import com.realdolmen.fleet.CarService;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,5 +16,11 @@ public class ServicesTestConfig {
     public CarOrderRepository carOrderRepositoryMock()
     {
         return Mockito.mock(CarOrderRepository.class);
+    }
+
+    @Bean
+    public CarService carServiceMock()
+    {
+        return Mockito.mock(CarService.class);
     }
 }

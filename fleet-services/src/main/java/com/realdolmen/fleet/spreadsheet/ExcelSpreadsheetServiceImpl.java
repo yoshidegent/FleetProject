@@ -13,7 +13,8 @@ import java.util.*;
 
 @Service
 public class ExcelSpreadsheetServiceImpl implements SpreadsheetService<CarModel> {
-    private SpreadsheetMapper<CarModel> excelCarModelSpreadsheetMapperImpl = new ExcelCarModelSpreadsheetMapperImpl();
+
+    private SpreadsheetMapper<CarModel> spreadsheetMapper = new ExcelCarModelSpreadsheetMapperImpl();
 
     @Override
     public Map<Integer, String> getSheetNames(InputStream stream) {
@@ -64,13 +65,21 @@ public class ExcelSpreadsheetServiceImpl implements SpreadsheetService<CarModel>
                     cellValues.add(String.valueOf(value));
                 }
 
-                CarModel carModel = excelCarModelSpreadsheetMapperImpl.mapRow(cellValues);
+                CarModel carModel = spreadsheetMapper.mapRow(cellValues);
                 if(carModel != null)
-                    carModels.add(excelCarModelSpreadsheetMapperImpl.mapRow(cellValues));
+                    carModels.add(spreadsheetMapper.mapRow(cellValues));
             }
         }
 
         return carModels;
+    }
+
+    @Override public SpreadsheetMapper getSpreadsheetMapper() {
+        return this.spreadsheetMapper;
+    }
+
+    @Override public void setSpreadsheetMapper(SpreadsheetMapper spreadsheetMapper) {
+        this.spreadsheetMapper = spreadsheetMapper;
     }
 
     private Workbook getWorkbookFromStream(InputStream stream) {
