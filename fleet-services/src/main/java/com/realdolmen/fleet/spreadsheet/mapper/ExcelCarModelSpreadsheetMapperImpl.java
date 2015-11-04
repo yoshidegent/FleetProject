@@ -1,9 +1,11 @@
 package com.realdolmen.fleet.spreadsheet.mapper;
 
 import com.realdolmen.fleet.CarModel;
+import com.realdolmen.fleet.CarOption;
 
 import java.math.BigDecimal;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<CarModel> {
@@ -88,7 +90,24 @@ public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<Car
                         carModel.setAmountDowngradeInclVat(new BigDecimal(value));
                     break;
 
-                //TODO: add benefit conversion
+                //benefit in kind/month
+                case 15:
+                    if(value.isEmpty())
+                        carModel.setBenefitInKindPerMonth(null);
+                    else
+                        carModel.setBenefitInKindPerMonth(new BigDecimal(value));
+                    break;
+
+                case 8:
+                    if(!value.isEmpty())
+                    {
+                        if("yes".equals(value.toLowerCase()))
+                        {
+
+                        }
+                    }
+                    break;
+
                 //TODO: add options
                 //TODO: add winterTyreRimType
             }
