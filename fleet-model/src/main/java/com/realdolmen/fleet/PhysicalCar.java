@@ -2,9 +2,9 @@ package com.realdolmen.fleet;
 
 import org.hibernate.annotations.Where;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
@@ -13,7 +13,7 @@ public class PhysicalCar extends AbstractEntity {
     @ManyToOne
     private CarModel carModel;
 
-    @ElementCollection
+    @OneToMany
     private List<CarOption> selectedCarOptions;
 
     public CarModel getCarModel() {

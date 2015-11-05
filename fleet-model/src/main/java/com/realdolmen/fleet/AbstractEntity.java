@@ -13,6 +13,7 @@ public class AbstractEntity implements Serializable {
     @Version
     private Long version = 0L;
 
+    @Column(columnDefinition = "TINYINT(1) default 0")
     private Boolean deleted = false;
 
     public Long getId() {

@@ -36,7 +36,11 @@
                 <dd th:text="${carModel.fuelType.displayName}"></dd>
 
                 <dt>Delivery time</dt>
-                <dd><span th:if="${carModel.deliveryTime.months != 0}" th:text="${carModel.deliveryTime.months + ' months'}"></span><span th:if="${carModel.deliveryTime.days != 0}" th:text="${carModel.deliveryTime.days + ' days'}"></span></dd>
+                <dd>
+                    <span th:if="${carModel.deliveryTime.months != 0}" th:text="${carModel.deliveryTime.months + ' month(s)'}"></span>
+                    <span th:if="${carModel.deliveryTime.days != 0 and carModel.deliveryTime.months != 0}"> and </span>
+                    <span th:if="${carModel.deliveryTime.days != 0}" th:text="${carModel.deliveryTime.days + ' day(s)'}"></span>
+                </dd>
 
                 <dt>Ideal km</dt>
                 <dd th:text="${carModel.idealKm}"></dd>
@@ -44,6 +48,12 @@
                 <dt>Max. km</dt>
                 <dd th:text="${carModel.maxKm}"></dd>
             </dl>
+
+            <span th:text="${carModel.listPriceInclVat}"></span><br />
+            <span th:text="${carModel.amountDowngradeInclVat}"></span><br />
+            <span th:text="${carModel.amountUpgradeInclVat}"></span><br />
+            <span th:text="${carModel.benefitInKindPerMonth}"></span><br />
+            <a th:href="@{/car/order(id=${carModel.id})}" href="#" class="btn btn-default">Order</a>
         </div>
     </div>
 
