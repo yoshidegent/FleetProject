@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 public class CarModel extends AbstractEntity {

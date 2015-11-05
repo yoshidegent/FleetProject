@@ -8,10 +8,12 @@ public class AbstractEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected  Long id;
+    protected Long id;
 
     @Version
     private Long version = 0L;
+
+    private Boolean deleted = false;
 
     public Long getId() {
         return id;
@@ -27,5 +29,9 @@ public class AbstractEntity implements Serializable {
 
     public Long getVersion() {
         return version;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
     }
 }
