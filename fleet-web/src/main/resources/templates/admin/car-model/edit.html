@@ -13,34 +13,15 @@
             var img = $('#carImage');
             var default_url = /*[[@{/images/car-shadow.png}]]*/'';
 
-            var resizePicture = function() {
-                var blockHeight = $('#pictureBlock').height();
-                var blockWidth = $('#pictureBlock').width();
-
-                var imgHeight = img.height();
-                var imgWidth = img.width();
-                /*
-                if(imgWidth >= imgHeight) {
-                    img.css('width', blockWidth);
-                }
-                else {
-                    img.css('height', blockHeight);
-                }
-                */
-            };
-
             var getPictureFromUrl = function(){
                 var img_url = pictureUrl.val();
                 img.attr('src', img_url);
-                resizePicture();
             };
 
-            resizePicture();
             pictureUrl.change(getPictureFromUrl);
 
             img.error(function() {
                 $(this).attr('src', default_url);
-                resizePicture();
             });
 
         });
@@ -79,9 +60,37 @@
                         <input id="pictureUrlInput" class="form-control" type="text" th:field="*{pictureUrl}" />
                     </div>
 
-                    <!--<label th:field="*{imageFile}">Upload image</label>
-                    <input type="file" th:field="*{imageFile}" />-->
+                    <div>
+                        <table style='width:370px;'>
+                            <tr>
+                                <td style='width:160px;'>
+                                    <b>Group 1:</b><br/>
+                                    <select multiple="multiple" id='lstBox1'>
+                                        <option value="ajax">Ajax</option>
+                                        <option value="jquery">jQuery</option>
+                                        <option value="javascript">JavaScript</option>
+                                        <option value="mootool">MooTools</option>
+                                        <option value="prototype">Prototype</option>
+                                        <option value="dojo">Dojo</option>
+                                    </select>
+                                </td>
+                                <td style='width:50px;text-align:center;vertical-align:middle;'>
+                                    <input type='button' id='btnRight' class="btn btn-primary" value ='  >  ' /><br />
+                                    <input type='button' id='btnLeft' class="btn btn-primary" value ='  <  ' />
+                                </td>
+                                <td style='width:160px;'>
+                                    <b>Group 2: </b><br/>
+                                    <ul>
+                                        <li th:each="$"></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+
                 </div>
+
                 <div class="col-sm-8">
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label" for="brand">Brand</label>

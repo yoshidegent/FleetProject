@@ -12,8 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
 
@@ -24,17 +22,18 @@ public class SpreadsheetServiceTest extends AbstractServiceTest {
     private SpreadsheetMapper<CarModel> spreadsheetMapper = new ExcelCarModelSpreadsheetMapperImpl();
 
     @Autowired
-    private CarService carServiceMock;
+    private CarOptionService carOptionServiceMock;
 
     @Before
     public void before()
     {
         spreadsheetService.setSpreadsheetMapper(spreadsheetMapper);
-        spreadsheetService.getSpreadsheetMapper().setCarService(carServiceMock);
-        Mockito.when(carServiceMock.findCarOptionByNameIgnoreCase("towing bracket")).thenReturn(
+        spreadsheetService.getSpreadsheetMapper().setCarOptionService(carOptionServiceMock);
+        Mockito.when(carOptionServiceMock.findCarOptionByNameIgnoreCase("towing bracket")).thenReturn(
             new CarOption("Towing Bracket"));
-        Mockito.when(carServiceMock.findCarOptionByNameIgnoreCase("gps")).thenReturn(new CarOption("GPS"));
-        Mockito.when(carServiceMock.findCarOptionByNameIgnoreCase("gsm bluetooth")).thenReturn(new CarOption("GSM Bluetooth"));
+        Mockito.when(carOptionServiceMock.findCarOptionByNameIgnoreCase("gps")).thenReturn(new CarOption("GPS"));
+        Mockito.when(carOptionServiceMock.findCarOptionByNameIgnoreCase("gsm bluetooth")).thenReturn(
+            new CarOption("GSM Bluetooth"));
     }
 
     @Test

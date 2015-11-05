@@ -72,6 +72,8 @@ public class CarModel extends AbstractEntity {
     final static int VAT = 21;
 
     public CarModel() {
+        availableOptions = new ArrayList<>();
+        defaultOptions = new ArrayList<>();
     }
 
     public CarModel(String pictureUrl, int category, int co2Emission, int fiscalHorsePower,
@@ -79,6 +81,7 @@ public class CarModel extends AbstractEntity {
         RimType winterTyreRimType, int idealKm, int maxKm, BigDecimal listPriceInclVat,
         BigDecimal amountUpgradeInclVat, BigDecimal amountDowngradeInclVat,
         BigDecimal benefitInKindPerMonth) {
+        this();
         this.pictureUrl = pictureUrl;
         this.category = category;
         this.co2Emission = co2Emission;
@@ -259,6 +262,22 @@ public class CarModel extends AbstractEntity {
             availableOptions = new ArrayList<>();
         availableOptions.add(carOption);
     }
+
+
+    public void removeDefaultOption(CarOption carOption)
+    {
+        if(defaultOptions == null)
+            defaultOptions = new ArrayList<>();
+        defaultOptions.remove(carOption);
+    }
+
+    public void removeAvailableOption(CarOption carOption)
+    {
+        if(availableOptions == null)
+            availableOptions = new ArrayList<>();
+        availableOptions.remove(carOption);
+    }
+
 
     @Override public String toString() {
         return "CarModel{" +
