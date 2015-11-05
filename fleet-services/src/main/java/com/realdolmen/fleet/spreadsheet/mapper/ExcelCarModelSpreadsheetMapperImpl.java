@@ -114,7 +114,7 @@ public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<Car
                     {
                         if("yes".equals(value.toLowerCase()))
                         {
-                            carModel.addAvailableOption(carOptionService.findCarOptionByNameIgnoreCase("towing bracket"));
+                            carModel.addOption(carOptionService.findCarOptionByNameIgnoreCase("towing bracket"), false);
                         }
                     }
                     break;
@@ -125,12 +125,12 @@ public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<Car
                     {
                         if("yes".equals(value.toLowerCase()))
                         {
-                            carModel.addDefaultOption(
-                                carOptionService.findCarOptionByNameIgnoreCase("gps"));
+                            carModel.addOption(
+                                carOptionService.findCarOptionByNameIgnoreCase("gps"), true);
                         }
                         else if("no".equals(value.toLowerCase()))
                         {
-                            carModel.addAvailableOption(carOptionService.findCarOptionByNameIgnoreCase("gps"));
+                            carModel.addOption(carOptionService.findCarOptionByNameIgnoreCase("gps"), false);
                         }
                     }
                     break;
@@ -141,11 +141,11 @@ public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<Car
                     {
                         if("yes".equals(value.toLowerCase()))
                         {
-                            carModel.addDefaultOption(carOptionService.findCarOptionByNameIgnoreCase("gsm bluetooth"));
+                            carModel.addOption(carOptionService.findCarOptionByNameIgnoreCase("gsm bluetooth"), true);
                         }
                         else if("no".equals(value.toLowerCase()))
                         {
-                            carModel.addAvailableOption(carOptionService.findCarOptionByNameIgnoreCase("gsm bluetooth"));
+                            carModel.addOption(carOptionService.findCarOptionByNameIgnoreCase("gsm bluetooth"), false);
                         }
                     }
                     break;
