@@ -50,22 +50,5 @@ public class CarServiceImpl implements CarService {
             carModelRepository.delete(id);
     }
 
-    @Override
-    public void saveOption(CarOption carOption) {
-        carOptionRepository.save(carOption);
-    }
 
-    @Override public CarOption findCarOptionByNameIgnoreCase(String s) {
-        return carOptionRepository.findByNameIgnoreCase(s);
-    }
-
-    @Override
-    public List<CarOption> findOptionsByIds(List<Long> ids) {
-        return carOptionRepository.findAll(ids);
-    }
-
-    @Override
-    public CarOption findOptionById(Long id) {
-        return carOptionRepository.findOne(id);
-    }
 }

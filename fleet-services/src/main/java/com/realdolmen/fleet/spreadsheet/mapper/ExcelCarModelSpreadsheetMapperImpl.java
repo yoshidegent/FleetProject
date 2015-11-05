@@ -2,6 +2,7 @@ package com.realdolmen.fleet.spreadsheet.mapper;
 
 import com.realdolmen.fleet.CarModel;
 import com.realdolmen.fleet.CarOption;
+import com.realdolmen.fleet.CarOptionService;
 import com.realdolmen.fleet.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,7 @@ import java.util.List;
 public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<CarModel> {
 
     @Autowired
-    private CarService carService;
+    private CarOptionService carOptionService;
 
     @Override
     public CarModel mapRow(List<String> values) {
@@ -100,7 +101,7 @@ public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<Car
                     break;
 
                 //benefit in kind/month
-                /*case 15:
+                case 15:
                     if(value.isEmpty())
                         carModel.setBenefitInKindPerMonth(null);
                     else
@@ -113,7 +114,7 @@ public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<Car
                     {
                         if("yes".equals(value.toLowerCase()))
                         {
-                            carModel.addAvailableOption(carService.findCarOptionByNameIgnoreCase("towing bracket"));
+                            carModel.addAvailableOption(carOptionService.findCarOptionByNameIgnoreCase("towing bracket"));
                         }
                     }
                     break;
@@ -125,11 +126,11 @@ public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<Car
                         if("yes".equals(value.toLowerCase()))
                         {
                             carModel.addDefaultOption(
-                                carService.findCarOptionByNameIgnoreCase("gps"));
+                                carOptionService.findCarOptionByNameIgnoreCase("gps"));
                         }
                         else if("no".equals(value.toLowerCase()))
                         {
-                            carModel.addAvailableOption(carService.findCarOptionByNameIgnoreCase("gps"));
+                            carModel.addAvailableOption(carOptionService.findCarOptionByNameIgnoreCase("gps"));
                         }
                     }
                     break;
@@ -140,11 +141,11 @@ public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<Car
                     {
                         if("yes".equals(value.toLowerCase()))
                         {
-                            carModel.addDefaultOption(carService.findCarOptionByNameIgnoreCase("gsm bluetooth"));
+                            carModel.addDefaultOption(carOptionService.findCarOptionByNameIgnoreCase("gsm bluetooth"));
                         }
                         else if("no".equals(value.toLowerCase()))
                         {
-                            carModel.addAvailableOption(carService.findCarOptionByNameIgnoreCase("gsm bluetooth"));
+                            carModel.addAvailableOption(carOptionService.findCarOptionByNameIgnoreCase("gsm bluetooth"));
                         }
                     }
                     break;
@@ -160,18 +161,18 @@ public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<Car
                     }
                     else
                         carModel.setWinterTyreRimType(null);
-                    break;*/
+                    break;
             }
         }
 
         return carModel;
     }
 
-    public CarService getCarService() {
-        return carService;
+    public CarOptionService getCarOptionService() {
+        return carOptionService;
     }
 
-    public void setCarService(CarService carService) {
-        this.carService = carService;
+    public void setCarOptionService(CarOptionService carOptionService) {
+        this.carOptionService = carOptionService;
     }
 }
