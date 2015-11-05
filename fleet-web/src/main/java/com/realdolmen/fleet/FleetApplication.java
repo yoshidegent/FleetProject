@@ -28,6 +28,7 @@ public class FleetApplication {
         CarService carService = app.getBean(CarServiceImpl.class);
 
         CarOption carOption = carService.findCarOptionByNameIgnoreCase("towing bracket");
+
         carModels.get(0).setAvailableOptions(Collections.singletonList(carOption));
 
         carService.saveCarModels(carModels);

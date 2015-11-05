@@ -1,18 +1,17 @@
 package com.realdolmen.fleet;
 
 import com.realdolmen.fleet.converters.DateConverter;
-import org.hibernate.validator.constraints.Email;
+import org.hibernate.annotations.Where;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.time.LocalDate;
-import java.time.Period;
 
 @Entity
+@Where(clause = "deleted = false")
 public class Employee extends User {
 
     @Transient

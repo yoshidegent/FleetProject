@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface CarModelRepository extends JpaRepository<CarModel, Long> {
+public interface CarModelRepository extends JpaRepository<CarModel, Long>, SoftDeleteRepository<CarModel, Long> {
     @Query("SELECT DISTINCT cm.brand FROM CarModel cm")
     String findAllBrands();
 

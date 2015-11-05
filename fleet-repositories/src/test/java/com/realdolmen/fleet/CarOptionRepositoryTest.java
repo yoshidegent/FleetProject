@@ -30,6 +30,13 @@ public class CarOptionRepositoryTest extends AbstractRepositoryTest {
     }
 
     @Test
+    public void testSoftDelete() {
+        CarOption carOption = carOptions.get(0);
+        carOptionRepository.softDelete(carOption.getId());
+        Assert.assertTrue(carOption.isDeleted());
+    }
+
+    @Test
     public void testFindCarOptionByName()
     {
         String testName = "";

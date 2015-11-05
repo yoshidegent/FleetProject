@@ -28,6 +28,9 @@ public class RepositoryTestConfig {
     public Properties additionalProperties() {
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+        properties.setProperty("hibernate.show_sql", "true");
+        properties.setProperty("hibernate.format_sql", "true");
+        properties.setProperty("hibernate.use_sql_comments", "true");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
         return properties;
     }

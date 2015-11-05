@@ -1,9 +1,12 @@
 package com.realdolmen.fleet;
 
-import javax.persistence.*;
+import org.hibernate.annotations.Where;
+
+import javax.persistence.Entity;
 import java.util.Objects;
 
 @Entity
+@Where(clause = "deleted = false")
 public class CarOption extends AbstractEntity {
     private String name;
 

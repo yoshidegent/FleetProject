@@ -1,5 +1,6 @@
 package com.realdolmen.fleet;
 
+import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.ElementCollection;
@@ -8,6 +9,7 @@ import javax.persistence.FetchType;
 import java.util.Collection;
 
 @Entity
+@Where(clause = "deleted = false")
 public abstract class User extends AbstractEntity {
     @Email
     private String email;

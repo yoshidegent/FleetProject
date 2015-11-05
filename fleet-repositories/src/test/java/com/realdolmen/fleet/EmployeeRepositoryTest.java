@@ -11,12 +11,20 @@ public class EmployeeRepositoryTest extends AbstractRepositoryTest {
     private EmployeeRepository employeeRepository;
 
     @Test
-    public void testEmployeePersists()
-    {
+    public void testEmployeePersists() {
         Employee employee = new Employee();
         Assert.assertNull(employee.getId());
         employee = employeeRepository.save(employee);
         Assert.assertNotNull(employee.getId());
         Assert.assertNotNull(employee.getVersion());
+    }
+
+    @Test
+    public void testEmployeeCanBeSoftDeleted() {
+        Employee employee = new Employee();
+        employeeRepository.save(employee);
+        employeeRepository.softDelete(employee);
+
+        Assert.assertTrue(employee.isDeleted());
     }
 }
