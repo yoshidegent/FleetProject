@@ -126,7 +126,7 @@ public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<Car
                         if("yes".equals(value.toLowerCase()))
                         {
                             carModel.addDefaultOption(
-                                carService.findCarOptionByNameIgnoreCase("gps"));
+                                carOptionService.findCarOptionByNameIgnoreCase("gps"));
                         }
                         else if("no".equals(value.toLowerCase()))
                         {
