@@ -83,4 +83,10 @@ public class CarModelController {
 
         return "redirect:" + fromMappingName("CMC#overview").build();
     }
+
+    @RequestMapping("/options/{id}")
+    public void method()
+    {
+
+    }
 }

@@ -231,7 +231,8 @@ public class CarModel extends AbstractEntity {
 
     public void addOption(CarOption carOption, boolean isDefault)
     {
-        optionsDefaultMap.put(carOption, isDefault);
+        if(carOption != null)
+            optionsDefaultMap.put(carOption, isDefault);
     }
 
 

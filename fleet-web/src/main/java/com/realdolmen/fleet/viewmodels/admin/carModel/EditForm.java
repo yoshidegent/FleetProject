@@ -44,6 +44,8 @@ public class EditForm {
 
     private BigDecimal benefitInKindPerMonth;
 
+    private Long[] optionIds = { 1L, 2L, 3L, 4L };
+
     public void mapFrom(CarModel carModel) {
         this.id = carModel.getId();
         this.pictureUrl = carModel.getPictureUrl();
@@ -89,6 +91,14 @@ public class EditForm {
         carModel.setVersion(this.version);
 
         return carModel;
+    }
+
+    public Long[] getOptionIds() {
+        return optionIds;
+    }
+
+    public void setOptionIds(Long[] optionIds) {
+        this.optionIds = optionIds;
     }
 
     public Long getId() {

@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="fragments/head :: head" />
+    <th:block th:include="fragments/head :: head"/>
 
     <title>Edit</title>
 
     <script>
         /*<![CDATA[*/
-        $(document).ready(function() {
+        $(document).ready(function () {
 
             var pictureUrl = $('#pictureUrlInput');
             var img = $('#carImage');
             var default_url = /*[[@{/images/car-shadow.png}]]*/'';
 
-            var getPictureFromUrl = function(){
+            var getPictureFromUrl = function () {
                 var img_url = pictureUrl.val();
                 img.attr('src', img_url);
             };
 
             pictureUrl.change(getPictureFromUrl);
 
-            img.error(function() {
+            img.error(function () {
                 $(this).attr('src', default_url);
             });
 
@@ -40,7 +40,8 @@
                     <li class="active"><a th:href="@{/admin/car-model}">Car Models</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><p class="navbar-text">Signed in as <span th:text="${user.getEmail()}">someone</span></p></li>
+                    <li><p class="navbar-text">Signed in as <span th:text="${user.getEmail()}">someone</span>
+                    </p></li>
                 </ul>
             </div>
         </div>
@@ -48,41 +49,62 @@
 
     <div class="container">
         <div class="row">
-            <form action="#" th:action="@{/admin/car-model}" method="post" enctype="multipart/form-data" th:object="${editForm}" role="form" data-toggle="validator" class="form-horizontal">
+            <form action="#" th:action="@{/admin/car-model}" method="post"
+                  enctype="multipart/form-data" th:object="${editForm}" role="form"
+                  data-toggle="validator" class="form-horizontal">
                 <div class="col-sm-4">
                     <figure id="pictureBlock">
-                        <img class="img-responsive" id="carImage" th:if="${editForm.pictureUrl == null}" th:src="@{/images/car-shadow.png}" />
-                        <img class="img-responsive" id="carImage" th:if="${editForm.pictureUrl != null}" th:src="${editForm.pictureUrl}" />
+                        <img class="img-responsive" id="carImage"
+                             th:if="${editForm.pictureUrl == null}"
+                             th:src="@{/images/car-shadow.png}"/>
+                        <img class="img-responsive" id="carImage"
+                             th:if="${editForm.pictureUrl != null}"
+                             th:src="${editForm.pictureUrl}"/>
                     </figure>
 
                     <div class="form-group">
                         <label th:field="*{pictureUrl}">URL</label>
-                        <input id="pictureUrlInput" class="form-control" type="text" th:field="*{pictureUrl}" />
+                        <input id="pictureUrlInput" class="form-control" type="text"
+                               th:field="*{pictureUrl}"/>
                     </div>
 
                     <div>
                         <table style='width:370px;'>
                             <tr>
                                 <td style='width:160px;'>
-                                    <b>Group 1:</b><br/>
-                                    <select multiple="multiple" id='lstBox1'>
-                                        <option value="ajax">Ajax</option>
-                                        <option value="jquery">jQuery</option>
-                                        <option value="javascript">JavaScript</option>
-                                        <option value="mootool">MooTools</option>
-                                        <option value="prototype">Prototype</option>
-                                        <option value="dojo">Dojo</option>
-                                    </select>
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <td>Option</td>
+                                            <td>Default</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="option : ${optionMap}">
+                                            <td th:text="${option.key.name}"></td>
+                                            <td>
+                                                <input type="checkbox"
+                                                       th:checked="${option.value}"/>
+                                            </td>
+                                            <td>
+                                                <input class="deleteOptionBtn" type="button"
+                                                       class="glyphicon glyphicon-remove"/>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </td>
                                 <td style='width:50px;text-align:center;vertical-align:middle;'>
-                                    <input type='button' id='btnRight' class="btn btn-primary" value ='  >  ' /><br />
-                                    <input type='button' id='btnLeft' class="btn btn-primary" value ='  <  ' />
+                                    <input type='button' id='btnRight' class="btn btn-primary"
+                                           value='  >  '/><br/>
+                                    <input type='button' id='btnLeft' class="btn btn-primary"
+                                           value='  <  '/>
                                 </td>
                                 <td style='width:160px;'>
-                                    <b>Group 2: </b><br/>
-                                    <ul>
-                                        <li th:each=""></li>
-                                    </ul>
+                                    <b>Group 1:</b><br/>
+                                    <select multiple="multiple" id='lstBox1'>
+                                        <option value="ajax" th:each="option : ${globalOptions}"><span th:text="${}"></span></option>
+                                    </select>
                                 </td>
                             </tr>
                         </table>
@@ -94,8 +116,11 @@
                 <div class="col-sm-8">
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label" for="brand">Brand</label>
+
                         <div class="col-sm-10">
-                            <input id="brand" type="text" class="form-control" th:field="*{brand}" required="required" />
+                            <input id="brand" type="text" class="form-control" th:field="*{brand}"
+                                   required="required"/>
+
                             <div class="help-block with-errors"></div>
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
@@ -103,8 +128,11 @@
 
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label" for="model">Model</label>
+
                         <div class="col-sm-10">
-                            <input id="model" type="text" class="form-control" th:field="*{model}" required="required" />
+                            <input id="model" type="text" class="form-control" th:field="*{model}"
+                                   required="required"/>
+
                             <div class="help-block with-errors"></div>
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
@@ -112,8 +140,11 @@
 
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label" for="pack">Pack</label>
+
                         <div class="col-sm-10">
-                            <input id="pack" type="text" class="form-control" th:field="*{pack}" required="required" />
+                            <input id="pack" type="text" class="form-control" th:field="*{pack}"
+                                   required="required"/>
+
                             <div class="help-block with-errors"></div>
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
@@ -121,6 +152,7 @@
 
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label" for="fuelType">Fuel type</label>
+
                         <div class="col-sm-10">
                             <select id="fuelType" class="form-control" th:field="*{fuelType}">
                                 <option th:each="type : ${T(com.realdolmen.fleet.CarModel.FuelType).values()}"
@@ -132,8 +164,11 @@
 
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label" for="category">Category</label>
+
                         <div class="col-sm-10">
-                            <input id="category" type="number" min="2" max="7" class="form-control" th:field="*{category}" required="required" />
+                            <input id="category" type="number" min="2" max="7" class="form-control"
+                                   th:field="*{category}" required="required"/>
+
                             <div class="help-block with-errors"></div>
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
@@ -141,9 +176,12 @@
 
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label" for="emission">Emission</label>
+
                         <div class="col-sm-10">
                             <div class="input-group">
-                                <input id="emission" type="number" min="0" class="form-control" th:field="*{co2Emission}" required="required" />
+                                <input id="emission" type="number" min="0" class="form-control"
+                                       th:field="*{co2Emission}" required="required"/>
+
                                 <div class="input-group-addon">g/km</div>
                             </div>
                             <div class="help-block with-errors"></div>
@@ -151,9 +189,13 @@
                     </div>
 
                     <div class="form-group has-feedback">
-                        <label class="col-sm-2 control-label" for="fiscalHorsePower">Fiscal HP</label>
+                        <label class="col-sm-2 control-label" for="fiscalHorsePower">Fiscal
+                            HP</label>
+
                         <div class="col-sm-10">
-                            <input id="fiscalHorsePower" type="number" min="0" class="form-control" th:field="*{fiscalHorsePower}" required="required" />
+                            <input id="fiscalHorsePower" type="number" min="0" class="form-control"
+                                   th:field="*{fiscalHorsePower}" required="required"/>
+
                             <div class="help-block with-errors"></div>
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
@@ -161,10 +203,13 @@
 
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label" for="listPrice">List price</label>
+
                         <div class="col-sm-10">
                             <div class="input-group">
                                 <div class="input-group-addon">€</div>
-                                <input id="listPrice" type="number" step="0.01" min="0.00" class="form-control" th:field="*{listPriceInclVat}" required="required" />
+                                <input id="listPrice" type="number" step="0.01" min="0.00"
+                                       class="form-control" th:field="*{listPriceInclVat}"
+                                       required="required"/>
                             </div>
                             <div class="help-block with-errors"></div>
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
@@ -173,9 +218,12 @@
 
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label" for="idealKm">Ideal km</label>
+
                         <div class="col-sm-10">
                             <div class="input-group">
-                                <input id="idealKm" type="number" min="0" class="form-control" th:field="*{idealKm}" required="required" />
+                                <input id="idealKm" type="number" min="0" class="form-control"
+                                       th:field="*{idealKm}" required="required"/>
+
                                 <div class="input-group-addon">km</div>
                             </div>
                             <div class="help-block with-errors"></div>
@@ -184,9 +232,12 @@
 
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label" for="maxKm">Max. km</label>
+
                         <div class="col-sm-10">
                             <div class="input-group">
-                                <input id="maxKm" type="number" min="0" class="form-control" th:field="*{maxKm}" required="required" />
+                                <input id="maxKm" type="number" min="0" class="form-control"
+                                       th:field="*{maxKm}" required="required"/>
+
                                 <div class="input-group-addon">km</div>
                             </div>
                             <div class="help-block with-errors"></div>
@@ -194,16 +245,21 @@
                     </div>
 
                     <div class="form-group has-feedback">
-                        <label class="col-sm-2 control-label" for="deliveryTimeMonths">Delivery time</label>
+                        <label class="col-sm-2 control-label" for="deliveryTimeMonths">Delivery
+                            time</label>
+
                         <div class="col-sm-10">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <input id="deliveryTimeMonths" type="number" min="0" class="form-control"
-                                           th:field="*{deliveryTimeMonths}" required="required" />
+                                    <input id="deliveryTimeMonths" type="number" min="0"
+                                           class="form-control"
+                                           th:field="*{deliveryTimeMonths}" required="required"/>
                                 </div>
                                 <div class="col-sm-6">
-                                    <input id="deliveryTimeDays" type="number" min="0" class="form-control"
-                                           th:field="*{deliveryTimeDays}" required="required" />
+                                    <input id="deliveryTimeDays" type="number" min="0"
+                                           class="form-control"
+                                           th:field="*{deliveryTimeDays}" required="required"/>
+
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>
@@ -219,8 +275,9 @@
                         </div>
                     </div>-->
 
-                    <input type="hidden" th:field="*{id}" />
-                    <input type="hidden" th:field="*{version}" />
+                    <input type="hidden" th:field="*{id}"/>
+                    <input type="hidden" th:field="*{version}"/>
+                    <input type="hidden" th:field="*{optionIds}">
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
@@ -236,8 +293,8 @@
 
 <script th:src="@{/scripts/validator.js}"></script>
 <script>
-    (function($) {
-        $(document).ready(function() {
+    (function ($) {
+        $(document).ready(function () {
             $('form').validator();
         });
     })(jQuery);
