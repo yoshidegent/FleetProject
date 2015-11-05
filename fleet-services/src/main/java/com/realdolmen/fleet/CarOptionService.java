@@ -16,4 +16,13 @@ public interface CarOptionService {
 
     void makeDefaultOptionAvailable(CarModel carModel, CarOption carOption);
     void makeAvailableOptionDefault(CarModel carModel, CarOption carOption);
+
+    void makeDefaultOptionsAvailable(CarModel carModel, List<CarOption> carOptions);
+    void makeAvailableOptionsDefault(CarModel carModel, List<CarOption> carOptions);
+
+    CarOptionRepository getCarOptionRepository();
+    void setCarOptionRepository(CarOptionRepository carOptionRepository);
+
+    List<CarOption> getDefaultOptionsForCarModel(CarModel carModel);
+    List<CarOption> getAvailableOptionsForCarModel(CarModel carModel);
 }

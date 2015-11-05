@@ -1,16 +1,16 @@
 package com.realdolmen.fleet;
 
 import com.realdolmen.fleet.converters.PeriodConverter;
-import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
-@Where(clause = "deleted = 0")
 public class CarModel extends AbstractEntity {
 
     public enum FuelType{
@@ -62,19 +62,14 @@ public class CarModel extends AbstractEntity {
 
     private BigDecimal benefitInKindPerMonth;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "carmodel_defaultoptions")
-    private List<CarOption> defaultOptions;
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "carmodel_availableoptions")
-    private List<CarOption> availableOptions;
+    @ElementCollection
+    private Map<CarOption, Boolean> optionsDefaultMap;
 
     @Transient
     final static int VAT = 21;
 
     public CarModel() {
-        availableOptions = new ArrayList<>();
-        defaultOptions = new ArrayList<>();
+        optionsDefaultMap = new HashMap<>();
     }
 
     public CarModel(String pictureUrl, int category, int co2Emission, int fiscalHorsePower,
@@ -99,22 +94,6 @@ public class CarModel extends AbstractEntity {
         this.amountUpgradeInclVat = amountUpgradeInclVat;
         this.amountDowngradeInclVat = amountDowngradeInclVat;
         this.benefitInKindPerMonth = benefitInKindPerMonth;
-    }
-
-    public List<CarOption> getDefaultOptions() {
-        return defaultOptions;
-    }
-
-    public void setDefaultOptions(List<CarOption> defaultOptions) {
-        this.defaultOptions = defaultOptions;
-    }
-
-    public List<CarOption> getAvailableOptions() {
-        return availableOptions;
-    }
-
-    public void setAvailableOptions(List<CarOption> availableOptions) {
-        this.availableOptions = availableOptions;
     }
 
     public int getCategory() {
@@ -250,35 +229,16 @@ public class CarModel extends AbstractEntity {
     }
 
 
-    public void addDefaultOption(CarOption carOption)
+    public void addOption(CarOption carOption, boolean isDefault)
     {
-        if(defaultOptions == null)
-            defaultOptions = new ArrayList<>();
-        defaultOptions.add(carOption);
-    }
-
-    public void addAvailableOption(CarOption carOption)
-    {
-        if(availableOptions == null)
-            availableOptions = new ArrayList<>();
-        availableOptions.add(carOption);
+        optionsDefaultMap.put(carOption, isDefault);
     }
 
 
     public void removeDefaultOption(CarOption carOption)
     {
-        if(defaultOptions == null)
-            defaultOptions = new ArrayList<>();
-        defaultOptions.remove(carOption);
+        optionsDefaultMap.remove(carOption);
     }
-
-    public void removeAvailableOption(CarOption carOption)
-    {
-        if(availableOptions == null)
-            availableOptions = new ArrayList<>();
-        availableOptions.remove(carOption);
-    }
-
 
     @Override public String toString() {
         return "CarModel{" +
@@ -298,8 +258,11 @@ public class CarModel extends AbstractEntity {
             ", amountUpgradeInclVat=" + amountUpgradeInclVat +
             ", amountDowngradeInclVat=" + amountDowngradeInclVat +
             ", benefitInKindPerMonth=" + benefitInKindPerMonth +
-            ", defaultOptions=" + defaultOptions +
-            ", availableOptions=" + availableOptions +
+            ", optionsDefaultMap=" + optionsDefaultMap +
             '}';
+    }
+
+    public Map<CarOption, Boolean> getOptionsDefaultMap() {
+        return optionsDefaultMap;
     }
 }

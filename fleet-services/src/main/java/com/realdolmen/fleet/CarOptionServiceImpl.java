@@ -1,10 +1,13 @@
 package com.realdolmen.fleet;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+@Service
 public class CarOptionServiceImpl implements CarOptionService {
 
     @Autowired
@@ -35,12 +38,9 @@ public class CarOptionServiceImpl implements CarOptionService {
 
         for(CarOption carOption : allCarOptions)
         {
-            if(!carModel.getAvailableOptions().contains(carOption))
+            if(!carModel.getOptionsDefaultMap().containsKey(carOption))
             {
-                if(!carModel.getDefaultOptions().contains(carOption))
-                {
-                    carOptionsActiveOnesExcluded.add(carOption);
-                }
+               carOptionsActiveOnesExcluded.add(carOption);
             }
         }
 
@@ -50,23 +50,64 @@ public class CarOptionServiceImpl implements CarOptionService {
     @Override
     public void addGlobalCarOptionAndAddToCarModel(CarOption carOption, CarModel carModel) {
         carOption = carOptionRepository.save(carOption);
-        carModel.addAvailableOption(carOption);
+        carModel.addOption(carOption, false);
     }
 
     @Override public void makeDefaultOptionAvailable(CarModel carModel, CarOption carOption) {
-        if(carModel.getDefaultOptions().contains(carOption))
+        if(carModel.getOptionsDefaultMap().containsKey(carOption))
         {
-            carModel.removeDefaultOption(carOption);
-            carModel.addAvailableOption(carOption);
+            carModel.addOption(carOption, false);
         }
     }
 
     @Override public void makeAvailableOptionDefault(CarModel carModel, CarOption carOption) {
-        if(carModel.getDefaultOptions().contains(carOption))
+        if(carModel.getOptionsDefaultMap().containsKey(carOption))
         {
-            carModel.removeAvailableOption(carOption);
-            carModel.addDefaultOption(carOption);
+            carModel.addOption(carOption, true);
         }
+    }
 
+    @Override
+    public void makeDefaultOptionsAvailable(CarModel carModel, List<CarOption> carOptions) {
+        for (CarOption carOption : carOptions)
+        {
+            this.makeDefaultOptionAvailable(carModel, carOption);
+        }
+    }
+
+    @Override
+    public void makeAvailableOptionsDefault(CarModel carModel, List<CarOption> carOptions) {
+        for (CarOption carOption : carOptions)
+        {
+            this.makeAvailableOptionDefault(carModel, carOption);
+        }
+    }
+
+    @Override public CarOptionRepository getCarOptionRepository() {
+        return this.carOptionRepository;
+    }
+
+    @Override public void setCarOptionRepository(CarOptionRepository carOptionRepository) {
+        this.carOptionRepository = carOptionRepository;
+    }
+
+    @Override public List<CarOption> getDefaultOptionsForCarModel(CarModel carModel) {
+        List<CarOption> defaultCarOptions = new ArrayList<>();
+        for(Map.Entry<CarOption, Boolean> option : carModel.getOptionsDefaultMap().entrySet())
+        {
+            if(option.getValue())
+                defaultCarOptions.add(option.getKey());
+        }
+        return defaultCarOptions;
+    }
+
+    @Override public List<CarOption> getAvailableOptionsForCarModel(CarModel carModel) {
+        List<CarOption> defaultCarOptions = new ArrayList<>();
+        for(Map.Entry<CarOption, Boolean> option : carModel.getOptionsDefaultMap().entrySet())
+        {
+            if(!option.getValue())
+                defaultCarOptions.add(option.getKey());
+        }
+        return defaultCarOptions;
     }
 }

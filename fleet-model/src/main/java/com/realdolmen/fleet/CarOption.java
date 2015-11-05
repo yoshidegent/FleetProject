@@ -24,16 +24,20 @@ public class CarOption extends AbstractEntity {
         this.name = name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+
+    @Override public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
         CarOption carOption = (CarOption) o;
-        return Objects.equals(id, carOption.id);
+
+        return name.equals(carOption.name);
+
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    @Override public int hashCode() {
+        return name.hashCode();
     }
 }
