@@ -26,8 +26,8 @@ public class FleetApplication {
             app.getClass().getResourceAsStream("/excel/RealDolmenWagenparktabelMei2015.xlsx"), 0);
 
         CarService carService = app.getBean(CarServiceImpl.class);
-
-        CarOption carOption = carService.findCarOptionByNameIgnoreCase("towing bracket");
+        CarOptionService carOptionService = app.getBean(CarOptionServiceImpl.class);
+        CarOption carOption = carOptionService.findCarOptionByNameIgnoreCase("towing bracket");
 
         carModels.get(0).setAvailableOptions(Collections.singletonList(carOption));
 
