@@ -4,6 +4,7 @@ INSERT INTO `fleet`.`user` (`DTYPE`, `id`, `version`, `email`, `password`, `date
 INSERT INTO `fleet`.`user_roles` (`User_id`, `roles`) VALUES ('1', 'Employee');
 INSERT INTO `fleet`.`user_roles` (`User_id`, `roles`) VALUES ('2', 'Employee');
 
-INSERT INTO `fleet`.`caroption` (`id`, `version`, `name`) VALUES ('1', '1', 'Towing Bracket');
-INSERT INTO `fleet`.`caroption` (`id`, `version`, `name`) VALUES ('2', '1', 'GPS');
-INSERT INTO `fleet`.`caroption` (`id`, `version`, `name`) VALUES ('3', '1', 'GSM Bluetooth');
+INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('1', 'Towing Bracket');
+INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('2', 'GPS');
+INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('3', 'GSM Bluetooth');
+INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('4', 'Rims');

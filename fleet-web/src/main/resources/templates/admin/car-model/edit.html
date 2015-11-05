@@ -24,6 +24,11 @@
                 $(this).attr('src', default_url);
             });
 
+            var optionIdsInput = $('#OptionIds');
+
+            var optionIds = optionIdsInput.split(',');
+            console.log(optionIds);
+
         });
         /*]]>*/
     </script>
@@ -69,45 +74,45 @@
                     </div>
 
                     <div>
-                        <table style='width:370px;'>
-                            <tr>
-                                <td style='width:160px;'>
-                                    <table>
-                                        <thead>
-                                        <tr>
-                                            <td>Option</td>
-                                            <td>Default</td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="option : ${optionMap}">
-                                            <td th:text="${option.key.name}"></td>
-                                            <td>
-                                                <input type="checkbox"
-                                                       th:checked="${option.value}"/>
-                                            </td>
-                                            <td>
-                                                <input class="deleteOptionBtn" type="button"
-                                                       class="glyphicon glyphicon-remove"/>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                                <td style='width:50px;text-align:center;vertical-align:middle;'>
-                                    <input type='button' id='btnRight' class="btn btn-primary"
-                                           value='  >  '/><br/>
-                                    <input type='button' id='btnLeft' class="btn btn-primary"
-                                           value='  <  '/>
-                                </td>
-                                <td style='width:160px;'>
-                                    <b>Group 1:</b><br/>
-                                    <select multiple="multiple" id='lstBox1'>
-                                        <option value="ajax" th:each="option : ${globalOptions}"><span th:text="${}"></span></option>
-                                    </select>
-                                </td>
-                            </tr>
-                        </table>
+                        <div>
+                            <div>
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>Option</th>
+                                        <th>Default</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="option : ${optionMap}"
+                                        th:attr="data-option-id=${option.key.id}">
+                                        <td th:text="${option.key.name}"></td>
+                                        <td style="text-align: center">
+                                            <input type="checkbox"
+                                                   th:checked="${option.value}"/>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <button class="deleteOptionBtn btn btn-danger btn-xs"
+                                                    type="button"><span
+                                                    class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style='width:50px;text-align:center;vertical-align:middle;'>
+                                <input type='button' id='btnLeft' class="btn btn-primary"
+                                       value=' ^ '/>
+                            </div>
+                            <div>
+                                <b>All options:</b><br/>
+                                <select multiple="multiple" id='lstBox1' style="width:100%;">
+                                    <option value="ajax" th:each="option : ${globalOptions}"><span
+                                            th:text="${option.name}"></span></option>
+                                </select>
+                            </div>
+                        </div>
 
                     </div>
 
@@ -266,18 +271,9 @@
                         </div>
                     </div>
 
-                    <!--<div class="form-group has-feedback">
-                        <label class="col-sm-2 control-label" for="deliveryTime">Delivery time</label>
-                        <div class="col-sm-10">
-                            <input id="deliveryTime" type="text" class="form-control" th:field="*{deliveryTime}" required="required" />
-                            <div class="help-block with-errors"></div>
-                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                        </div>
-                    </div>-->
-
                     <input type="hidden" th:field="*{id}"/>
                     <input type="hidden" th:field="*{version}"/>
-                    <input type="hidden" th:field="*{optionIds}">
+                    <input type="hidden" id="optionIds" th:field="*{optionIds}"/>
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">

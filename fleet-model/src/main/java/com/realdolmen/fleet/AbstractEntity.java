@@ -11,6 +11,7 @@ public class AbstractEntity implements Serializable {
     protected Long id;
 
     @Version
+    @Column(columnDefinition = "BIGINT(20) default 0")
     private Long version = 0L;
 
     @Column(columnDefinition = "TINYINT(1) default 0")

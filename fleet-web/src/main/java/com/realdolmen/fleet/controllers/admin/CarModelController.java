@@ -1,6 +1,8 @@
 package com.realdolmen.fleet.controllers.admin;
 
 import com.realdolmen.fleet.CarModel;
+import com.realdolmen.fleet.CarOption;
+import com.realdolmen.fleet.CarOptionService;
 import com.realdolmen.fleet.CarService;
 import com.realdolmen.fleet.viewmodels.admin.carModel.EditForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import static org.springframework.web.servlet.mvc.method.annotation.MvcUriCompon
 @RequestMapping("/admin/car-model")
 public class CarModelController {
     @Autowired private CarService carService;
+    @Autowired private CarOptionService carOptionService;
 
     @RequestMapping({"", "/"})
     public String overview(Model model) {
@@ -36,6 +39,9 @@ public class CarModelController {
         EditForm editForm = new EditForm();
         editForm.mapFrom(carModel);
         model.addAttribute("editForm", editForm);
+
+        model.addAttribute("optionMap", carModel.getOptionsDefaultMap());
+        model.addAttribute("globalOptions", carOptionService.findGlobalCarOptionsExcludeActiveOnes(carModel));
 
         return "admin/car-model/edit";
     }
