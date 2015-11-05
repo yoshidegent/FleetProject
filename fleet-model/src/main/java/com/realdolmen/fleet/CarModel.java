@@ -1,7 +1,6 @@
 package com.realdolmen.fleet;
 
 import com.realdolmen.fleet.converters.PeriodConverter;
-import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Where(clause = "deleted = false")
 public class CarModel extends AbstractEntity {
 
     public enum FuelType{

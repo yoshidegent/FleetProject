@@ -1,7 +1,6 @@
 package com.realdolmen.fleet;
 
 import com.realdolmen.fleet.converters.DateConverter;
-import org.hibernate.annotations.Where;
 
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -11,7 +10,6 @@ import javax.validation.constraints.Min;
 import java.time.LocalDate;
 
 @Entity
-@Where(clause = "deleted = false")
 public class Employee extends User {
 
     @Transient

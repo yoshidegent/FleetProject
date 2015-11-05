@@ -23,7 +23,9 @@ public class EmployeeRepositoryTest extends AbstractRepositoryTest {
     public void testEmployeeCanBeSoftDeleted() {
         Employee employee = new Employee();
         employeeRepository.save(employee);
+
         employeeRepository.softDelete(employee);
+        employee = employeeRepository.findOne(employee.getId());
 
         Assert.assertTrue(employee.isDeleted());
     }

@@ -1,7 +1,6 @@
 package com.realdolmen.fleet;
 
 import com.realdolmen.fleet.converters.DateTimeConverter;
-import org.hibernate.annotations.Where;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.*;
@@ -9,7 +8,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Where(clause = "deleted = false")
 public class CarOrder extends AbstractEntity {
     public enum OrderStatus {
         PENDING,

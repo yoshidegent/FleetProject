@@ -30,6 +30,8 @@ public class CarModelRepositoryTest extends AbstractRepositoryTest {
                Period.of(0, 5, 0), CarModel.RimType.STEEL, 14000, 180000, new BigDecimal(25048.99),
                null, new BigDecimal(3924.43), new BigDecimal(104.17)));
         }
+
+        carModelRepository.save(carModels);
     }
 
     @Test public void testFindCarModelsByCategory() {
@@ -41,12 +43,19 @@ public class CarModelRepositoryTest extends AbstractRepositoryTest {
             carModels.get(i).setCategory(3);
         }
 
-        carModelRepository.save(carModels);
-
         List<CarModel> allCarModels = carModelRepository.findAll();
         Assert.assertTrue(allCarModels.size() > 0);
 
         Assert.assertEquals(carModelRepository.findByCategory(2).size(), NUMBER_OF_CATEGORY_2);
         Assert.assertEquals(carModelRepository.findByCategory(3).size(), NUMBER_OF_CATEGORY_3);
+    }
+
+    @Test
+    public void testCarModelCanBeSoftDeleted() {
+        CarModel carModel = carModels.get(0);
+        carModelRepository.softDelete(carModel);
+
+        carModel = carModelRepository.findOne(carModel.getId());
+        Assert.assertTrue(carModel.isDeleted());
     }
 }
