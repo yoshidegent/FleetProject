@@ -55,7 +55,6 @@ public class CarModelRepositoryTest extends AbstractRepositoryTest {
         CarModel carModel = carModels.get(0);
         carModelRepository.softDelete(carModel);
 
-        carModel = carModelRepository.findOne(carModel.getId());
-        Assert.assertTrue(carModel.isDeleted());
+        Assert.assertNull(carModelRepository.findOne(carModel.getId()));
     }
 }

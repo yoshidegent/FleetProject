@@ -20,6 +20,9 @@
         </div>
         <div class="col-sm-4">
             <dl class="dl-horizontal">
+                <dt>Category</dt>
+                <dd th:text="${carModel.category}"></dd>
+
                 <dt>Brand</dt>
                 <dd th:text="${carModel.brand}"></dd>
 
@@ -32,17 +35,14 @@
                 <dt>Fuel type</dt>
                 <dd th:text="${carModel.fuelType.displayName}"></dd>
 
-                <dt>Brand</dt>
-                <dd th:text="${carModel.brand}"></dd>
+                <dt>Delivery time</dt>
+                <dd><span th:if="${carModel.deliveryTime.months != 0}" th:text="${carModel.deliveryTime.months + ' months'}"></span><span th:if="${carModel.deliveryTime.days != 0}" th:text="${carModel.deliveryTime.days + ' days'}"></span></dd>
 
-                <dt>Brand</dt>
-                <dd th:text="${carModel.brand}"></dd>
+                <dt>Ideal km</dt>
+                <dd th:text="${carModel.idealKm}"></dd>
 
-                <dt>Brand</dt>
-                <dd th:text="${carModel.brand}"></dd>
-
-                <dt>Brand</dt>
-                <dd th:text="${carModel.brand}"></dd>
+                <dt>Max. km</dt>
+                <dd th:text="${carModel.maxKm}"></dd>
             </dl>
         </div>
     </div>

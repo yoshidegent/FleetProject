@@ -10,12 +10,12 @@ import java.io.Serializable;
 
 @NoRepositoryBean
 public interface SoftDeleteRepository <T, ID extends Serializable> extends JpaRepository<T, ID> {
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Transactional
     @Query("UPDATE #{#entityName} t SET t.deleted = true WHERE t.id = ?1")
     void softDelete(ID id);
 
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Transactional
     @Query("UPDATE #{#entityName} t SET t.deleted = true WHERE t = ?1")
     void softDelete(T entity);

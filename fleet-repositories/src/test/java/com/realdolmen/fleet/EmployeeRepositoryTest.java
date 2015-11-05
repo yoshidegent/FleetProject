@@ -4,6 +4,8 @@ package com.realdolmen.fleet;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 public class EmployeeRepositoryTest extends AbstractRepositoryTest {
 
@@ -22,11 +24,9 @@ public class EmployeeRepositoryTest extends AbstractRepositoryTest {
     @Test
     public void testEmployeeCanBeSoftDeleted() {
         Employee employee = new Employee();
-        employeeRepository.save(employee);
+        employeeRepository.saveAndFlush(employee);
 
         employeeRepository.softDelete(employee);
-        employee = employeeRepository.findOne(employee.getId());
-
-        Assert.assertTrue(employee.isDeleted());
+        Assert.assertNull(employeeRepository.findOne(employee.getId()));
     }
 }
