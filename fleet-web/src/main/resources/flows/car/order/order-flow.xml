@@ -3,42 +3,35 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-    <var name="carOrder" class="com.realdolmen.fleet.CarOrder" />
-    
-    <decision-state id="check">
+    <input name="id" required="true" type="long" />
+
+    <decision-state id="checkModelIdExists">
         <on-entry>
-            <set name="flowScope.modelId" value="requestParameters.id" />
+            <evaluate expression="carServiceImpl.findCarModel(id)"
+                      result="flowScope.carModel" result-type="com.realdolmen.fleet.CarModel" />
         </on-entry>
-        <if test="flowScope.modelId == null" then="cancel" else="prepare" />
-    </decision-state>
-
-    <action-state id="prepare">
-        <!-- Initialize order -->
-        <!-- Retrieve the current User object by first casting the principal to a
-             FleetPrincipal and calling its getUser method -->
-        <evaluate expression="currentUser.principal" result="flashScope.principal"
-                  result-type="com.realdolmen.fleet.authentication.FleetPrincipal" />
-        <evaluate expression="flashScope.principal.getUser()" result="carOrder.employee"
-                  result-type="com.realdolmen.fleet.Employee" />
-        <evaluate expression="T(com.realdolmen.fleet.CarOrder.OrderStatus).valueOf('PENDING')" result="carOrder.status" />
-
-        <evaluate expression="new com.realdolmen.fleet.PhysicalCar()" result="carOrder.orderedCar" />
-        <evaluate expression="carService.findCarModel(flowScope.modelId)"
-                  result="carOrder.orderedCar.carModel" result-type="com.realdolmen.fleet.CarModel" />
-        <transition to="carModelCheck" />
-    </action-state>
-
-    <decision-state id="carModelCheck">
-        <if test="carOrder.orderedCar == null" then="cancel" else="optionSelection" />
+        <if test="flowScope.carModel == null" then="cancel" else="optionSelection" />
     </decision-state>
 
     <view-state id="optionSelection" model="optionSelectionList" view="order/option-selection">
         <on-entry>
-            <!-- Prepare view related stuff -->
-            <set name="viewScope.carModel" value="carOrder.orderedCar.carModel" />
-            <evaluate expression="new com.realdolmen.fleet.viewmodels.order.OptionSelectionListModel(carModel.availableOptions)"
+            <!-- Initialize order -->
+            <!-- Retrieve the current User object by first casting the principal to a
+                 FleetPrincipal and calling its getUser method -->
+            <set name="flowScope.carOrder" value="new com.realdolmen.fleet.CarOrder(flowScope.carModel)" />
+
+            <evaluate expression="currentUser.principal" result="flashScope.principal"
+                      result-type="com.realdolmen.fleet.authentication.FleetPrincipal" />
+            <evaluate expression="flashScope.principal.getUser()" result="flowScope.carOrder.employee"
+                      result-type="com.realdolmen.fleet.Employee" />
+            <set name="flowScope.carOrder.status" value="T(com.realdolmen.fleet.CarOrder.OrderStatus).valueOf('PENDING')" />
+
+            <evaluate expression="new com.realdolmen.fleet.viewmodels.order.OptionSelectionListModel(carServiceImpl.getAvailableOptionsForModel(flowScope.carModel))"
                       result="viewScope.optionSelectionList"
                       result-type="com.realdolmen.fleet.viewmodels.order.OptionSelectionListModel" />
+
+            <evaluate expression="carServiceImpl.getDefaultOptionsForModel(flowScope.carModel)"
+                      result="viewScope.defaultOptions" />
         </on-entry>
 
         <transition to="summary" on="submit">
@@ -47,7 +40,7 @@
         </transition>
     </view-state>
 
-    <view-state id="summary" model="carOrder" view="order/summary">
+    <view-state id="summary" view="order/summary">
         <transition to="saveOrder" on="submit" />
     </view-state>
 

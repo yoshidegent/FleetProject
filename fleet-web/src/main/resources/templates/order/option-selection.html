@@ -11,11 +11,11 @@
             <h1 th:text='${carModel.brand + " " +  carModel.model}'></h1>
         </header>
 
-        <!--<ul>
-            <li th:each="option : ${carModel.defaultOptions}">
+        <ul>
+            <li th:each="option : ${defaultOptions}">
                 <span th:text="${option.name}"></span>
             </li>
-        </ul>-->
+        </ul>
 
         <!--/* th:action is required for the CSRF token to be injected by Thymeleaf,
                hence the "stupid" syntax for an empty action */-->

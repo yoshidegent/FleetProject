@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -48,6 +50,24 @@ public class CarServiceImpl implements CarService {
     public void deleteCarModels(Long[] ids) {
         for(Long id : ids)
             carModelRepository.delete(id);
+    }
+
+    @Override
+    public List<CarOption> getAvailableOptionsForModel(CarModel carModel) {
+        return carModel.getOptionsDefaultMap().entrySet()
+                .stream()
+                .filter(Map.Entry::getValue)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CarOption> getDefaultOptionsForModel(CarModel carModel) {
+        return carModel.getOptionsDefaultMap().entrySet()
+                .stream()
+                .filter(entry -> !entry.getValue())
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 
 

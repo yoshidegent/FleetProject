@@ -3,14 +3,17 @@ package com.realdolmen.fleet.viewmodels.order;
 import com.realdolmen.fleet.CarOption;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public class OptionSelectionListModel implements Serializable {
-    private List<CarOption> data;
-    private List<Long> selection;
+    private List<CarOption> data = new ArrayList<>();
+    private List<Long> selection = new ArrayList<>();
 
-    public OptionSelectionListModel(List<CarOption> data) {
-        this.data = data;
+    public OptionSelectionListModel(Collection<CarOption> data) {
+        this.data.addAll(data);
     }
 
     public List<CarOption> getData() {

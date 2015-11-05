@@ -62,7 +62,7 @@ public class CarModel extends AbstractEntity {
 
     private BigDecimal benefitInKindPerMonth;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private Map<CarOption, Boolean> optionsDefaultMap;
 
     @Transient
@@ -235,6 +235,9 @@ public class CarModel extends AbstractEntity {
             optionsDefaultMap.put(carOption, isDefault);
     }
 
+    public void setOptionsDefaultMap(Map<CarOption, Boolean> optionsDefaultMap) {
+        this.optionsDefaultMap = optionsDefaultMap;
+    }
 
     public void removeDefaultOption(CarOption carOption)
     {

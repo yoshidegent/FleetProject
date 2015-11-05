@@ -40,7 +40,10 @@ public class CarOrder extends AbstractEntity {
     @Transient
     private LocalDate deliveryDate;
 
-    public CarOrder() {
+    protected CarOrder() {}
+
+    public CarOrder(CarModel carModel) {
+        orderedCar = new PhysicalCar(carModel);
     }
 
     public CarOrder(PhysicalCar orderedCar, Employee employee, LocalDateTime orderDate,
