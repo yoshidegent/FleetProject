@@ -68,6 +68,7 @@ public class EditForm {
         this.amountDowngradeInclVat = carModel.getAmountDowngradeInclVat();
         this.amountUpgradeInclVat = carModel.getAmountUpgradeInclVat();
         this.benefitInKindPerMonth = carModel.getBenefitInKindPerMonth();
+        this.version = carModel.getVersion();
 
         for(Map.Entry<CarOption, Boolean> entry : carModel.getOptionsDefaultMap().entrySet()) {
             this.optionIds.add(entry.getKey().getId());

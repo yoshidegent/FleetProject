@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.ServletContext;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.fromMappingName;
 
@@ -71,7 +73,22 @@ public class CarModelController {
             }
         }*/
 
-        carService.saveCarModel(editForm.carModel());
+        Map<CarOption, Boolean> carOptionDefaultMap = new HashMap<>();
+        CarModel carModel = editForm.carModel();
+        List<Long> optionIds = editForm.getOptionIds();
+        List<Boolean> isDefaultList = editForm.getOptionDefaultList();
+
+        for (int i=0; i<optionIds.size(); i++)
+        {
+            CarOption carOption = carOptionService.findOptionById(optionIds.get(i));
+
+            if(carOption != null)
+                carOptionDefaultMap.put(carOption, isDefaultList.get(i));
+        }
+
+        carModel.setOptionsDefaultMap(carOptionDefaultMap);
+
+        carService.saveCarModel(carModel);
 
         return "redirect:" + fromMappingName("CMC#overview").build();
     }

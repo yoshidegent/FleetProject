@@ -83,8 +83,9 @@
                                 <tr class="optionRow" th:each="option : ${optionMap}">
                                     <td class="optionName" th:text="${option.key.name}"></td>
                                     <td style="text-align: center">
-                                        <input class="optionDefault" name="optionDefaultList" type="checkbox" th:checked="${option.value}"/>
-                                        <input class="optionId" name="optionIds" type="hidden" th:hidden="${option.key.id}" />
+                                        <input type="hidden" class="optionDefaultHidden" name="optionDefaultList" th:value="${option.value}" />
+                                        <input class="optionDefaultCheckBox" type="checkbox" th:checked="${option.value}"/>
+                                        <input class="optionId" name="optionIds" type="hidden" th:value="${option.key.id}" />
                                     </td>
                                     <td style="text-align: center;">
                                         <button class="removeOptionBtn btn btn-danger btn-xs" type="button">
@@ -100,13 +101,15 @@
                         </div>
                         <div>
                             <b>All options:</b><br/>
-                            <select multiple="multiple" id='globalOptionsListBox' style="width:100%;">
+                            <select size="6" id='globalOptionsListBox' style="width:100%;">
                                 <option th:each="option : ${globalOptions}" th:text="${option.name}" th:attr="data-option-id=${option.id}"></option>
                             </select>
                         </div>
-
+                        <div>
+                            <input id="newOptionNameInput" type="text"/>
+                            <button id="addNewOptionBtn" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                        </div>
                     </div>
-
                 </div>
 
                 <div class="col-sm-8">
