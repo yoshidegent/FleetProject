@@ -2,11 +2,13 @@ package com.realdolmen.fleet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Transactional
 public class OrderServiceImpl implements OrderService {
     @Autowired private CarOrderRepository carOrderRepository;
 
@@ -37,5 +39,14 @@ public class OrderServiceImpl implements OrderService {
                 .stream()
                 .filter(o -> o.getStatus() == CarOrder.OrderStatus.PENDING)
                 .count() == 0;
+    }
+
+    @Override
+    public void deliver(Long orderId) {
+        CarOrder carOrder = carOrderRepository.findOne(orderId);
+        carOrder.setStatus(CarOrder.OrderStatus.DELIVERED);
+
+        PhysicalCar car = carOrder.getOrderedCar();
+        carOrder.getEmployee().setCurrentCar(car);
     }
 }

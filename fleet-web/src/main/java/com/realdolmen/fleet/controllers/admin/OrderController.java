@@ -75,4 +75,11 @@ public class OrderController {
     public String deleteMultiple(@PathVariable Long[] ids) {
         return "redirect:" + fromMappingName("OC#overview").build();
     }
+
+    @RequestMapping("/{id}/deliver")
+    public String deliver(@PathVariable Long id) {
+        orderService.deliver(id);
+
+        return "redirect:" + fromMappingName("OC#details").arg(1, id).build();
+    }
 }

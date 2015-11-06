@@ -9,4 +9,6 @@ public interface OrderService {
 
     void saveOrder(CarOrder order);
     boolean employeeCanOrder(Employee employee);
+
+    void deliver(Long orderId);
 }

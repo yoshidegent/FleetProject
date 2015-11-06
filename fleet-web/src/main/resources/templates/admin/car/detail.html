@@ -25,35 +25,30 @@
     </nav>
 
     <div class="container-fluid">
-        <div class="action-bar">
-            <a th:if="${order.status != 'DELIVERED'}" href="#" th:href="@{/admin/order/{id}/deliver(id=${order.id})}" class="btn btn-default">Set delivered</a>
-        </div>
-
-        <dl class="dl-horizontal">
-            <dt>Id</dt>
-            <dd th:text="${order.id}"></dd>
-
-            <dt>Employee</dt>
-            <dd th:text="${order.employee.firstName + ' ' + order.employee.lastName}"></dd>
-
-            <dt>Status</dt>
-            <dd th:text="${order.status}"></dd>
-        </dl>
-
         <h1>Ordered car</h1>
         <dl class="dl-horizontal">
             <dt>Brand</dt>
-            <dd th:text="${order.orderedCar.carModel.brand}"></dd>
+            <dd th:text="${car.carModel.brand}"></dd>
 
             <dt>Model</dt>
-            <dd th:text="${order.orderedCar.carModel.model}"></dd>
+            <dd th:text="${car.carModel.model}"></dd>
 
             <dt>Pack</dt>
-            <dd th:text="${order.orderedCar.carModel.pack}"></dd>
+            <dd th:text="${car.carModel.pack}"></dd>
+
+            <dt>Employee</dt>
+            <dd th:if="${car.employee == null}">Not assigned</dd>
+            <dd th:if="${car.employee != null}" th:text="${car.employee.firstName + ' ' + car.employee.lastName}"></dd>
+
+            <dt>License Plate</dt>
+            <dd th:text="${car.licensePlate}"></dd>
+
+            <dt>Mileage</dt>
+            <dd th:text="${car.mileage + 'km'}"></dd>
         </dl>
 
         <h2>Options</h2>
-        <th:block th:replace="fragments/car :: carOptionTable(${order.orderedCar})"></th:block>
+        <th:block th:replace="fragments/car :: carOptionTable(${car})"></th:block>
     </div>
 </div>
 </body>

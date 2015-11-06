@@ -5,6 +5,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -14,7 +15,7 @@ import java.time.LocalDate;
 @Where(clause = "deleted = 0")
 public class Employee extends User {
 
-    @Transient
+    @OneToOne
     private PhysicalCar currentCar;
 
     @Max(7)
@@ -42,6 +43,7 @@ public class Employee extends User {
 
     public void setCurrentCar(PhysicalCar currentCar) {
         this.currentCar = currentCar;
+        this.currentCar.setEmployee(this);
     }
 
     public int getFunctionalLevel() {

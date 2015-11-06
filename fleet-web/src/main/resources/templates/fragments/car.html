@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="carOptionTable(car)">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="option : ${car.selectedCarOptions}">
+            <td th:text="${option.name}"></td>
+        </tr>
+        </tbody>
+    </table>
+</th:block>
+</html>

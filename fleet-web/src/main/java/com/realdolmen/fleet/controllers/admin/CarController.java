@@ -1,7 +1,9 @@
 package com.realdolmen.fleet.controllers.admin;
 
-import com.realdolmen.fleet.CarModel;
 import com.realdolmen.fleet.CarService;
+import com.realdolmen.fleet.Employee;
+import com.realdolmen.fleet.EmployeeService;
+import com.realdolmen.fleet.PhysicalCar;
 import com.realdolmen.fleet.viewmodels.admin.carModel.EditForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,13 +21,22 @@ import static org.springframework.web.servlet.mvc.method.annotation.MvcUriCompon
 @RequestMapping("/admin/car")
 public class CarController {
     @Autowired private CarService carService;
+    @Autowired private EmployeeService employeeService;
 
     @RequestMapping({"", "/"})
     public String overview(Model model) {
-        /*List<CarModel> carModels = carService.findAllCarModels();
-        model.addAttribute("carModels", carModels);*/
+        List<PhysicalCar> cars = carService.findAllCars();
+        model.addAttribute("cars", cars);
 
         return "admin/car/overview";
+    }
+
+    @RequestMapping("/{id}")
+    public String details(Model model, @PathVariable("id") Long id) {
+        PhysicalCar car = carService.findCar(id);
+        model.addAttribute("car", car);
+
+        return "admin/car/detail";
     }
 
     @RequestMapping("/edit/{id}")
@@ -35,6 +46,8 @@ public class CarController {
         EditForm editForm = new EditForm();
         editForm.mapFrom(carModel);
         model.addAttribute("editForm", editForm);*/
+        PhysicalCar car = carService.findCar(id);
+        model.addAttribute("car", car);
 
         return "admin/car/edit";
     }
