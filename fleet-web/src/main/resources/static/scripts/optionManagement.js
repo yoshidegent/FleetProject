@@ -19,12 +19,12 @@ $(document).ready(function () {
         selectedOption.remove();
     };
 
-    var checkBockChangeFunction = function() {
+    var checkBoxChangeFunction = function() {
         if($(this).is(":checked")) {
-            $('.optionDefaultHidden').attr('value', true);
+            $(this).parent().find('.optionDefaultHidden').attr('value', true);
         }
         else {
-            $('.optionDefaultHidden').attr('value', false);
+            $(this).parent().find('.optionDefaultHidden').attr('value', false);
         }
     };
 
@@ -57,8 +57,8 @@ $(document).ready(function () {
 
                 $(selectedOpts).remove();
 
-                optionAdded.find('.removeOptionBtn').click(removeClickFunction);
-                optionAdded.find('.optionDefaultCheckBox').change(checkBockChangeFunction);
+                $('.removeOptionBtn').click(removeClickFunction);
+                $('.optionDefaultCheckBox').change(checkBoxChangeFunction);
             });
         }
     });
@@ -66,5 +66,5 @@ $(document).ready(function () {
 
     $('.removeOptionBtn').click(removeClickFunction);
 
-    $('.optionDefaultCheckBox').change(checkBockChangeFunction);
+    $('.optionDefaultCheckBox').change(checkBoxChangeFunction);
 })
