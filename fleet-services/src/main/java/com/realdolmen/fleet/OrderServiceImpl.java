@@ -14,4 +14,12 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderDate(LocalDateTime.now());
         carOrderRepository.save(order);
     }
+
+    @Override
+    public boolean employeeCanOrder(Employee employee) {
+        return carOrderRepository.findByEmployee(employee)
+                .stream()
+                .filter(o -> o.getStatus() == CarOrder.OrderStatus.PENDING)
+                .count() == 0;
+    }
 }

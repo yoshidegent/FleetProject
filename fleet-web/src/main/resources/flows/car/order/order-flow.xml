@@ -5,6 +5,20 @@
 
     <input name="id" required="true" type="long" />
 
+    <decision-state id="prepareUser">
+        <on-entry>
+            <evaluate expression="currentUser.principal" result="flashScope.principal"
+                      result-type="com.realdolmen.fleet.authentication.FleetPrincipal"/>
+            <evaluate expression="flashScope.principal.getUser()" result="flowScope.employee"
+                      result-type="com.realdolmen.fleet.Employee"/>
+        </on-entry>
+        <if test="flowScope.employee == null" then="cancel" else="checkOrderPossible" />
+    </decision-state>
+
+    <decision-state id="checkOrderPossible">
+        <if test="orderServiceImpl.employeeCanOrder(flowScope.employee)" then="checkModelIdExists" else="cancel" />
+    </decision-state>
+
     <decision-state id="checkModelIdExists">
         <on-entry>
             <evaluate expression="carServiceImpl.findCarModel(id)"
