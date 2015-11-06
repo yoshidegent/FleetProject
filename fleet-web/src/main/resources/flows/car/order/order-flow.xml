@@ -51,6 +51,8 @@
         <transition to="summary" on="submit">
             <evaluate expression="carOptionServiceImpl.findOptionsByIds(viewScope.optionSelectionList.selection)"
                       result="carOrder.orderedCar.selectedCarOptions" />
+            <evaluate
+                    expression="carOrder.orderedCar.selectedCarOptions.addAll(viewScope.defaultOptions)" />
         </transition>
     </view-state>
 
