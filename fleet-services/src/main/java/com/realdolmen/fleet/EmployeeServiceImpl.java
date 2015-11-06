@@ -2,6 +2,7 @@ package com.realdolmen.fleet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -10,17 +11,21 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class EmployeeServiceImpl implements EmployeeService {
 
-    @Autowired
-    protected CarOrderRepository orderRepository;
-
-//    @Autowired protected EmployeeRepository employeeRepository;
+    @Autowired protected CarOrderRepository orderRepository;
+    @Autowired protected EmployeeRepository employeeRepository;
 //
 //    @Override
 //    public List<Employee> findAll() {
 //        return employeeRepository.findAll();
 //    }
+
+    @Override
+    public Employee findEmployeeByCar(PhysicalCar car) {
+        return employeeRepository.findByCar(car);
+    }
 
     @Override
     public PhysicalCar findCurrentCarForEmployee(Employee employee) {

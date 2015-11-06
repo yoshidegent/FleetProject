@@ -3,6 +3,18 @@ package com.realdolmen.fleet;
 import java.util.List;
 
 public interface CarService {
+    /**
+     * Physical cars
+     */
+    List<PhysicalCar> findAllCars();
+    PhysicalCar findCar(Long id);
+
+    void addOptionsToCar(PhysicalCar car, List<Long> optionIds);
+    void addDefaultOptionsToCar(PhysicalCar car);
+
+    /**
+     * Car models
+     */
     void saveCarModels(List<CarModel> carModels);
     void saveCarModel(CarModel carModel);
 

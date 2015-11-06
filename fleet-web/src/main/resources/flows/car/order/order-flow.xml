@@ -49,8 +49,8 @@
         </on-entry>
 
         <transition to="summary" on="submit">
-            <evaluate expression="carOptionServiceImpl.findOptionsByIds(viewScope.optionSelectionList.selection)"
-                      result="carOrder.orderedCar.selectedCarOptions" />
+            <evaluate expression="carServiceImpl.addOptionsToCar(carOrder.orderedCar, viewScope.optionSelectionList.selection)" />
+            <evaluate expression="carServiceImpl.addDefaultOptionsToCar(carOrder.orderedCar)" />
         </transition>
     </view-state>
 

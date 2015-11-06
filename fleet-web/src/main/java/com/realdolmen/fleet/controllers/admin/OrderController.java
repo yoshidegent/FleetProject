@@ -1,9 +1,6 @@
 package com.realdolmen.fleet.controllers.admin;
 
-import com.realdolmen.fleet.CarService;
-import com.realdolmen.fleet.Employee;
-import com.realdolmen.fleet.EmployeeService;
-import com.realdolmen.fleet.PhysicalCar;
+import com.realdolmen.fleet.*;
 import com.realdolmen.fleet.viewmodels.admin.carModel.EditForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,45 +15,34 @@ import java.util.List;
 import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.fromMappingName;
 
 @Controller
-@RequestMapping("/admin/car")
-public class CarController {
-    @Autowired private CarService carService;
-    @Autowired private EmployeeService employeeService;
+@RequestMapping("/admin/order")
+public class OrderController {
+    @Autowired private OrderService orderService;
 
     @RequestMapping({"", "/"})
     public String overview(Model model) {
-        List<PhysicalCar> cars = carService.findAllCars();
-        model.addAttribute("cars", cars);
+        List<CarOrder> orders = orderService.findAll();
+        model.addAttribute("orders", orders);
 
-        return "admin/car/overview";
+        return "admin/order/overview";
     }
 
     @RequestMapping("/{id}")
     public String details(Model model, @PathVariable("id") Long id) {
-        PhysicalCar car = carService.findCar(id);
-        model.addAttribute("car", car);
+        CarOrder carOrder = orderService.findOne(id);
+        model.addAttribute("order", carOrder);
 
-        return "admin/car/detail";
+        return "admin/order/detail";
     }
 
     @RequestMapping("/edit/{id}")
     public String editGet(Model model, @PathVariable("id") Long id) {
-        /*CarModel carModel = carService.findCarModel(id);
-
-        EditForm editForm = new EditForm();
-        editForm.mapFrom(carModel);
-        model.addAttribute("editForm", editForm);*/
-        PhysicalCar car = carService.findCar(id);
-        model.addAttribute("car", car);
-
-        return "admin/car/edit";
+        return "admin/order/edit";
     }
 
     @RequestMapping("/new")
     public String newGet(Model model) {
-        //model.addAttribute("editForm", new EditForm());
-
-        return "admin/car/edit";
+        return "admin/order/edit";
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
@@ -77,22 +63,23 @@ public class CarController {
             }
         }*/
 
-        //carService.saveCarModel(editForm.carModel());
-
-        return "redirect:" + fromMappingName("CC#overview").build();
+        return "redirect:" + fromMappingName("OC#overview").build();
     }
 
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable("id") Long id) {
-        //carService.deleteCarModel(id);
-
-        return "redirect:" + fromMappingName("CC#overview").build();
+        return "redirect:" + fromMappingName("OC#overview").build();
     }
 
     @RequestMapping("/delete/{ids}/m")
     public String deleteMultiple(@PathVariable Long[] ids) {
-        //carService.deleteCarModels(ids);
+        return "redirect:" + fromMappingName("OC#overview").build();
+    }
 
-        return "redirect:" + fromMappingName("CC#overview").build();
+    @RequestMapping("/{id}/deliver")
+    public String deliver(@PathVariable Long id) {
+        orderService.deliver(id);
+
+        return "redirect:" + fromMappingName("OC#details").arg(1, id).build();
     }
 }
