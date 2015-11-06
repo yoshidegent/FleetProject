@@ -5,6 +5,9 @@
 
     <title>Edit</title>
 
+
+    <script th:src="@{/scripts/optionmanagement.js}"></script>
+
     <script>
         /*<![CDATA[*/
         $(document).ready(function () {
@@ -23,12 +26,6 @@
             img.error(function () {
                 $(this).attr('src', default_url);
             });
-
-            var optionIdsInput = $('#OptionIds');
-
-            var optionIds = optionIdsInput.split(',');
-            console.log(optionIds);
-
         });
         /*]]>*/
     </script>
@@ -75,43 +72,37 @@
 
                     <div>
                         <div>
-                            <div>
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <th>Option</th>
-                                        <th>Default</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="option : ${optionMap}"
-                                        th:attr="data-option-id=${option.key.id}">
-                                        <td th:text="${option.key.name}"></td>
-                                        <td style="text-align: center">
-                                            <input type="checkbox"
-                                                   th:checked="${option.value}"/>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <button class="deleteOptionBtn btn btn-danger btn-xs"
-                                                    type="button"><span
-                                                    class="glyphicon glyphicon-trash"></span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div style='width:50px;text-align:center;vertical-align:middle;'>
-                                <input type='button' id='btnLeft' class="btn btn-primary"
-                                       value=' ^ '/>
-                            </div>
-                            <div>
-                                <b>All options:</b><br/>
-                                <select multiple="multiple" id='lstBox1' style="width:100%;">
-                                    <option value="ajax" th:each="option : ${globalOptions}"><span
-                                            th:text="${option.name}"></span></option>
-                                </select>
-                            </div>
+                            <table style="width:100%;">
+                                <thead>
+                                <tr>
+                                    <th>Option</th>
+                                    <th>Default</th>
+                                </tr>
+                                </thead>
+                                <tbody id="optionTableBody">
+                                <tr class="optionRow" th:each="option : ${optionMap}">
+                                    <td class="optionName" th:text="${option.key.name}"></td>
+                                    <td style="text-align: center">
+                                        <input class="optionDefault" name="optionDefaultList" type="checkbox" th:checked="${option.value}"/>
+                                        <input class="optionId" name="optionIds" type="hidden" th:hidden="${option.key.id}" />
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <button class="removeOptionBtn btn btn-danger btn-xs" type="button">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style='width:100%; text-align:center;'>
+                            <button id='addOptionBtn' class="btn btn-primary"><span class="glyphicon glyphicon-menu-up" /></button>
+                        </div>
+                        <div>
+                            <b>All options:</b><br/>
+                            <select multiple="multiple" id='globalOptionsListBox' style="width:100%;">
+                                <option th:each="option : ${globalOptions}" th:text="${option.name}" th:attr="data-option-id=${option.id}"></option>
+                            </select>
                         </div>
 
                     </div>
@@ -273,7 +264,6 @@
 
                     <input type="hidden" th:field="*{id}"/>
                     <input type="hidden" th:field="*{version}"/>
-                    <input type="hidden" id="optionIds" th:field="*{optionIds}"/>
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">

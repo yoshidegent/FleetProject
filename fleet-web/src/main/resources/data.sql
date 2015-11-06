@@ -8,3 +8,4 @@ INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('1', 'Towing Bracket');
 INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('2', 'GPS');
 INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('3', 'GSM Bluetooth');
 INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('4', 'Rims');
+INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('5', 'Leather interior');

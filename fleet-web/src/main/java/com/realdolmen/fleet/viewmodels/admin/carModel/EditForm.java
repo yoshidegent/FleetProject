@@ -6,6 +6,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +46,8 @@ public class EditForm {
 
     private BigDecimal benefitInKindPerMonth;
 
-    private Long[] optionIds = { 1L, 2L, 3L, 4L };
+    private List<Long> optionIds = new ArrayList<>();
+    private List<Boolean> optionDefaultList = new ArrayList<>();
 
     public void mapFrom(CarModel carModel) {
         this.id = carModel.getId();
@@ -66,7 +69,10 @@ public class EditForm {
         this.amountUpgradeInclVat = carModel.getAmountUpgradeInclVat();
         this.benefitInKindPerMonth = carModel.getBenefitInKindPerMonth();
 
-        this.version = carModel.getVersion();
+        for(Map.Entry<CarOption, Boolean> entry : carModel.getOptionsDefaultMap().entrySet()) {
+            this.optionIds.add(entry.getKey().getId());
+            this.optionDefaultList.add(entry.getValue());
+        }
     }
 
     public CarModel carModel() {
@@ -93,12 +99,20 @@ public class EditForm {
         return carModel;
     }
 
-    public Long[] getOptionIds() {
+    public List<Long> getOptionIds() {
         return optionIds;
     }
 
-    public void setOptionIds(Long[] optionIds) {
+    public void setOptionIds(List<Long> optionIds) {
         this.optionIds = optionIds;
+    }
+
+    public List<Boolean> getOptionDefaultList() {
+        return optionDefaultList;
+    }
+
+    public void setOptionDefaultList(List<Boolean> optionDefaultList) {
+        this.optionDefaultList = optionDefaultList;
     }
 
     public Long getId() {
