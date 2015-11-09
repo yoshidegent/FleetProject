@@ -48,33 +48,22 @@ public class EmployeeServiceTest extends AbstractServiceTest {
             Mockito.times(1)).findOrdersByEmployeeOrderedByOrderDate(employee);
     }
 
-    @Test public void testCalculateAgeForEmployee()
+    @Test public void testGetLowestAllowedCategory()
     {
-        //Check if no dateOfBirth was specified
-        Assert.assertNull(employeeService.calculateAgeOfEmployee(employee));
+        employee.setFunctionalLevel(2);
+        Assert.assertEquals(employeeService.getLowestAllowedCategory(employee), 2);
 
-        //Valid birth date
-        employee.setDateOfBirth(LocalDate.of(1993, 10, 19));
-        Integer age =  Math.abs((int) (long) ChronoUnit.YEARS.between(LocalDate.now(), employee.getDateOfBirth()));
-        Assert.assertEquals(age, employeeService.calculateAgeOfEmployee(employee));
+        employee.setFunctionalLevel(3);
+        Assert.assertEquals(employeeService.getLowestAllowedCategory(employee), 2);
 
-        //New born
-        employee.setDateOfBirth(LocalDate.now());
-        age = 0;
-        Assert.assertEquals(age, employeeService.calculateAgeOfEmployee(employee));
-    }
+        employee.setFunctionalLevel(-10);
+        Assert.assertEquals(employeeService.getLowestAllowedCategory(employee), 2);
 
-    @Test public void testCalculateSeniority()
-    {
-        Assert.assertNull(employeeService.calculateSeniority(employee));
+        employee.setFunctionalLevel(4);
+        Assert.assertEquals(employeeService.getLowestAllowedCategory(employee), 3);
 
-        employee.setHireDate(LocalDate.of(2015, 9, 1));
-        Period seniority = Period.between(employee.getHireDate(), LocalDate.now());
-        Assert.assertEquals(seniority, employeeService.calculateSeniority(employee));
-
-        employee.setHireDate(LocalDate.now());
-        seniority = Period.between(employee.getHireDate(), LocalDate.now());
-        Assert.assertEquals(seniority, employeeService.calculateSeniority(employee));
+        employee.setFunctionalLevel(20);
+        Assert.assertEquals(employeeService.getLowestAllowedCategory(employee), 6);
     }
 
     @Test public void testGetHighestAllowedCategory()
@@ -93,23 +82,5 @@ public class EmployeeServiceTest extends AbstractServiceTest {
 
         employee.setFunctionalLevel(20);
         Assert.assertEquals(employeeService.getHighestAllowedCategory(employee), 7);
-    }
-
-    @Test public void testGetLowestAllowedCategory()
-    {
-        employee.setFunctionalLevel(2);
-        Assert.assertEquals(employeeService.getLowestAllowedCategory(employee), 2);
-
-        employee.setFunctionalLevel(3);
-        Assert.assertEquals(employeeService.getLowestAllowedCategory(employee), 2);
-
-        employee.setFunctionalLevel(-10);
-        Assert.assertEquals(employeeService.getLowestAllowedCategory(employee), 2);
-
-        employee.setFunctionalLevel(4);
-        Assert.assertEquals(employeeService.getLowestAllowedCategory(employee), 3);
-
-        employee.setFunctionalLevel(20);
-        Assert.assertEquals(employeeService.getLowestAllowedCategory(employee), 6);
     }
 }
