@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/head :: head(admin=${true})"/>
+
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/r/bs/dt-1.10.9,af-2.0.0,fc-3.1.0,fh-3.0.0,kt-2.0.0,r-1.0.7,sc-1.3.0,se-1.0.1/datatables.min.css"/>
+
+    <script>
+        $(document).ready(function(){
+
+            var rows = $('.employeeRow');
+            var formRows = $('.formEmployeeRow');
+            formRow.hide();
+
+
+            rows.click(function(){
+                $(this).hide();
+                var employeeId = $(this).attr('data-model-id');
+
+                var specificFormRow = formRows.find('tr[attribute="' + employeeId + '"]');
+                formRow.show();
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="mainContainer" class="container">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Fleet Admin</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a th:href="@{/admin/car-model}">Car Models</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><p class="navbar-text">Signed in as <span th:text="${user.getEmail()}">someone</span>
+                    </p></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <form>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Age</th>
+                <th>Function</th>
+                <th>Functional level</th>
+                <th>Seniority</th>
+                <th>Active</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="employeeRow" th:each="employee : ${employees}" th:attr="data-model-id=${employee.id}">
+                <td th:text="${employee.id}"></td>
+                <td th:text="${employee.firstName}"></td>
+                <td th:text="${employee.lastName}"></td>
+                <td th:text="${employee.age}"></td>
+                <td th:text="${employee.function}"></td>
+                <td th:text="${employee.functionalLevel}"></td>
+                <td th:text="${employee.seniority}"></td>
+                <td><input type="checkbox" th:value="${employee.isActive}" disabled="disabled" /></td>
+            </tr>
+            <tr class="formEmployeeRow" th:each="employee : ${employees}" th:attr="data-model-id=${employee.id}">
+                <td th:text="${employee.id}"></td>
+                <td th:text="${employee.firstName}"></td>
+                <td th:text="${employee.lastName}"></td>
+                <td th:text="${employee.age}"></td>
+                <td><input type="text" th:value="${employee.function}"/></td>
+                <td><input type="number" th:value="${employee.functionalLevel}"/></td>
+                <td th:text="${employee.seniority}"></td>
+                <td><input type="checkbox" th:value="${employee.isActive}" /></td>
+            </tr>
+            </tbody>
+        </table>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="https://cdn.datatables.net/r/bs/dt-1.10.9,af-2.0.0,fc-3.1.0,fh-3.0.0,kt-2.0.0,r-1.0.7,sc-1.3.0,se-1.0.1/datatables.min.js"></script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    (function ($) {
+        $(document).ready(function () {
+            var $table = $('table');
+            var dataTable = $table.DataTable();
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    })(jQuery);
+    /*]]>*/
+</script>
+</body>
+</html>
