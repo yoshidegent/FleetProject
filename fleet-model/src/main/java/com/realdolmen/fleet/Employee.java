@@ -20,7 +20,7 @@ public class Employee extends User {
     @Transient
     private Period seniority;
 
-    private boolean isActive = true;
+    private boolean active = true;
 
     @OneToOne
     private PhysicalCar currentCar;
@@ -118,11 +118,19 @@ public class Employee extends User {
     }
 
     public boolean isActive() {
-        return isActive;
+        return active;
     }
 
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public Period getSeniority() {
+        return seniority;
     }
 
     public Integer calculateAge() {
