@@ -19,8 +19,8 @@ $(document).ready(function () {
         selectedOption.remove();
     };
 
-    var checkBoxChangeFunction = function() {
-        if($(this).is(":checked")) {
+    var checkBoxChangeFunction = function () {
+        if ($(this).is(":checked")) {
             $(this).parent().find('.optionDefaultHidden').attr('value', true);
         }
         else {
@@ -28,43 +28,46 @@ $(document).ready(function () {
         }
     };
 
+    var addOptionToCarModelFunction = function (e, optionId, optionNameString) {
+        e.preventDefault();
+        $.get("/html/optionrow.html", function (data) {
+
+            $('#optionTableBody').append(data);
+            optionAdded = $('#optionTableBody').children().last();
+
+            var optionNameInput = optionAdded.find('.optionName');
+            var optionIdInput = optionAdded.find('.optionId');
+            var optionDefault = optionAdded.find('.optionDefaultCheckBox');
+            var optionDefaultHidden = optionAdded.find('.optionDefaultHidden');
+
+            optionName.html(optionNameString);
+            optionIdInput.attr('value', optionId);
+            optionDefault.attr('checked', false);
+            optionDefaultHidden.attr('value', false);
+
+            $('.removeOptionBtn').click(removeClickFunction);
+            $('.optionDefaultCheckBox').change(checkBoxChangeFunction);
+        });
+    };
+
     $('#addOptionBtn').click(function (e) {
         var selectedOpts = $('#globalOptionsListBox option:selected');
-
-        e.preventDefault();
 
         if (selectedOpts.length == 0) {
             console.log("Nothing to move.");
         }
-        else {
+        else
+        {
+            var optionName = selectedOpts.html();
+            var optionId = selectedOpts.attr('data-option-id');
 
-            $.get("/html/optionrow.html", function(data){
+            addOptionToCarModelFunction(e, optionId, optionName);
 
-                $('#optionTableBody').append(data);
-                optionAdded = $('#optionTableBody').children().last();
-
-                var optionId = selectedOpts.attr('data-option-id');
-
-                var optionName = optionAdded.find('.optionName');
-                var optionDefault = optionAdded.find('.optionDefaultCheckBox');
-                var optionDefaultHidden = optionAdded.find('.optionDefaultHidden');
-                var optionIdInput = optionAdded.find('.optionId');
-
-                optionName.html(selectedOpts.html());
-                optionIdInput.attr('value', optionId);
-                optionDefault.attr('checked', false);
-                optionDefaultHidden.attr('value', false);
-
-                $(selectedOpts).remove();
-
-                $('.removeOptionBtn').click(removeClickFunction);
-                $('.optionDefaultCheckBox').change(checkBoxChangeFunction);
-            });
+            $(selectedOpts).remove();
         }
     });
-
 
     $('.removeOptionBtn').click(removeClickFunction);
 
     $('.optionDefaultCheckBox').change(checkBoxChangeFunction);
-})
+});

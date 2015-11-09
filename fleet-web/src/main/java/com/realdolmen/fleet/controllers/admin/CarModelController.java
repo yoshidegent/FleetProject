@@ -8,10 +8,7 @@ import com.realdolmen.fleet.viewmodels.admin.carModel.EditForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletContext;
 import java.util.HashMap;
@@ -107,9 +104,16 @@ public class CarModelController {
         return "redirect:" + fromMappingName("CMC#overview").build();
     }
 
-    @RequestMapping("/options/{id}")
-    public void method()
+    @RequestMapping("/options/add")
+    @ResponseBody
+    public Long method(@RequestParam("optionName") String optionName)
     {
+        CarOption newCarOption = carOptionService.addGlobalCarOption(new CarOption(optionName));
+
+        if(newCarOption != null)
+            return newCarOption.getId();
+        else
+            return null;
 
     }
 }

@@ -6,9 +6,9 @@
     <title>Edit</title>
 
 
-    <script th:src="@{/scripts/optionmanagement.js}"></script>
+    <script th:src="@{/scripts/optionManagement.js}"></script>
 
-    <script>
+    <script th:inline="javascript">
         /*<![CDATA[*/
         $(document).ready(function () {
 
@@ -25,6 +25,21 @@
 
             img.error(function () {
                 $(this).attr('src', default_url);
+            });
+
+            $('#addNewOptionBtn').click(function(e){
+                e.preventDefault();
+
+                var addOptionUrl = /*[[@{/admin/car-model/option/add?optionName=}]]*/'';
+                var optionName = $('#newOptionNameInput').val();
+                addOptionUrl += optionName;
+
+                console.log(addOptionUrl);
+
+                $.get(addOptionUrl, function (data) {
+                    var optionId = data;
+                    addOptionToCarModelFunction(e, optionId, optionName);
+                });
             });
         });
         /*]]>*/
@@ -97,7 +112,7 @@
                             </table>
                         </div>
                         <div style='width:100%; text-align:center;'>
-                            <button id='addOptionBtn' class="btn btn-primary"><span class="glyphicon glyphicon-menu-up" /></button>
+                            <button id='addOptionBtn' type="button" class="btn btn-primary"><span class="glyphicon glyphicon-menu-up" /></button>
                         </div>
                         <div>
                             <b>All options:</b><br/>
@@ -107,7 +122,7 @@
                         </div>
                         <div>
                             <input id="newOptionNameInput" type="text"/>
-                            <button id="addNewOptionBtn" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                            <button id="addNewOptionBtn" type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span></button>
                         </div>
                     </div>
                 </div>
