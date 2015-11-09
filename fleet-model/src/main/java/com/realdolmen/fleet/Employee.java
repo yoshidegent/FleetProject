@@ -23,7 +23,7 @@ public class Employee extends User {
     @Transient
     private Period seniority;
 
-    private boolean isActive;
+    private boolean isActive = true;
 
     @OneToOne
     private PhysicalCar currentCar;
