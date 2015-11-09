@@ -1,7 +1,7 @@
 package com.realdolmen.fleet.controllers.admin;
 
 import com.realdolmen.fleet.*;
-import com.realdolmen.fleet.viewmodels.admin.carModel.EditForm;
+import com.realdolmen.fleet.viewmodels.admin.carModel.CarModelEditForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,10 +46,10 @@ public class OrderController {
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
-    public String modelPost(@ModelAttribute EditForm editForm) {
-        /*if(editForm.getImageFile() != null && !editForm.getImageFile().isEmpty()) {
+    public String modelPost(@ModelAttribute CarModelEditForm carModelEditForm) {
+        /*if(carModelEditForm.getImageFile() != null && !carModelEditForm.getImageFile().isEmpty()) {
             try {
-                String fileName = editForm.getImageFile().getOriginalFilename();
+                String fileName = carModelEditForm.getImageFile().getOriginalFilename();
                 int lastDotIndex = fileName.lastIndexOf(".");
                 String extension = fileName.substring(lastDotIndex + 1);
                 String newFileName = Instant.now().getEpochSecond() + "." + extension;
@@ -57,7 +57,7 @@ public class OrderController {
                 String relativeFolder = File.separator + "resources" + File.separator
                         + "images" + File.separator + "car-models" + File.separator;
 
-                editForm.getImageFile().transferTo(new File(webappRoot + relativeFolder + newFileName));
+                carModelEditForm.getImageFile().transferTo(new File(webappRoot + relativeFolder + newFileName));
             } catch (IOException e) {
                 e.printStackTrace();
             }

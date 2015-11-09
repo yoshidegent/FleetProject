@@ -14,7 +14,7 @@ body {
 }
 
 .loginContainer {
-    background-color: #293d49;
+    background-color: #045b5f;
     color: #fff;
     border-radius: 25px;
     padding: 0 40px 40px 40px;
@@ -24,11 +24,11 @@ body {
 }
 
 .loginHeader {
-    font-family: 'Champagne & Limousines Bold', sans-serif;
     text-align: center;
 }
 
 .loginHeader h1 {
+    font-family: 'Champagne & Limousines Bold', sans-serif;
     font-size: 15rem;
     margin: 2rem;
 }

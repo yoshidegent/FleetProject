@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="fragments/layout :: head('RealDolmen Fleet - Car Model Overview')"/>
+    <th:block th:include="fragments/layout :: head('RealDolmen Fleet - Car Model Edit')"/>
 
     <link rel="stylesheet" type="text/css"
           href="https://cdn.datatables.net/r/bs/dt-1.10.9,af-2.0.0,fc-3.1.0,fh-3.0.0,kt-2.0.0,r-1.0.7,sc-1.3.0,se-1.0.1/datatables.min.css"/>
@@ -81,7 +81,7 @@
                                             <tbody id="optionTableBody">
                                             <tr class="optionRow" th:each="option : ${optionMap}">
                                                 <td class="optionName" th:text="${option.key.name}"></td>
-                                                <td style="text-align: center">
+                                                <td>
                                                     <input type="hidden" class="optionDefaultHidden" name="optionDefaultList" th:value="${option.value}" />
                                                     <div class="checkbox checkbox-primary checkbox-no-spacing">
                                                         <input class="optionDefaultCheckBox styled styled-primary" name="optionDefaultList" type="checkbox" checked="checked" />

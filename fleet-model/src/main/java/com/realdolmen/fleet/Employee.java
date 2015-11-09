@@ -47,7 +47,9 @@ public class Employee extends User {
 
     public void setCurrentCar(PhysicalCar currentCar) {
         this.currentCar = currentCar;
-        this.currentCar.setEmployee(this);
+
+        if(currentCar != null)
+            this.currentCar.setEmployee(this);
     }
 
     public int getFunctionalLevel() {

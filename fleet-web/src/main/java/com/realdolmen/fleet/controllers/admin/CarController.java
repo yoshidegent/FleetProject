@@ -1,10 +1,7 @@
 package com.realdolmen.fleet.controllers.admin;
 
-import com.realdolmen.fleet.CarService;
-import com.realdolmen.fleet.Employee;
-import com.realdolmen.fleet.EmployeeService;
-import com.realdolmen.fleet.PhysicalCar;
-import com.realdolmen.fleet.viewmodels.admin.carModel.EditForm;
+import com.realdolmen.fleet.*;
+import com.realdolmen.fleet.viewmodels.admin.car.CarEditForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,24 +40,33 @@ public class CarController {
     public String editGet(Model model, @PathVariable("id") Long id) {
         /*CarModel carModel = carService.findCarModel(id);
 
-        EditForm editForm = new EditForm();
+        CarEditForm editForm = new CarEditForm();
         editForm.mapFrom(carModel);
         model.addAttribute("editForm", editForm);*/
         PhysicalCar car = carService.findCar(id);
-        model.addAttribute("car", car);
+
+        CarEditForm editForm = new CarEditForm();
+        editForm.mapFrom(car);
+        model.addAttribute("editForm", editForm);
+
+        List<CarModel> carModels = carService.findAllCarModels();
+        model.addAttribute("carModels", carModels);
+
+        List<Employee> employees = employeeService.findAllEmployees();
+        model.addAttribute("employees", employees);
 
         return "admin/car/edit";
     }
 
     @RequestMapping("/new")
     public String newGet(Model model) {
-        //model.addAttribute("editForm", new EditForm());
+        //model.addAttribute("editForm", new CarEditForm());
 
         return "admin/car/edit";
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
-    public String modelPost(@ModelAttribute EditForm editForm) {
+    public String modelPost(@ModelAttribute CarEditForm editForm) {
         /*if(editForm.getImageFile() != null && !editForm.getImageFile().isEmpty()) {
             try {
                 String fileName = editForm.getImageFile().getOriginalFilename();
@@ -77,7 +83,23 @@ public class CarController {
             }
         }*/
 
-        //carService.saveCarModel(editForm.carModel());
+        PhysicalCar newCar = editForm.physicalCar();
+        PhysicalCar oldCar = carService.findCar(newCar.getId());
+
+        Employee newEmployee = newCar.getEmployee();
+        Employee oldEmployee = oldCar.getEmployee();
+
+        // The car gets unassigned
+        if(newEmployee == null) {
+            // Get the old employee and remove its current car
+            oldEmployee.setCurrentCar(null);
+        } else {
+            if(oldEmployee != null)
+                oldEmployee.setCurrentCar(null);
+            newEmployee.setCurrentCar(newCar);
+        }
+
+        carService.saveCar(newCar);
 
         return "redirect:" + fromMappingName("CC#overview").build();
     }

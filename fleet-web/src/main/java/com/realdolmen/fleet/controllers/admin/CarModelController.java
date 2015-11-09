@@ -4,13 +4,12 @@ import com.realdolmen.fleet.CarModel;
 import com.realdolmen.fleet.CarOption;
 import com.realdolmen.fleet.CarOptionService;
 import com.realdolmen.fleet.CarService;
-import com.realdolmen.fleet.viewmodels.admin.carModel.EditForm;
+import com.realdolmen.fleet.viewmodels.admin.carModel.CarModelEditForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.ServletContext;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,9 +34,9 @@ public class CarModelController {
     public String editGet(Model model, @PathVariable("id") Long id) {
         CarModel carModel = carService.findCarModel(id);
 
-        EditForm editForm = new EditForm();
-        editForm.mapFrom(carModel);
-        model.addAttribute("editForm", editForm);
+        CarModelEditForm carModelEditForm = new CarModelEditForm();
+        carModelEditForm.mapFrom(carModel);
+        model.addAttribute("editForm", carModelEditForm);
 
         model.addAttribute("optionMap", carModel.getOptionsDefaultMap());
         model.addAttribute("globalOptions", carOptionService.findGlobalCarOptionsExcludeActiveOnes(carModel));
@@ -47,16 +46,16 @@ public class CarModelController {
 
     @RequestMapping("/new")
     public String newGet(Model model) {
-        model.addAttribute("editForm", new EditForm());
+        model.addAttribute("editForm", new CarModelEditForm());
 
         return "admin/car-model/edit";
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
-    public String modelPost(@ModelAttribute EditForm editForm) {
-        /*if(editForm.getImageFile() != null && !editForm.getImageFile().isEmpty()) {
+    public String modelPost(@ModelAttribute CarModelEditForm editForm) {
+        /*if(carModelEditForm.getImageFile() != null && !carModelEditForm.getImageFile().isEmpty()) {
             try {
-                String fileName = editForm.getImageFile().getOriginalFilename();
+                String fileName = carModelEditForm.getImageFile().getOriginalFilename();
                 int lastDotIndex = fileName.lastIndexOf(".");
                 String extension = fileName.substring(lastDotIndex + 1);
                 String newFileName = Instant.now().getEpochSecond() + "." + extension;
@@ -64,7 +63,7 @@ public class CarModelController {
                 String relativeFolder = File.separator + "resources" + File.separator
                         + "images" + File.separator + "car-models" + File.separator;
 
-                editForm.getImageFile().transferTo(new File(webappRoot + relativeFolder + newFileName));
+                carModelEditForm.getImageFile().transferTo(new File(webappRoot + relativeFolder + newFileName));
             } catch (IOException e) {
                 e.printStackTrace();
             }
