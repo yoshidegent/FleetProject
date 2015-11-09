@@ -118,14 +118,14 @@
             <!-- User Account: style can be found in dropdown.less -->
             <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <img th:src="@{/images/avatars/avatar.png}" class="user-image" alt="User Image" />
+                    <img th:src="@{/images/profile.png}" class="user-image" alt="User Image" />
                     <span class="hidden-xs" th:if="${userEmployee == null}" th:text="${user.email}"></span>
                     <span class="hidden-xs" th:if="${userEmployee != null}" th:text="${userEmployee.firstName + ' ' + userEmployee.lastName}"></span>
                 </a>
                 <ul class="dropdown-menu">
                     <!-- User image -->
                     <li class="user-header">
-                        <img th:src="@{/images/avatars/avatar.png}" class="img-circle" alt="User Image" />
+                        <img th:src="@{/images/profile.png}" class="img-circle" alt="User Image" />
 
                         <p th:if="${userEmployee != null}">
                             <th:block th:text="${userEmployee.firstName + ' ' + userEmployee.lastName}"></th:block>
