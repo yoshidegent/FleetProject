@@ -33,7 +33,7 @@ public class EmployeeTest {
     }
 
 
-    @Test public void testCalculateAge()
+    @Test public void testAgeInit()
     {
         //Check if no dateOfBirth was specified
         Assert.assertNull(employee.calculateAge());

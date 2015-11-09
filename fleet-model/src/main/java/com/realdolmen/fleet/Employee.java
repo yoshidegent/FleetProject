@@ -4,12 +4,11 @@ import com.realdolmen.fleet.converters.DateConverter;
 import org.hibernate.annotations.Where;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
@@ -17,11 +16,6 @@ import java.time.temporal.ChronoUnit;
 @Entity
 @Where(clause = "deleted = 0")
 public class Employee extends User {
-
-    @Transient
-    private Integer age;
-    @Transient
-    private Period seniority;
 
     private boolean active = true;
 
@@ -37,13 +31,6 @@ public class Employee extends User {
 
     public Employee() {
         this.setFunctionalLevel(2);
-    }
-
-    @PostConstruct
-    public void initTransientFields()
-    {
-        this.age = calculateAge();
-        this.seniority = calculateSeniority();
     }
 
     @Convert(converter = DateConverter.class)
@@ -127,11 +114,11 @@ public class Employee extends User {
     }
 
     public Integer getAge() {
-        return age;
+        return this.calculateAge();
     }
 
     public Period getSeniority() {
-        return seniority;
+        return this.calculateSeniority();
     }
 
     public Integer calculateAge() {
