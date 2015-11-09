@@ -12,7 +12,8 @@ public interface CarOptionService {
 
     List<CarOption> findGlobalCarOptionsExcludeActiveOnes(CarModel carModel);
 
-    void addGlobalCarOptionAndAddToCarModel(CarOption carOption, CarModel carModel);
+    CarOption addGlobalCarOption(CarOption carOption);
+    CarModel addGlobalCarOptionAndAddToCarModel(CarOption carOption, CarModel carModel);
 
     void makeDefaultOptionAvailable(CarModel carModel, CarOption carOption);
     void makeAvailableOptionDefault(CarModel carModel, CarOption carOption);

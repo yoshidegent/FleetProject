@@ -4,7 +4,15 @@ INSERT INTO `fleet`.`user` (`DTYPE`, `id`, `version`, `email`, `password`, `date
 INSERT INTO `fleet`.`user_roles` (`User_id`, `roles`) VALUES ('1', 'Employee');
 INSERT INTO `fleet`.`user_roles` (`User_id`, `roles`) VALUES ('2', 'Employee');
 
-INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('1', 'Towing Bracket');
+INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('1', 'Towing bracket');
 INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('2', 'GPS');
 INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('3', 'GSM Bluetooth');
 INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('4', 'Rims');
+INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('5', 'Leather interior');
+INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('6', 'Cruise control');
+INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('7', 'Authomatic');
+INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('8', 'Park sensors');
+INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('9', 'Tinted windows');
+INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('10', 'Roof rails');
+INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('11', 'Heated seats');
+INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('12', '7-seats');

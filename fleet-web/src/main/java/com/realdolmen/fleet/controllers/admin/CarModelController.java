@@ -8,13 +8,12 @@ import com.realdolmen.fleet.viewmodels.admin.carModel.EditForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletContext;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.fromMappingName;
 
@@ -71,7 +70,22 @@ public class CarModelController {
             }
         }*/
 
-        carService.saveCarModel(editForm.carModel());
+        Map<CarOption, Boolean> carOptionDefaultMap = new HashMap<>();
+        CarModel carModel = editForm.carModel();
+        List<Long> optionIds = editForm.getOptionIds();
+        List<Boolean> isDefaultList = editForm.getOptionDefaultList();
+
+        for (int i=0; i<optionIds.size(); i++)
+        {
+            CarOption carOption = carOptionService.findOptionById(optionIds.get(i));
+
+            if(carOption != null)
+                carOptionDefaultMap.put(carOption, isDefaultList.get(i));
+        }
+
+        carModel.setOptionsDefaultMap(carOptionDefaultMap);
+
+        carService.saveCarModel(carModel);
 
         return "redirect:" + fromMappingName("CMC#overview").build();
     }
@@ -90,9 +104,16 @@ public class CarModelController {
         return "redirect:" + fromMappingName("CMC#overview").build();
     }
 
-    @RequestMapping("/options/{id}")
-    public void method()
+    @RequestMapping("/options/add")
+    @ResponseBody
+    public Long method(@RequestParam("optionName") String optionName)
     {
+        CarOption newCarOption = carOptionService.addGlobalCarOption(new CarOption(optionName));
+
+        if(newCarOption != null)
+            return newCarOption.getId();
+        else
+            return null;
 
     }
 }

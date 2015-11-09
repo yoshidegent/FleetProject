@@ -67,30 +67,42 @@
                             <div class="box-body">
                                 <div>
                                     <div>
-                                        <table>
+                                        <table style="width:100%;">
                                             <thead>
                                             <tr>
                                                 <th>Option</th>
                                                 <th>Default</th>
                                             </tr>
                                             </thead>
-                                            <tbody>
-                                            <tr th:each="option : ${optionMap}"
-                                                th:attr="data-option-id=${option.key.id}">
-                                                <td th:text="${option.key.name}"></td>
+                                            <tbody id="optionTableBody">
+                                            <tr class="optionRow" th:each="option : ${optionMap}">
+                                                <td class="optionName" th:text="${option.key.name}"></td>
                                                 <td style="text-align: center">
-                                                    <input type="checkbox"
-                                                           th:checked="${option.value}"/>
+                                                    <input type="hidden" class="optionDefaultHidden" name="optionDefaultList" th:value="${option.value}" />
+                                                    <input class="optionDefaultCheckBox" type="checkbox" th:checked="${option.value}"/>
+                                                    <input class="optionId" name="optionIds" type="hidden" th:value="${option.key.id}" />
                                                 </td>
                                                 <td style="text-align: center;">
-                                                    <button class="deleteOptionBtn btn btn-danger btn-xs"
-                                                            type="button"><span
-                                                            class="glyphicon glyphicon-trash"></span>
+                                                    <button class="removeOptionBtn btn btn-danger btn-xs" type="button">
+                                                        <span class="glyphicon glyphicon-trash"></span>
                                                     </button>
                                                 </td>
                                             </tr>
                                             </tbody>
                                         </table>
+                                    </div>
+                                    <div style='width:100%; text-align:center;'>
+                                        <button id='addOptionBtn' type="button" class="btn btn-primary"><span class="glyphicon glyphicon-menu-up" /></button>
+                                    </div>
+                                    <div>
+                                        <b>All options:</b><br/>
+                                        <select size="6" id='globalOptionsListBox' style="width:100%;">
+                                            <option th:each="option : ${globalOptions}" th:text="${option.name}" th:attr="data-option-id=${option.id}"></option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <input id="newOptionNameInput" type="text"/>
+                                        <button id="addNewOptionBtn" type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span></button>
                                     </div>
                                     <div style='width:50px;text-align:center;vertical-align:middle;'>
                                         <input type='button' id='btnLeft' class="btn btn-primary"
@@ -268,12 +280,9 @@
                                     </div>
                                 </div>
 
-                                <input type="hidden" th:field="*{id}"/>
-                                <input type="hidden" th:field="*{version}"/>
-                                <input type="hidden" id="optionIds" th:field="*{optionIds}"/>
-                            </div>
-                        </div>
-                    </div>
+                    <input type="hidden" th:field="*{id}"/>
+                    <input type="hidden" th:field="*{version}"/>
+
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
@@ -317,11 +326,20 @@
             $(this).attr('src', default_url);
         });
 
-        var optionIdsInput = $('#OptionIds');
+        $('#addNewOptionBtn').click(function(e){
+            e.preventDefault();
 
-        var optionIds = optionIdsInput.split(',');
-        console.log(optionIds);
+            var addOptionUrl = /*[[@{/admin/car-model/options/add?optionName=}]]*/'';
+            var optionName = $('#newOptionNameInput').val();
+            addOptionUrl += optionName;
 
+            console.log(addOptionUrl);
+
+            $.get(addOptionUrl, function (data) {
+                var optionId = data;
+                addOptionToCarModelFunction(e, optionId, optionName);
+            });
+        });
     });
     /*]]>*/
 </script>

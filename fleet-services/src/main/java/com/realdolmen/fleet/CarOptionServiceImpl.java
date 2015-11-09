@@ -49,10 +49,18 @@ public class CarOptionServiceImpl implements CarOptionService {
         return carOptionsActiveOnesExcluded;
     }
 
+    @Override public CarOption addGlobalCarOption(CarOption carOption) {
+        if(carOption != null && !carOption.getName().isEmpty())
+            return carOptionRepository.save(carOption);
+        else
+            return null;
+    }
+
     @Override
-    public void addGlobalCarOptionAndAddToCarModel(CarOption carOption, CarModel carModel) {
+    public CarModel addGlobalCarOptionAndAddToCarModel(CarOption carOption, CarModel carModel) {
         carOption = carOptionRepository.save(carOption);
         carModel.addOption(carOption, false);
+        return carModel;
     }
 
     @Override public void makeDefaultOptionAvailable(CarModel carModel, CarOption carOption) {
