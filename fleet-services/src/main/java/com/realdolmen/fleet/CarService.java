@@ -6,6 +6,8 @@ public interface CarService {
     /**
      * Physical cars
      */
+    void saveCar(PhysicalCar car);
+
     List<PhysicalCar> findAllCars();
     PhysicalCar findCar(Long id);
 

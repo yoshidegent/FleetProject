@@ -4,7 +4,7 @@ import java.time.Period;
 import java.util.List;
 
 public interface EmployeeService {
-//    List<Employee> findAll();
+    Employee findOne(Long id);
     Employee findEmployeeByCar(PhysicalCar car);
     PhysicalCar findCurrentCarForEmployee(Employee employee);
 

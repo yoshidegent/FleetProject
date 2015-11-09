@@ -16,6 +16,11 @@ public class CarServiceImpl implements CarService {
     @Autowired private CarOptionRepository carOptionRepository;
 
     @Override
+    public void saveCar(PhysicalCar car) {
+        physicalCarRepository.save(car);
+    }
+
+    @Override
     public List<PhysicalCar> findAllCars() {
         return physicalCarRepository.findAll();
     }

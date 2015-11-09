@@ -4,10 +4,7 @@ import com.realdolmen.fleet.converters.DateConverter;
 import org.hibernate.annotations.Where;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.time.LocalDate;
@@ -60,7 +57,9 @@ public class Employee extends User {
 
     public void setCurrentCar(PhysicalCar currentCar) {
         this.currentCar = currentCar;
-        this.currentCar.setEmployee(this);
+
+        if(currentCar != null)
+            this.currentCar.setEmployee(this);
     }
 
     public int getFunctionalLevel() {

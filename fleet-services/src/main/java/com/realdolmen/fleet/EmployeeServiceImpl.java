@@ -16,11 +16,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired protected CarOrderRepository orderRepository;
     @Autowired protected EmployeeRepository employeeRepository;
-//
-//    @Override
-//    public List<Employee> findAll() {
-//        return employeeRepository.findAll();
-//    }
+
+    @Override
+    public Employee findOne(Long id) {
+        return employeeRepository.findOne(id);
+    }
 
     @Override
     public Employee findEmployeeByCar(PhysicalCar car) {

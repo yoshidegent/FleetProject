@@ -16,8 +16,8 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Car Models
-                <small>Manage car models</small>
+                Car Pool
+                <small>Manage the current pool of cars</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -43,6 +43,7 @@
                                     <th>License Plate</th>
                                     <th>Employee</th>
                                     <th>Details</th>
+                                    <th>Edit</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -53,6 +54,7 @@
                                     <td th:if="${car.employee == null}">Not assigned</td>
                                     <td th:if="${car.employee != null}" th:text="${car.employee.firstName + ' ' + car.employee.lastName}"></td>
                                     <td><p data-placement="top" data-toggle="tooltip" title="Details"><a class="btn btn-primary btn-xs" th:href="@{/admin/car/{id}(id=${car.id})}" href="#"><span class="glyphicon glyphicon-list-alt"></span></a></p></td>
+                                    <td><p data-placement="top" data-toggle="tooltip" title="Details"><a class="btn btn-primary btn-xs" th:href="@{/admin/car/edit/{id}(id=${car.id})}" href="#"><span class="glyphicon glyphicon-pencil"></span></a></p></td>
                                 </tr>
                                 </tbody>
                             </table>
