@@ -1,62 +1,99 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Fleet - Details</title>
-    <th:block th:include="fragments/head::head" />
+    <th:block th:include="fragments/layout :: head('RealDolmen Fleet')" />
 </head>
-<body>
-<div id="mainContainer" class="container">
-    <div th:replace="fragments/header::header">
-    </div>
-    <header>
-        <h1 th:text='${carModel.brand + " " +  carModel.model}'></h1>
-    </header>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="carPictureContainer">
-                <img th:if="${carModel.pictureUrl != null}" th:src="${carModel.pictureUrl}" />
-                <img th:if="${carModel.pictureUrl == null}" th:src="@{/images/car-shadow.png}" />
-            </div>
+<body class="hold-transition skin-rd layout-top-nav">
+<div class="wrapper">
+    <th:block th:replace="fragments/layout :: header"></th:block>
+
+    <div class="content-wrapper">
+        <div class="container">
+            <section class="content-header">
+                <h1>
+                    <th:block th:text="${carModel.brand + ' ' + carModel.model}"></th:block>
+                    <small th:text="${carModel.pack}"></small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"> Home</a></li>
+                    <li class="active">Car Models</li>
+                </ol>
+            </section>
+
+            <section class="content">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <i class="fa fa-text-width"></i>
+                                <h3 class="box-title">Description</h3>
+                            </div>
+                            <div class="box-body">
+                                <dl class="dl-horizontal">
+                                    <dt>Category</dt>
+                                    <dd th:text="${carModel.category}"></dd>
+
+                                    <dt>Brand</dt>
+                                    <dd th:text="${carModel.brand}"></dd>
+
+                                    <dt>Type</dt>
+                                    <dd th:text="${carModel.model}"></dd>
+
+                                    <dt>Pack</dt>
+                                    <dd th:text="${carModel.pack}"></dd>
+
+                                    <dt>Fuel type</dt>
+                                    <dd th:text="${carModel.fuelType.displayName}"></dd>
+
+                                    <dt>Delivery time</dt>
+                                    <dd>
+                                        <span th:if="${carModel.deliveryTime.months != 0}" th:text="${carModel.deliveryTime.months + ' month(s)'}"></span>
+                                        <span th:if="${carModel.deliveryTime.days != 0 and carModel.deliveryTime.months != 0}"> and </span>
+                                        <span th:if="${carModel.deliveryTime.days != 0}" th:text="${carModel.deliveryTime.days + ' day(s)'}"></span>
+                                    </dd>
+
+                                    <dt>Ideal km</dt>
+                                    <dd th:text="${carModel.idealKm}"></dd>
+
+                                    <dt>Max. km</dt>
+                                    <dd th:text="${carModel.maxKm}"></dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="box">
+                            <div class="box-body">
+                                <img class="img-responsive" th:if="${carModel.pictureUrl != null}" th:src="${carModel.pictureUrl}" />
+                                <img class="img-responsive" th:if="${carModel.pictureUrl == null}" th:src="@{/images/car-shadow.png}" />
+                            </div>
+                        </div>
+                        <div class="small-box bg-yellow">
+                            <div class="inner">
+                                <h3>€ <th:block th:text="${carModel.benefitInKindPerMonth}"></th:block> <small style="color: #fff">/ month</small></h3>
+                                <p>
+                                    <!-- TODO: fix display based on upgrade/downgrade -->
+                                    € <th:block th:text="${carModel.amountDowngradeInclVat}"></th:block><br />
+                                    € <th:block th:text="${carModel.amountUpgradeInclVat}"></th:block><br />
+                                    € <th:block th:text="${carModel.listPriceInclVat}"></th:block><br />
+                                </p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-car"></i>
+                            </div>
+                            <a href="#" th:href="@{/car/order(id=${carModel.id})}" class="small-box-footer">
+                                Order <i class="fa fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
-        <div class="col-sm-4">
-            <dl class="dl-horizontal">
-                <dt>Category</dt>
-                <dd th:text="${carModel.category}"></dd>
-
-                <dt>Brand</dt>
-                <dd th:text="${carModel.brand}"></dd>
-
-                <dt>Type</dt>
-                <dd th:text="${carModel.model}"></dd>
-
-                <dt>Pack</dt>
-                <dd th:text="${carModel.pack}"></dd>
-
-                <dt>Fuel type</dt>
-                <dd th:text="${carModel.fuelType.displayName}"></dd>
-
-                <dt>Delivery time</dt>
-                <dd>
-                    <span th:if="${carModel.deliveryTime.months != 0}" th:text="${carModel.deliveryTime.months + ' month(s)'}"></span>
-                    <span th:if="${carModel.deliveryTime.days != 0 and carModel.deliveryTime.months != 0}"> and </span>
-                    <span th:if="${carModel.deliveryTime.days != 0}" th:text="${carModel.deliveryTime.days + ' day(s)'}"></span>
-                </dd>
-
-                <dt>Ideal km</dt>
-                <dd th:text="${carModel.idealKm}"></dd>
-
-                <dt>Max. km</dt>
-                <dd th:text="${carModel.maxKm}"></dd>
-            </dl>
-
-            <span th:text="${carModel.listPriceInclVat}"></span><br />
-            <span th:text="${carModel.amountDowngradeInclVat}"></span><br />
-            <span th:text="${carModel.amountUpgradeInclVat}"></span><br />
-            <span th:text="${carModel.benefitInKindPerMonth}"></span><br />
-            <a th:href="@{/car/order(id=${carModel.id})}" href="#" class="btn btn-default">Order</a>
-        </div>
     </div>
 
+    <th:block th:replace="fragments/layout :: footer"></th:block>
 </div>
+
+<th:block th:replace="fragments/layout :: scripts"></th:block>
 </body>
 </html>

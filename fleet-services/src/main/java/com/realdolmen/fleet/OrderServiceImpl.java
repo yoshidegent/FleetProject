@@ -35,6 +35,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean employeeCanOrder(Employee employee) {
+        // TODO: add more checks
         return carOrderRepository.findByEmployee(employee)
                 .stream()
                 .filter(o -> o.getStatus() == CarOrder.OrderStatus.PENDING)

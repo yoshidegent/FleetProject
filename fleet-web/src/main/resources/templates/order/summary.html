@@ -1,20 +1,65 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Fleet - Details</title>
-    <th:block th:include="fragments/head::head" />
+    <th:block th:include="fragments/layout :: head('RealDolmen Fleet')" />
 </head>
-<body>
-    <div id="mainContainer" class="container">
-        <div th:replace="fragments/header::header"></div>
+<body class="hold-transition skin-rd layout-top-nav">
+<div class="wrapper">
+    <th:block th:replace="fragments/layout :: header(userEmployee=${employee})"></th:block>
 
-        <ul>
-            <li th:each="option : ${carOrder.orderedCar.selectedCarOptions}" th:text="${option.name}"></li>
-        </ul>
+    <div class="content-wrapper">
+        <div class="container">
+            <section class="content-header">
+                <h1>
+                    <th:block th:text="${carOrder.orderedCar.carModel.brand + ' ' + carOrder.orderedCar.carModel.model}"></th:block>
+                    <small>Summary</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"> Home</a></li>
+                    <li class="active">Car Models</li>
+                </ol>
+            </section>
 
-        <form method="post" th:object="${optionSelectionList}" th:action="${''}">
-            <input type="submit" name="_eventId_submit" value="Confirm" />
-        </form>
+            <section class="content">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="box box-default">
+                            <div class="box-header with-border">
+                                <i class="fa fa-list-alt"></i>
+                                <h3 class="box-title">Order Summary</h3>
+                            </div>
+                            <div class="box-body">
+                                <h4>Selected Options</h4>
+                                <table class="table">
+                                    <tbody>
+                                    <tr th:each="option : ${carOrder.orderedCar.selectedCarOptions}">
+                                        <td th:text="${option.name}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <form method="post" th:action="${''}">
+                                    <input class="pull-right btn btn-flat btn-primary" type="submit" name="_eventId_submit" value="Confirm" />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="box">
+                            <div class="box-body">
+                                <img class="img-responsive" th:if="${carOrder.orderedCar.carModel.pictureUrl != null}" th:src="${carModel.pictureUrl}" />
+                                <img class="img-responsive" th:if="${carOrder.orderedCar.carModel.pictureUrl == null}" th:src="@{/images/car-shadow.png}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
+
+    <th:block th:replace="fragments/layout :: footer"></th:block>
+</div>
+
+<th:block th:replace="fragments/layout :: scripts"></th:block>
 </body>
 </html>

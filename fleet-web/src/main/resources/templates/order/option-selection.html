@@ -1,34 +1,69 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Fleet - Details</title>
-    <th:block th:include="fragments/head::head" />
+    <th:block th:include="fragments/layout :: head('RealDolmen Fleet')" />
 </head>
-<body>
-    <div id="mainContainer" class="container">
-        <div th:replace="fragments/header::header"></div>
-        <header>
-            <h1 th:text='${carModel.brand + " " +  carModel.model}'></h1>
-        </header>
+<body class="hold-transition skin-rd layout-top-nav">
+<div class="wrapper">
+    <th:block th:replace="fragments/layout :: header(userEmployee=${employee})"></th:block>
 
-        <ul>
-            <li th:each="option : ${defaultOptions}">
-                <span th:text="${option.name}"></span>
-            </li>
-        </ul>
+    <div class="content-wrapper">
+        <div class="container">
+            <section class="content-header">
+                <h1>
+                    <th:block th:text="${carModel.brand + ' ' + carModel.model}"></th:block>
+                    <small>Choose your options</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"> Home</a></li>
+                    <li class="active">Car Models</li>
+                </ol>
+            </section>
 
-        <!--/* th:action is required for the CSRF token to be injected by Thymeleaf,
-               hence the "stupid" syntax for an empty action */-->
-        <form method="post" th:object="${optionSelectionList}" th:action="${''}">
-            <ul>
-                <li th:each="option : ${optionSelectionList.data}">
-                    <input type="checkbox" th:field="*{selection}" th:value="${option.id}" />
-                    <label th:text="${option.name}"></label>
-                </li>
-            </ul>
+            <section class="content">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <i class="fa fa-cubes"></i>
+                        <h3 class="box-title">Option Selection</h3>
+                    </div>
+                    <div class="box-body">
+                        <h4>Default Options</h4>
+                        <table class="table">
+                            <tbody>
+                            <tr th:each="option : ${defaultOptions}">
+                                <td th:text="${option.name}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
 
-            <input type="submit" name="_eventId_submit" value="Continue" />
-        </form>
+                        <h4>Additional Options</h4>
+                        <!--/* th:action is required for the CSRF token to be injected by Thymeleaf,
+                               hence the "stupid" syntax for an empty action */-->
+                        <form method="post" th:object="${optionSelectionList}" th:action="${''}">
+                            <table class="table">
+                                <tbody>
+                                <tr th:each="option : ${optionSelectionList.data}">
+                                    <td>
+                                        <div class="checkbox checkbox-primary checkbox-no-spacing">
+                                            <input class="styled styled-primary" type="checkbox" th:field="*{selection}" th:value="${option.id}" />
+                                            <label th:text="${option.name}"></label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <input class="pull-right btn btn-flat btn-primary" type="submit" name="_eventId_submit" value="Continue" />
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
+
+    <th:block th:replace="fragments/layout :: footer"></th:block>
+</div>
+
+<th:block th:replace="fragments/layout :: scripts"></th:block>
 </body>
 </html>

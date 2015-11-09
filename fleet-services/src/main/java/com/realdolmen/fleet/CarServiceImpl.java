@@ -88,7 +88,7 @@ public class CarServiceImpl implements CarService {
     public List<CarOption> getAvailableOptionsForModel(CarModel carModel) {
         return carModel.getOptionsDefaultMap().entrySet()
                 .stream()
-                .filter(Map.Entry::getValue)
+                .filter(entry -> !entry.getValue())
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
@@ -97,7 +97,7 @@ public class CarServiceImpl implements CarService {
     public List<CarOption> getDefaultOptionsForModel(CarModel carModel) {
         return carModel.getOptionsDefaultMap().entrySet()
                 .stream()
-                .filter(entry -> !entry.getValue())
+                .filter(Map.Entry::getValue)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }

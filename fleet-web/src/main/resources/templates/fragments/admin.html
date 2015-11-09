@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="header">
+    <header class="main-header">
+        <!-- Logo -->
+        <span class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini">Fleet</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg">Fleet</span>
+        </span>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+
+            <th:block th:replace="fragments/layout :: rightMenu"></th:block>
+        </nav>
+    </header>
+</th:block>
+</html>
