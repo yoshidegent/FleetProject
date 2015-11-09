@@ -41,27 +41,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         return null;
     }
 
-    @Override public Integer calculateAgeOfEmployee(Employee employee) {
-        LocalDate dateOfBirth = employee.getDateOfBirth();
-        LocalDate now = LocalDate.now();
-
-        if(dateOfBirth == null)
-            return null;
-
-        Long age = ChronoUnit.YEARS.between(dateOfBirth, now);
-        return Math.abs((int) (long) age);
-    }
-
-    @Override public Period calculateSeniority(Employee employee) {
-
-        LocalDate hireDate = employee.getHireDate();
-        if(hireDate == null)
-            return null;
-
-        LocalDate now = LocalDate.now();
-        return Period.between(hireDate, now);
-    }
-
     @Override public int getHighestAllowedCategory(Employee employee) {
         if(employee.getFunctionalLevel() >= 7)
             return 7;
@@ -74,5 +53,9 @@ public class EmployeeServiceImpl implements EmployeeService {
             return 2;
         else
             return employee.getFunctionalLevel() - 1;
+    }
+
+    @Override public List<Employee> findAllEmployees() {
+        return employeeRepository.findAll();
     }
 }
