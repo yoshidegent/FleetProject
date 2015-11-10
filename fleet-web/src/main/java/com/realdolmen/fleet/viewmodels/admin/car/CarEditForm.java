@@ -15,7 +15,7 @@ public class CarEditForm {
     private Employee employee;
     private Long mileage;
     private String licensePlate;
-    private List<Long> options;
+    private List<Long> installedOptions;
 
     public void mapFrom(PhysicalCar car) {
         this.id = car.getId();
@@ -24,7 +24,7 @@ public class CarEditForm {
         this.employee = car.getEmployee();
         this.mileage = car.getMileage();
         this.licensePlate = car.getLicensePlate();
-        this.options = car.getSelectedCarOptions().stream().map(AbstractEntity::getId).collect(Collectors.toList());
+        this.installedOptions = car.getSelectedCarOptions().stream().map(AbstractEntity::getId).collect(Collectors.toList());
     }
 
     public PhysicalCar physicalCar() {
@@ -87,11 +87,11 @@ public class CarEditForm {
         this.licensePlate = licensePlate;
     }
 
-    public List<Long> getOptions() {
-        return options;
+    public List<Long> getInstalledOptions() {
+        return installedOptions;
     }
 
-    public void setOptions(List<Long> options) {
-        this.options = options;
+    public void setInstalledOptions(List<Long> installedOptions) {
+        this.installedOptions = installedOptions;
     }
 }

@@ -19,6 +19,7 @@ import static org.springframework.web.servlet.mvc.method.annotation.MvcUriCompon
 public class CarController {
     @Autowired private CarService carService;
     @Autowired private EmployeeService employeeService;
+    @Autowired private CarOptionService carOptionService;
 
     @RequestMapping({"", "/"})
     public String overview(Model model) {
