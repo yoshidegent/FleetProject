@@ -28,11 +28,6 @@
                     <div class="box box-default">
                         <div class="box-header with-border">
                             <h3 class="box-title">Overview</h3>
-                            <div class="box-tools pull-right">
-                                <a th:if="${order.status != T(com.realdolmen.fleet.CarOrder.OrderStatus).DELIVERED}" href="#"
-                                   th:href="@{/admin/order/{id}/deliver(id=${order.id})}"
-                                   class="btn btn-flat btn-default">Set delivered</a>
-                            </div>
                         </div>
 
                         <div class="box-body">
@@ -44,7 +39,10 @@
                                 <dd th:text="${order.employee.firstName + ' ' + order.employee.lastName}"></dd>
 
                                 <dt>Status</dt>
-                                <dd><span class="label label-success" th:text="${order.status}"></span></dd>
+                                <dd>
+                                    <span class="label" th:text="${order.status}"
+                                          th:classappend="${order.status == T(com.realdolmen.fleet.CarOrder.OrderStatus).PENDING}? 'label-warning' : 'label-success'"></span>
+                                </dd>
                             </dl>
 
                             <h1>Ordered car</h1>
@@ -61,6 +59,30 @@
 
                             <h2>Options</h2>
                             <th:block th:replace="fragments/car :: carOptionTable(${order.orderedCar})"></th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" th:if="${order.status != T(com.realdolmen.fleet.CarOrder.OrderStatus).DELIVERED}">
+                <div class="col-xs-12">
+                    <div class="box box-default">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Car Got Delivered?</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <p>Enter the license plate and mark the car as delivered.</p>
+
+                            <form th:action="@{/admin/order/{id}/deliver(id=${order.id})}" method="post">
+                                <div class="form-group">
+                                    <label for="licensePlate">License Plate</label>
+                                    <input type="text" name="licensePlate" id="licensePlate" />
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-flat btn-primary" value="Deliver" />
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

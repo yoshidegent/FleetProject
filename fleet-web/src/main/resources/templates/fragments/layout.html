@@ -184,7 +184,7 @@
                     <a href="#" th:href="@{/admin/order}">
                         <i class="fa fa-shopping-cart"></i>
                         <span>Orders</span>
-                        <!--/* <span class="label label-primary pull-right">4</span> */-->
+                        <span th:if="${pendingOrders != 0}" class="label bg-yellow pull-right" th:text="${pendingOrders}"></span>
                     </a>
                 </li>
                 <li th:class="${active == 'employees'}? 'active'">

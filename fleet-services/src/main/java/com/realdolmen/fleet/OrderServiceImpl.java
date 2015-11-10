@@ -43,11 +43,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void deliver(Long orderId) {
+    public void deliver(Long orderId, String licensePlate) {
         CarOrder carOrder = carOrderRepository.findOne(orderId);
         carOrder.setStatus(CarOrder.OrderStatus.DELIVERED);
 
         PhysicalCar car = carOrder.getOrderedCar();
+        car.setLicensePlate(licensePlate);
         carOrder.getEmployee().setCurrentCar(car);
+    }
+
+    @Override
+    public Long getPendingOrderAmount() {
+        return carOrderRepository.countByStatus(CarOrder.OrderStatus.PENDING);
     }
 }
