@@ -5,6 +5,7 @@ import com.realdolmen.fleet.CarModel;
 import com.realdolmen.fleet.Employee;
 import com.realdolmen.fleet.PhysicalCar;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,7 +16,7 @@ public class CarEditForm {
     private Employee employee;
     private Long mileage;
     private String licensePlate;
-    private List<Long> installedOptions;
+    private List<Long> installedOptions = new ArrayList<>();
 
     public void mapFrom(PhysicalCar car) {
         this.id = car.getId();

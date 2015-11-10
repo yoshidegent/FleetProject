@@ -51,6 +51,18 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public void editOptionsById(PhysicalCar car, List<Long> optionIds) {
+        car.getSelectedCarOptions().clear();
+        optionIds.stream().forEach(optionId -> {
+            CarOption option = carOptionRepository.findOne(optionId);
+            if(option != null)
+                car.addSelectedOption(option);
+        });
+
+        addDefaultOptionsToCar(car);
+    }
+
+    @Override
     public void saveCarModels(List<CarModel> carModels) {
         carModelRepository.save(carModels);
     }

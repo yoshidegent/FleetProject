@@ -2,7 +2,10 @@ package com.realdolmen.fleet;
 
 import org.hibernate.annotations.Where;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +15,7 @@ public class PhysicalCar extends AbstractEntity {
     @ManyToOne
     private CarModel carModel;
 
-    @OneToMany
+    @ManyToMany
     private List<CarOption> selectedCarOptions = new ArrayList<>();
 
     @OneToOne(mappedBy = "currentCar")
@@ -26,6 +29,10 @@ public class PhysicalCar extends AbstractEntity {
 
     public PhysicalCar(CarModel carModel) {
         this.carModel = carModel;
+    }
+
+    public void addSelectedOption(CarOption carOption) {
+        selectedCarOptions.add(carOption);
     }
 
     public CarModel getCarModel() {

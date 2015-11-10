@@ -5,10 +5,7 @@ import com.realdolmen.fleet.viewmodels.admin.car.CarEditForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -85,8 +82,17 @@ public class CarController {
             newEmployee.setCurrentCar(newCar);
         }
 
+        List<Long> installedOptionIds = editForm.getInstalledOptions();
+        carService.editOptionsById(newCar, installedOptionIds);
         carService.saveCar(newCar);
 
         return "redirect:" + fromMappingName("CC#overview").build();
+    }
+
+    @RequestMapping("/{id}/installed")
+    @ResponseBody
+    public List<CarOption> getInstalledOptions(@PathVariable("id") Long id) {
+        PhysicalCar car = carService.findCar(id);
+        return car.getSelectedCarOptions();
     }
 }

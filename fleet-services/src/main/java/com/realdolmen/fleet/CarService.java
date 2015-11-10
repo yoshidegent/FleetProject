@@ -14,6 +14,8 @@ public interface CarService {
     void addOptionsToCar(PhysicalCar car, List<Long> optionIds);
     void addDefaultOptionsToCar(PhysicalCar car);
 
+    void editOptionsById(PhysicalCar car, List<Long> optionIds);
+
     /**
      * Car models
      */
