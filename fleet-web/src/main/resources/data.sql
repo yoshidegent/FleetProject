@@ -12,7 +12,7 @@ INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('3', 'GSM Bluetooth');
 INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('4', 'Rims');
 INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('5', 'Leather interior');
 INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('6', 'Cruise control');
-INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('7', 'Authomatic');
+INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('7', 'Automatic');
 INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('8', 'Park sensors');
 INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('9', 'Tinted windows');
 INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('10', 'Roof rails');
