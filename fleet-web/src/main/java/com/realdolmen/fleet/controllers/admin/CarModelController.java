@@ -113,6 +113,12 @@ public class CarModelController {
             return newCarOption.getId();
         else
             return null;
+    }
 
+    @RequestMapping("/{id}/options")
+    @ResponseBody
+    public List<CarOption> getAvailableCarOptions(@PathVariable("id") Long id) {
+        CarModel carModel = carService.findCarModel(id);
+        return carService.getAvailableOptionsForModel(carModel);
     }
 }

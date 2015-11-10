@@ -37,57 +37,22 @@
                         <input type="submit" class="pull-right btn btn-flat btn-primary" value="Save" />
                     </div>
                 </div>
-                <!--<div class="row">
+                <div class="row">
                     <div class="col-sm-12">
-                        <div class="box box-default">
+                        <div class="box box-info">
                             <div class="box-header with-border">
                                 <i class="fa fa-cubes"></i>
                                 <h3 class="box-title">Installed Options</h3>
                             </div>
                             <div class="box-body">
-                                <div>
-                                    <div>
-                                        <table class="table table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th>Option</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr th:each="option : ${optionMap}">
-                                                <td class="optionName" th:text="${option.key.name}"></td>
-                                                <td style="text-align: center">
-                                                    <input type="hidden" class="optionDefaultHidden" name="optionDefaultList" th:value="${option.value}" />
-                                                    <div class="checkbox checkbox-primary checkbox-no-spacing">
-                                                        <input class="optionDefaultCheckBox styled styled-primary" name="optionDefaultList" type="checkbox" checked="checked" />
-                                                        <label></label>
-                                                    </div>
-                                                    <input class="optionId" name="optionIds" type="hidden" th:value="${option.key.id}" />
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div style='width:100%; text-align:center;'>
-                                        <button id='addOptionBtn' type="button" class="btn btn-flat btn-primary"><span class="glyphicon glyphicon-menu-up" /></button>
-                                    </div>
-                                    <div>
-                                        <b>All options:</b><br/>
-                                        <select size="6" id='globalOptionsListBox' style="width:100%;">
-                                            <option th:each="option : ${globalOptions}" th:text="${option.name}" th:attr="data-option-id=${option.id}"></option>
-                                        </select>
-                                    </div>
-                                    <div class="input-group">
-                                        <input id="newOptionNameInput" type="text" class="form-control" />
-                                        <div class="input-group-btn">
-                                            <button id="addNewOptionBtn" type="button" class="btn btn-flat btn-success"><span class="glyphicon glyphicon-plus-sign"></span></button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <table class="optionTable table table-striped">
+                                    <tbody>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-                </div>-->
+                </div>
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="box box-primary">
@@ -172,13 +137,49 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 <script th:src="@{/scripts/optionManagement.js}"></script>
 <script th:src="@{/scripts/validator.js}"></script>
-<script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
     (function ($) {
+        var carModelUrl = /*[[@{/admin/car-model}]]*/ '';
+
         $(document).ready(function () {
             $('form').validator();
             $('select').select2();
+
+            var $carModelSelect = $('#carModel');
+            $carModelSelect.change(onCarModelChange);
+            $carModelSelect.trigger('change');
         });
+
+        function onCarModelChange() {
+            var selectedCarModelId = $(this).find('option:selected').val();
+            $.get(carModelUrl + '/' + selectedCarModelId + '/options', onCarOptionsReceived);
+
+            function onCarOptionsReceived(carOptions) {
+                var $optionTable = $('.optionTable tbody');
+
+                var $rows = [];
+                for(var i = 0, len = carOptions.length; i < len; i++) {
+                    var $row = $('<tr />');
+
+                    $row.append([
+                        "<div class='checkbox checkbox-primary'>",
+                            "<input type='checkbox' class='styled styled-primary' name='options' value='" + carOptions[i].id + "' />",
+                            "<label></label>",
+                        "</div>"
+                    ].join("\n"));
+
+                    var $nameColumn = $('<td />').text(carOptions[i].name);
+                    $row.append($nameColumn);
+                    $rows.push($row);
+                }
+
+                $optionTable.empty();
+                $optionTable.append($rows);
+            }
+        }
     })(jQuery);
+    /*]]>*/
 </script>
 <script th:inline="javascript">
     /*<![CDATA[*/
