@@ -18,7 +18,7 @@ public class PhysicalCar extends AbstractEntity {
     @OneToOne(mappedBy = "currentCar")
     private Employee employee;
 
-    private Long mileage;
+    private Long mileage = 0L;
 
     private String licensePlate;
 

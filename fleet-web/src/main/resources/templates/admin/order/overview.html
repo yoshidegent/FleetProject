@@ -39,6 +39,7 @@
                                 <thead>
                                 <tr>
                                     <th>Id</th>
+                                    <th>Order Date</th>
                                     <th>Employee</th>
                                     <th>Car</th>
                                     <th>Status</th>
@@ -48,6 +49,7 @@
                                 <tbody>
                                 <tr th:each="order : ${orders}" th:attr="data-model-id=${order.id}">
                                     <td th:text="${order.id}"></td>
+                                    <td th:text="${ordr.orderDate}"></td>
                                     <td th:text="${order.employee.firstName + ' ' + order.employee.lastName}"></td>
                                     <td th:text="${order.orderedCar.carModel.brand + ' ' + order.orderedCar.carModel.model}"></td>
                                     <td><span class="label label-success" th:text="${order.status}"></span></td>

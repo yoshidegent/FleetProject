@@ -38,11 +38,6 @@ public class CarController {
 
     @RequestMapping("/edit/{id}")
     public String editGet(Model model, @PathVariable("id") Long id) {
-        /*CarModel carModel = carService.findCarModel(id);
-
-        CarEditForm editForm = new CarEditForm();
-        editForm.mapFrom(carModel);
-        model.addAttribute("editForm", editForm);*/
         PhysicalCar car = carService.findCar(id);
 
         CarEditForm editForm = new CarEditForm();
@@ -60,29 +55,19 @@ public class CarController {
 
     @RequestMapping("/new")
     public String newGet(Model model) {
-        //model.addAttribute("editForm", new CarEditForm());
+        model.addAttribute("editForm", new CarEditForm());
+
+        List<CarModel> carModels = carService.findAllCarModels();
+        model.addAttribute("carModels", carModels);
+
+        List<Employee> employees = employeeService.findAllEmployees();
+        model.addAttribute("employees", employees);
 
         return "admin/car/edit";
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
     public String modelPost(@ModelAttribute CarEditForm editForm) {
-        /*if(editForm.getImageFile() != null && !editForm.getImageFile().isEmpty()) {
-            try {
-                String fileName = editForm.getImageFile().getOriginalFilename();
-                int lastDotIndex = fileName.lastIndexOf(".");
-                String extension = fileName.substring(lastDotIndex + 1);
-                String newFileName = Instant.now().getEpochSecond() + "." + extension;
-                String webappRoot = servletContext.getRealPath("/");
-                String relativeFolder = File.separator + "resources" + File.separator
-                        + "images" + File.separator + "car-models" + File.separator;
-
-                editForm.getImageFile().transferTo(new File(webappRoot + relativeFolder + newFileName));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }*/
-
         PhysicalCar newCar = editForm.physicalCar();
         PhysicalCar oldCar = carService.findCar(newCar.getId());
 
@@ -100,20 +85,6 @@ public class CarController {
         }
 
         carService.saveCar(newCar);
-
-        return "redirect:" + fromMappingName("CC#overview").build();
-    }
-
-    @RequestMapping("/delete/{id}")
-    public String delete(@PathVariable("id") Long id) {
-        //carService.deleteCarModel(id);
-
-        return "redirect:" + fromMappingName("CC#overview").build();
-    }
-
-    @RequestMapping("/delete/{ids}/m")
-    public String deleteMultiple(@PathVariable Long[] ids) {
-        //carService.deleteCarModels(ids);
 
         return "redirect:" + fromMappingName("CC#overview").build();
     }

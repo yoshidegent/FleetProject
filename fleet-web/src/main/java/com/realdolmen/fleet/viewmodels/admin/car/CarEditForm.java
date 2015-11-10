@@ -1,8 +1,12 @@
 package com.realdolmen.fleet.viewmodels.admin.car;
 
+import com.realdolmen.fleet.AbstractEntity;
 import com.realdolmen.fleet.CarModel;
 import com.realdolmen.fleet.Employee;
 import com.realdolmen.fleet.PhysicalCar;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CarEditForm {
     private Long id;
@@ -11,6 +15,7 @@ public class CarEditForm {
     private Employee employee;
     private Long mileage;
     private String licensePlate;
+    private List<Long> options;
 
     public void mapFrom(PhysicalCar car) {
         this.id = car.getId();
@@ -19,6 +24,7 @@ public class CarEditForm {
         this.employee = car.getEmployee();
         this.mileage = car.getMileage();
         this.licensePlate = car.getLicensePlate();
+        this.options = car.getSelectedCarOptions().stream().map(AbstractEntity::getId).collect(Collectors.toList());
     }
 
     public PhysicalCar physicalCar() {
@@ -79,5 +85,13 @@ public class CarEditForm {
 
     public void setLicensePlate(String licensePlate) {
         this.licensePlate = licensePlate;
+    }
+
+    public List<Long> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<Long> options) {
+        this.options = options;
     }
 }

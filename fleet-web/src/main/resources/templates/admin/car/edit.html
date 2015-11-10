@@ -100,7 +100,7 @@
                                     <label class="col-sm-2 control-label" for="carModel">Car Model</label>
 
                                     <div class="col-sm-10">
-                                        <select id="carModel" class="form-control" th:field="*{carModel}">
+                                        <select id="carModel" class="form-control select2" th:field="*{carModel}">
                                             <option th:each="carModel : ${carModels}" th:value="${carModel.id}" th:text="${carModel.brand + ' ' + carModel.model}"></option>
                                         </select>
 
@@ -112,7 +112,7 @@
                                     <label class="col-sm-2 control-label" for="employee">Employee</label>
 
                                     <div class="col-sm-10">
-                                        <select id="employee" class="form-control" th:field="*{employee}">
+                                        <select id="employee" class="form-control select2" th:field="*{employee}">
                                             <option value="">Unassigned</option>
                                             <option th:each="employee : ${employees}" th:value="${employee.id}" th:text="${employee.firstName + ' ' + employee.lastName}"></option>
                                         </select>
