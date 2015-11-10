@@ -1,10 +1,10 @@
 INSERT INTO `fleet`.`user` (`DTYPE`, `id`, `email`, `password`, `dateOfBirth`, `firstName`, `function`, `functionalLevel`, `hireDate`, `lastName`, `active`) VALUES ('Employee', '1', 'yoshi.degent@realdolmen.com', '$2a$04$4.QXaVbhnR7MR58foRJxROca5yY1qLvN2KkZFdo980vpCep3P5/Lm', '1993-10-19', 'Yoshi', 'Developer', '2', '2015-09-01', 'Degent', 1);
 INSERT INTO `fleet`.`user` (`DTYPE`, `id`, `email`, `password`, `dateOfBirth`, `firstName`, `function`, `functionalLevel`, `hireDate`, `lastName`, `active`) VALUES ('Employee', '2', 'dean.wyns@realdolmen.com', '$2a$04$4.QXaVbhnR7MR58foRJxROca5yY1qLvN2KkZFdo980vpCep3P5/Lm', '1994-09-30', 'Dean', 'Developer', '2', '2015-09-01', 'Wyns', 1);
-INSERT INTO `fleet`.`user` (`DTYPE`, `id`, `email`, `password`, `dateOfBirth`, `firstName`, `function`, `functionalLevel`, `hireDate`, `lastName`, `active`) VALUES ('Admin', '3', 'admin@realdolmen.com', '$2a$04$4.QXaVbhnR7MR58foRJxROca5yY1qLvN2KkZFdo980vpCep3P5/Lm', '1990-09-30', 'Test', 'Developer', '2', '2010-09-01', 'Admin', 1);
+INSERT INTO `fleet`.`user` (`DTYPE`, `id`, `email`, `password`, `dateOfBirth`, `firstName`, `function`, `functionalLevel`, `hireDate`, `lastName`, `active`) VALUES ('Admin', '3', 'admin@realdolmen.com', '$2a$04$4.QXaVbhnR7MR58foRJxROca5yY1qLvN2KkZFdo980vpCep3P5/Lm', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
-INSERT INTO `fleet`.`user_roles` (`User_id`, `roles`) VALUES ('1', 'Employee');
-INSERT INTO `fleet`.`user_roles` (`User_id`, `roles`) VALUES ('2', 'Employee');
-INSERT INTO `fleet`.`user_roles` (`User_id`, `roles`) VALUES ('3', 'Admin');
+INSERT INTO `fleet`.`user_roles` (`User_id`, `roles`) VALUES ('1', 'ROLE_EMPLOYEE');
+INSERT INTO `fleet`.`user_roles` (`User_id`, `roles`) VALUES ('2', 'ROLE_EMPLOYEE');
+INSERT INTO `fleet`.`user_roles` (`User_id`, `roles`) VALUES ('3', 'ROLE_ADMIN');
 
 INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('1', 'Towing bracket');
 INSERT INTO `fleet`.`caroption` (`id`, `name`) VALUES ('2', 'GPS');
