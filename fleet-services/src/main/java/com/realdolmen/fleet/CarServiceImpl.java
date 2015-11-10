@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class CarServiceImpl implements CarService {
-    @Autowired protected CarModelRepository carModelRepository;
+    @Autowired private CarModelRepository carModelRepository;
     @Autowired private PhysicalCarRepository physicalCarRepository;
 
     @Override
@@ -70,5 +70,21 @@ public class CarServiceImpl implements CarService {
     public void deleteCarModels(Long[] ids) {
         for(Long id : ids)
             carModelRepository.delete(id);
+    }
+
+    public CarModelRepository getCarModelRepository() {
+        return carModelRepository;
+    }
+
+    public PhysicalCarRepository getPhysicalCarRepository() {
+        return physicalCarRepository;
+    }
+
+    public void setCarModelRepository(CarModelRepository carModelRepository) {
+        this.carModelRepository = carModelRepository;
+    }
+
+    public void setPhysicalCarRepository(PhysicalCarRepository physicalCarRepository) {
+        this.physicalCarRepository = physicalCarRepository;
     }
 }
