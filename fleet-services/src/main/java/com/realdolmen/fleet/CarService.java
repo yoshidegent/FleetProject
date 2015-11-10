@@ -10,11 +10,7 @@ public interface CarService {
 
     List<PhysicalCar> findAllCars();
     PhysicalCar findCar(Long id);
-
-    void addOptionsToCar(PhysicalCar car, List<Long> optionIds);
-    void addDefaultOptionsToCar(PhysicalCar car);
-
-    void editOptionsById(PhysicalCar car, List<Long> optionIds);
+    PhysicalCar findCarByLicensePlate(String licensePlate);
 
     /**
      * Car models
@@ -25,11 +21,8 @@ public interface CarService {
     List<CarModel> findAllCarModels();
     List<CarModel> findCarModelsByCategory(int category);
     CarModel findCarModel(Long id);
-    void deleteAllCarModels();
 
+    void deleteAllCarModels();
     void deleteCarModel(Long id);
     void deleteCarModels(Long[] ids);
-
-    List<CarOption> getAvailableOptionsForModel(CarModel carModel);
-    List<CarOption> getDefaultOptionsForModel(CarModel carModel);
 }

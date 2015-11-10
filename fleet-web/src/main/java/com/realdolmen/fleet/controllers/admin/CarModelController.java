@@ -83,7 +83,7 @@ public class CarModelController {
 
         for (int i=0; i<optionIds.size(); i++)
         {
-            CarOption carOption = carOptionService.findOptionById(optionIds.get(i));
+            CarOption carOption = carOptionService.findCarOptionById(optionIds.get(i));
 
             if(carOption != null)
                 carOptionDefaultMap.put(carOption, isDefaultList.get(i));
@@ -126,6 +126,6 @@ public class CarModelController {
     @ResponseBody
     public List<CarOption> getAvailableCarOptions(@PathVariable("id") Long id) {
         CarModel carModel = carService.findCarModel(id);
-        return carService.getAvailableOptionsForModel(carModel);
+        return carOptionService.findAvailableOptionsForCarModel(carModel);
     }
 }

@@ -1,0 +1,44 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://fleet.realdolmen.com"
+           targetNamespace="http://fleet.realdolmen.com"
+           elementFormDefault="qualified">
+
+    <xs:element name="updateMileageRequest">
+        <xs:complexType>
+            <xs:sequence >
+                <xs:element name="updateMileageRequestObject" maxOccurs="unbounded" minOccurs="1" type="tns:UpdateMileageRequestObject"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="UpdateMileageRequestObject">
+        <xs:sequence>
+            <xs:element name="licensePlate" type="xs:string"/>
+            <xs:element name="mileage" type="xs:unsignedInt"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="updateMileageResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="responseMileageUpdateObject"
+                            type="tns:UpdateMileageResponseObject" maxOccurs="unbounded"
+                            minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="UpdateMileageResponseObject">
+        <xs:sequence>
+            <xs:element name="status" type="tns:status"/>
+            <xs:element name="message" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="status">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SUCCESS"/>
+            <xs:enumeration value="FAILED"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 public class CarServiceImpl implements CarService {
     @Autowired protected CarModelRepository carModelRepository;
     @Autowired private PhysicalCarRepository physicalCarRepository;
-    @Autowired private CarOptionRepository carOptionRepository;
 
     @Override
     public void saveCar(PhysicalCar car) {
@@ -30,36 +29,8 @@ public class CarServiceImpl implements CarService {
         return physicalCarRepository.findOne(id);
     }
 
-    @Override
-    public void addOptionsToCar(PhysicalCar car, List<Long> optionIds) {
-        if(car == null || optionIds == null)
-            return;
-
-        List<CarOption> options = carOptionRepository.findAll(optionIds);
-        if(options != null)
-            car.getSelectedCarOptions().addAll(options);
-    }
-
-    @Override
-    public void addDefaultOptionsToCar(PhysicalCar car) {
-        if(car == null)
-            return;
-
-        List<CarOption> options = this.getDefaultOptionsForModel(car.getCarModel());
-        if(options != null)
-            car.getSelectedCarOptions().addAll(options);
-    }
-
-    @Override
-    public void editOptionsById(PhysicalCar car, List<Long> optionIds) {
-        car.getSelectedCarOptions().clear();
-        optionIds.stream().forEach(optionId -> {
-            CarOption option = carOptionRepository.findOne(optionId);
-            if(option != null)
-                car.addSelectedOption(option);
-        });
-
-        addDefaultOptionsToCar(car);
+    @Override public PhysicalCar findCarByLicensePlate(String licensePlate) {
+        return physicalCarRepository.findByLicensePlate(licensePlate);
     }
 
     @Override
@@ -100,24 +71,4 @@ public class CarServiceImpl implements CarService {
         for(Long id : ids)
             carModelRepository.delete(id);
     }
-
-    @Override
-    public List<CarOption> getAvailableOptionsForModel(CarModel carModel) {
-        return carModel.getOptionsDefaultMap().entrySet()
-                .stream()
-                .filter(entry -> !entry.getValue())
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<CarOption> getDefaultOptionsForModel(CarModel carModel) {
-        return carModel.getOptionsDefaultMap().entrySet()
-                .stream()
-                .filter(Map.Entry::getValue)
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
-    }
-
-
 }

@@ -1,5 +1,7 @@
 package com.realdolmen.fleet;
 
-public interface PhysicalCarRepository extends SoftDeleteRepository<PhysicalCar, Long> {
+import java.util.List;
 
+public interface PhysicalCarRepository extends SoftDeleteRepository<PhysicalCar, Long> {
+    PhysicalCar findByLicensePlate(String licensePlate);
 }
