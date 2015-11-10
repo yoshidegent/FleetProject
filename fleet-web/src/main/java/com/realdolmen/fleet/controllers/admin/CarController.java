@@ -67,19 +67,28 @@ public class CarController {
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
     public String modelPost(@ModelAttribute CarEditForm editForm) {
         PhysicalCar newCar = editForm.physicalCar();
-        PhysicalCar oldCar = carService.findCar(newCar.getId());
 
-        Employee newEmployee = newCar.getEmployee();
-        Employee oldEmployee = oldCar.getEmployee();
+        // If it's an existing car
+        if(editForm.getId() != null) {
+            PhysicalCar oldCar = carService.findCar(newCar.getId());
+            if(oldCar != null) {
+                Employee newEmployee = newCar.getEmployee();
+                Employee oldEmployee = oldCar.getEmployee();
 
-        // The car gets unassigned
-        if(newEmployee == null) {
-            // Get the old employee and remove its current car
-            oldEmployee.setCurrentCar(null);
+                // The car gets unassigned
+                if(newEmployee == null) {
+                    // Get the old employee and remove its current car
+                    oldEmployee.setCurrentCar(null);
+                } else {
+                    if(oldEmployee != null)
+                        oldEmployee.setCurrentCar(null);
+                    newEmployee.setCurrentCar(newCar);
+                }
+            }
         } else {
-            if(oldEmployee != null)
-                oldEmployee.setCurrentCar(null);
-            newEmployee.setCurrentCar(newCar);
+            // If it's a new car, set it as the employees current car
+            if(newCar.getEmployee() != null)
+                newCar.getEmployee().setCurrentCar(newCar);
         }
 
         List<Long> installedOptionIds = editForm.getInstalledOptions();
