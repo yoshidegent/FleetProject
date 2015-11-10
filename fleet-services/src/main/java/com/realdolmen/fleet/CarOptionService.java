@@ -3,27 +3,30 @@ package com.realdolmen.fleet;
 import java.util.List;
 
 public interface CarOptionService {
-    List<CarOption> findOptionsByIds(List<Long> ids);
-    CarOption findOptionById(Long id);
+
+    List<CarOption> findGlobalCarOptions();
+    List<CarOption> findGlobalCarOptionsExcludeActiveOnes(CarModel carModel);
+
+    List<CarOption> findCarOptionsByIds(List<Long> ids);
+    CarOption findCarOptionById(Long id);
 
     CarOption findCarOptionByNameIgnoreCase(String s);
 
-    List<CarOption> findGlobalCarOptions();
-
-    List<CarOption> findGlobalCarOptionsExcludeActiveOnes(CarModel carModel);
+    List<CarOption> findDefaultOptionsForCarModel(CarModel carModel);
+    List<CarOption> findAvailableOptionsForCarModel(CarModel carModel);
 
     CarOption addGlobalCarOption(CarOption carOption);
     CarModel addGlobalCarOptionAndAddToCarModel(CarOption carOption, CarModel carModel);
 
     void makeDefaultOptionAvailable(CarModel carModel, CarOption carOption);
     void makeAvailableOptionDefault(CarModel carModel, CarOption carOption);
-
     void makeDefaultOptionsAvailable(CarModel carModel, List<CarOption> carOptions);
     void makeAvailableOptionsDefault(CarModel carModel, List<CarOption> carOptions);
 
-    CarOptionRepository getCarOptionRepository();
-    void setCarOptionRepository(CarOptionRepository carOptionRepository);
+    void addOptionsToCar(PhysicalCar car, List<Long> optionIds);
+    void editOptionsById(PhysicalCar car, List<Long> optionIds);
+    void addDefaultOptionsToCar(PhysicalCar car);
 
-    List<CarOption> getDefaultOptionsForCarModel(CarModel carModel);
-    List<CarOption> getAvailableOptionsForCarModel(CarModel carModel);
+    void setCarOptionRepository(CarOptionRepository carOptionRepository);
+    CarOptionRepository getCarOptionRepository();
 }

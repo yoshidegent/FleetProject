@@ -5,7 +5,6 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -34,8 +33,8 @@ public class CarOptionServiceTest extends AbstractServiceTest {
      * void addGlobalCarOptionAndAddToCarModel(CarOption carOption, CarModel carModel);
      * void makeDefaultOptionAvailable(CarModel carModel, CarOption carOption);
      * void makeAvailableOptionDefault(CarModel carModel, CarOption carOption);
-     * List<CarOption> getDefaultOptionsForCarModel(CarModel carModel);
-     * List<CarOption> getAvailableOptionsForCarModel(CarModel carModel);
+     * List<CarOption> findDefaultOptionsForCarModel(CarModel carModel);
+     * List<CarOption> findAvailableOptionsForCarModel(CarModel carModel);
      */
 
     @Before
@@ -119,12 +118,12 @@ public class CarOptionServiceTest extends AbstractServiceTest {
     @Test
     public void testGetDefaultOptionsForCarModel()
     {
-        Assert.assertEquals(carOptionService.getDefaultOptionsForCarModel(carModel).size(), NUMBER_OF_DEFAULT_OPTIONS);
+        Assert.assertEquals(carOptionService.findDefaultOptionsForCarModel(carModel).size(), NUMBER_OF_DEFAULT_OPTIONS);
     }
 
     @Test
     public void testGetAvailableOptionsForCarModel()
     {
-        Assert.assertEquals(carOptionService.getAvailableOptionsForCarModel(carModel).size(), NUMBER_OF_AVAILABLE_OPTIONS);
+        Assert.assertEquals(carOptionService.findAvailableOptionsForCarModel(carModel).size(), NUMBER_OF_AVAILABLE_OPTIONS);
     }
 }

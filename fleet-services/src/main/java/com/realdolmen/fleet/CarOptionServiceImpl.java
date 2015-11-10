@@ -24,12 +24,12 @@ public class CarOptionServiceImpl implements CarOptionService {
     }
 
     @Override
-    public List<CarOption> findOptionsByIds(List<Long> ids) {
+    public List<CarOption> findCarOptionsByIds(List<Long> ids) {
         return carOptionRepository.findAll(ids);
     }
 
     @Override
-    public CarOption findOptionById(Long id) {
+    public CarOption findCarOptionById(Long id) {
         return carOptionRepository.findOne(id);
     }
 
@@ -101,7 +101,7 @@ public class CarOptionServiceImpl implements CarOptionService {
         this.carOptionRepository = carOptionRepository;
     }
 
-    @Override public List<CarOption> getDefaultOptionsForCarModel(CarModel carModel) {
+    @Override public List<CarOption> findDefaultOptionsForCarModel(CarModel carModel) {
         List<CarOption> defaultCarOptions = new ArrayList<>();
         for(Map.Entry<CarOption, Boolean> option : carModel.getOptionsDefaultMap().entrySet())
         {
@@ -111,7 +111,7 @@ public class CarOptionServiceImpl implements CarOptionService {
         return defaultCarOptions;
     }
 
-    @Override public List<CarOption> getAvailableOptionsForCarModel(CarModel carModel) {
+    @Override public List<CarOption> findAvailableOptionsForCarModel(CarModel carModel) {
         List<CarOption> defaultCarOptions = new ArrayList<>();
         for(Map.Entry<CarOption, Boolean> option : carModel.getOptionsDefaultMap().entrySet())
         {
@@ -119,5 +119,37 @@ public class CarOptionServiceImpl implements CarOptionService {
                 defaultCarOptions.add(option.getKey());
         }
         return defaultCarOptions;
+    }
+
+    @Override
+    public void addDefaultOptionsToCar(PhysicalCar car) {
+        if(car == null)
+            return;
+
+        List<CarOption> options = this.findDefaultOptionsForCarModel(car.getCarModel());
+        if(options != null)
+            car.getSelectedCarOptions().addAll(options);
+    }
+
+    @Override
+    public void editOptionsById(PhysicalCar car, List<Long> optionIds) {
+        car.getSelectedCarOptions().clear();
+        optionIds.stream().forEach(optionId -> {
+            CarOption option = carOptionRepository.findOne(optionId);
+            if(option != null)
+                car.addSelectedOption(option);
+        });
+
+        addDefaultOptionsToCar(car);
+    }
+
+    @Override
+    public void addOptionsToCar(PhysicalCar car, List<Long> optionIds) {
+        if(car == null || optionIds == null)
+            return;
+
+        List<CarOption> options = carOptionRepository.findAll(optionIds);
+        if(options != null)
+            car.getSelectedCarOptions().addAll(options);
     }
 }

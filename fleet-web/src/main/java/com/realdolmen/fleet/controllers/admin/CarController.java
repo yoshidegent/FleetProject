@@ -83,7 +83,7 @@ public class CarController {
         }
 
         List<Long> installedOptionIds = editForm.getInstalledOptions();
-        carService.editOptionsById(newCar, installedOptionIds);
+        carOptionService.editOptionsById(newCar, installedOptionIds);
         carService.saveCar(newCar);
 
         return "redirect:" + fromMappingName("CC#overview").build();
