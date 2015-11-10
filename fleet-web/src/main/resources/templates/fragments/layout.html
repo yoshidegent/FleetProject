@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <th:block th:fragment="head(title)">
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -57,12 +58,12 @@
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                <!--/*<div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#">Link</a></li>
                         <li><a href="#">Link</a></li>
                     </ul>
-                </div><!-- /.navbar-collapse -->
+                </div>*/--><!-- /.navbar-collapse -->
 
                 <th:block th:replace="fragments/layout :: rightMenu"></th:block>
             </div><!-- /.container-fluid -->
@@ -133,6 +134,9 @@
                     </li>
                     <!-- Menu Footer-->
                     <li class="user-footer">
+                        <div sec:authorize="hasRole('ADMIN')" class="pull-left">
+                            <a th:href="@{/admin}" href="#" class="btn btn-default btn-flat">Admin</a>
+                        </div>
                         <div class="pull-right">
                             <a th:href="@{/logout}" href="#" class="btn btn-default btn-flat">Sign out</a>
                         </div>
