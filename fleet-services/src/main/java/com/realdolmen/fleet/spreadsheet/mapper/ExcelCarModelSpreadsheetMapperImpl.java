@@ -4,6 +4,7 @@ import com.realdolmen.fleet.CarModel;
 import com.realdolmen.fleet.CarOption;
 import com.realdolmen.fleet.CarOptionService;
 import com.realdolmen.fleet.CarService;
+import com.sun.org.apache.xpath.internal.operations.Equals;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -70,8 +71,13 @@ public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<Car
                     break;
 
                 case 7: // Delivery Time
-                    //TODO: use real value and no hard-coded one
-                    carModel.setDeliveryTime(Period.ofMonths(1));
+                    double numericValue = Double.parseDouble(value);
+                    int numberOfMonths = (int) Math.floor(numericValue);
+                    Period period = Period.ofMonths(numberOfMonths);
+                    double rest = numericValue - numberOfMonths;
+                    int numberOfDays = (int) Math.round(30 * rest);
+                    period = period.plusDays(numberOfDays);
+                    carModel.setDeliveryTime(period);
                     break;
 
                 case 12:
