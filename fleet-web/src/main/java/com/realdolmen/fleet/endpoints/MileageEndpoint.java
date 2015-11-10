@@ -43,11 +43,11 @@ public class MileageEndpoint {
                 physicalCar.setMileage(mileage);
                 carService.saveCar(physicalCar);
                 responseObject.setStatus(Status.SUCCESS);
-                responseObject.setMessage(String.format("Mileage of car with licence plate %s updated to %s"));
+                responseObject.setMessage(String.format("Mileage of car with licence plate %s updated to %s", licensePlate, mileage.toString()));
             }
             else {
                 responseObject.setStatus(Status.FAILED);
-                responseObject.setMessage(String.format("Mileage of car with licence plate %s failed to update to %s"));
+                responseObject.setMessage(String.format("Mileage of car with licence plate %s failed to update to %s", licensePlate, mileage.toString()));
             }
             updateMileageResponse.getResponseMileageUpdateObject().add(responseObject);
         }
