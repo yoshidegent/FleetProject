@@ -8,14 +8,14 @@
     <div class="content-wrapper">
         <div class="container">
             <section class="content">
-                <div class="error-page">
-                    <h2 class="headline text-yellow"> 404</h2>
+                <div class="error-page">s
+                    <h2 class="headline text-red" th:text="${statusCode}">UNK</h2>
 
                     <div class="error-content">
-                        <h3><i class="fa fa-warning text-yellow"></i> Oops! Page not found.</h3>
+                        <h3><i class="fa fa-warning text-red"></i> Oops! Something went wrong.</h3>
 
                         <p>
-                            We could not find the page you were looking for.
+                            We will work on fixing that right away.
                             Meanwhile, you may <a href="#">return to dashboard</a>.
                         </p>
                     </div>

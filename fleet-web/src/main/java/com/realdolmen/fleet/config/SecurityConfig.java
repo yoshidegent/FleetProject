@@ -44,6 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginPage("/login")
                     .permitAll()
                     .and()
+                .exceptionHandling()
+                    .accessDeniedHandler((request, response, e) -> response.sendRedirect("/"))
+                    .and()
                 .logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .and()
@@ -54,9 +57,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/css/**", "/fonts/**", "/images/**", "/js/**", "/scripts/**").permitAll()
                     .antMatchers("/admin/**").hasRole("ADMIN")
                     .anyRequest().authenticated();
-                /*.and()
-                    .authorizeRequests()
-                    .anyRequest().authenticated();*/
     }
 
     @Bean
