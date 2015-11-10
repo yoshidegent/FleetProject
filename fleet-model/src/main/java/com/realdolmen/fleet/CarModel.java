@@ -3,6 +3,7 @@ package com.realdolmen.fleet;
 import com.realdolmen.fleet.converters.PeriodConverter;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.Period;
 import java.util.ArrayList;
@@ -28,38 +29,75 @@ public class CarModel extends AbstractEntity {
         }
     }
 
-    public enum RimType{
-        STEEL,
-        ALUMINIUM
+    public enum RimType {
+        STEEL("Steel"),
+        ALUMINIUM("Aluminium");
+
+        private final String displayName;
+
+        RimType(String displayName) {
+            this.displayName = displayName;
+        }
+
+        public String getDisplayName() {
+            return displayName;
+        }
     }
 
     private String pictureUrl;
 
+    @Min(2)
+    @Max(7)
     private int category;
-    private int co2Emission; // In grams per 100km
+
+    @Min(0)
+    private int co2Emission; // In grams per km
+
+    @Min(1)
+    @Max(44)
     private int fiscalHorsePower;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private FuelType fuelType;
 
+    @NotNull
+    @Size(min = 1, max = 255)
     private String brand;
+
+    @NotNull
+    @Size(min = 1, max = 255)
     private String model;
 
+    @NotNull
+    @Size(min = 1, max = 255)
     private String pack;
 
+    @NotNull
     @Convert(converter = PeriodConverter.class)
     private Period deliveryTime;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private RimType winterTyreRimType;
 
+    @Min(0)
     private int idealKm;
+    @Min(0)
     private int maxKm;
 
+    @NotNull
+    @Digits(integer = 8, fraction = 2)
     private BigDecimal listPriceInclVat;
+
+    @Digits(integer = 8, fraction = 2)
     private BigDecimal amountUpgradeInclVat;
+
+    @Digits(integer = 8, fraction = 2)
     private BigDecimal amountDowngradeInclVat;
 
+    @NotNull
+    @Digits(integer = 8, fraction = 2)
     private BigDecimal benefitInKindPerMonth;
 
     @ElementCollection(fetch = FetchType.EAGER)

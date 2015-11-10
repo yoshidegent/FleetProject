@@ -3,11 +3,15 @@ package com.realdolmen.fleet;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
 @Where(clause = "deleted = 0")
 public class CarOption extends AbstractEntity {
+    @NotNull
+    @Size(min = 1, max = 255)
     private String name;
 
     public CarOption() {}

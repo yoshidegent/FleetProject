@@ -55,7 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .useSecureCookie(true)
                     .and()
                 .authorizeRequests()
-                    .antMatchers("/css/**", "/fonts/**", "/images/**", "/js/**", "/scripts/**").permitAll()
+                    .antMatchers("/css/**", "/fonts/**", "/images/**", "/js/**", "/scripts/**").permitAll() // Static resources
+                    .antMatchers("/ws/**").permitAll() // Web services
                     .antMatchers("/admin/**").hasRole("ADMIN")
                     .anyRequest().authenticated();
     }

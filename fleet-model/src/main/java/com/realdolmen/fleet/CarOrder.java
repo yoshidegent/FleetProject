@@ -5,6 +5,7 @@ import org.hibernate.annotations.Where;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -22,6 +23,7 @@ public class CarOrder extends AbstractEntity {
         UPGRADE
     }
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private UpgradeStatus upgradeStatus = UpgradeStatus.NORMAL;
 
@@ -31,9 +33,11 @@ public class CarOrder extends AbstractEntity {
     @ManyToOne
     private Employee employee;
 
+    @NotNull
     @Convert(converter = DateTimeConverter.class)
     private LocalDateTime orderDate;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 

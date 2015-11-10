@@ -4,6 +4,7 @@ import com.realdolmen.fleet.CarModel;
 import com.realdolmen.fleet.CarOption;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.Period;
 import java.util.ArrayList;
@@ -15,35 +16,73 @@ public class CarModelEditForm {
     private Long id;
     private Long version;
 
+    @Size(max = 255)
     private String pictureUrl;
     private MultipartFile imageFile;
 
+    @NotNull
+    @Min(2)
+    @Max(7)
     private Integer category;
+
+    @NotNull
+    @Min(1)
     private Integer co2Emission; // In grams per 100km
+
+    @NotNull
+    @Min(1)
+    @Max(44)
     private Integer fiscalHorsePower;
 
+    @NotNull
     private CarModel.FuelType fuelType;
 
+    @NotNull
+    @Size(min = 1, max = 255)
     private String brand;
+
+    @NotNull
+    @Size(min = 1, max = 255)
     private String model;
 
+    @NotNull
+    @Size(min = 1, max = 255)
     private String pack;
 
+    @NotNull
+    @Min(0)
     private Integer deliveryTimeMonths;
+
+    @NotNull
+    @Min(0)
     private Integer deliveryTimeDays;
 
+    @NotNull
     private CarModel.RimType winterTyreRimType;
 
+    @NotNull
+    @Min(0)
     private Integer idealKm;
+
+    @NotNull
+    @Min(0)
     private Integer maxKm;
 
     private List<CarOption> availableOptions;
     private List<CarOption> defaultOptions;
 
+    @NotNull
+    @Digits(integer = 8, fraction = 2)
     private BigDecimal listPriceInclVat;
+
+    @Digits(integer = 8, fraction = 2)
     private BigDecimal amountUpgradeInclVat;
+
+    @Digits(integer = 8, fraction = 2)
     private BigDecimal amountDowngradeInclVat;
 
+    @NotNull
+    @Digits(integer = 8, fraction = 2)
     private BigDecimal benefitInKindPerMonth;
 
     private List<Long> optionIds = new ArrayList<>();

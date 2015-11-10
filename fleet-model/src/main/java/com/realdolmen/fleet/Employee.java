@@ -7,6 +7,8 @@ import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.time.LocalDate;
@@ -26,19 +28,27 @@ public class Employee extends User {
     @Min(2)
     private int functionalLevel; //according to this field the available categories of companyCars will be determined
 
+    @NotNull
+    @Size(min = 1, max = 255)
     private String firstName;
+
+    @Size(min = 1, max = 255)
     private String lastName;
 
     public Employee() {
         this.setFunctionalLevel(2);
     }
 
+    @NotNull
     @Convert(converter = DateConverter.class)
     private LocalDate dateOfBirth;
 
+    @NotNull
     @Convert(converter = DateConverter.class)
     private LocalDate hireDate;
 
+    @NotNull
+    @Size(min = 1, max = 255)
     private String function;
 
     public PhysicalCar getCurrentCar() {

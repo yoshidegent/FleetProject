@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +23,10 @@ public class PhysicalCar extends AbstractEntity {
     @OneToOne(mappedBy = "currentCar")
     private Employee employee;
 
+    @NotNull
     private Long mileage = 0L;
 
+    @Size(min = 1, max = 8)
     private String licensePlate;
 
     public PhysicalCar() {}

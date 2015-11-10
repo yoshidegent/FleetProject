@@ -8,8 +8,10 @@ import com.realdolmen.fleet.viewmodels.admin.carModel.CarModelEditForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +54,7 @@ public class CarModelController {
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
-    public String modelPost(@ModelAttribute CarModelEditForm editForm) {
+    public String modelPost(@ModelAttribute @Valid CarModelEditForm editForm, BindingResult bindingResult, Model model) {
         /*if(carModelEditForm.getImageFile() != null && !carModelEditForm.getImageFile().isEmpty()) {
             try {
                 String fileName = carModelEditForm.getImageFile().getOriginalFilename();
@@ -68,6 +70,11 @@ public class CarModelController {
                 e.printStackTrace();
             }
         }*/
+
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("editForm", editForm);
+            return "admin/car-model/edit";
+        }
 
         Map<CarOption, Boolean> carOptionDefaultMap = new HashMap<>();
         CarModel carModel = editForm.carModel();

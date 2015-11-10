@@ -5,8 +5,10 @@ import com.realdolmen.fleet.viewmodels.admin.car.CarEditForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.fromMappingName;
@@ -65,7 +67,12 @@ public class CarController {
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
-    public String modelPost(@ModelAttribute CarEditForm editForm) {
+    public String modelPost(@ModelAttribute @Valid CarEditForm editForm, BindingResult bindingResult, Model model) {
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("editForm", editForm);
+            return "admin/car/edit";
+        }
+
         PhysicalCar newCar = editForm.physicalCar();
 
         // If it's an existing car

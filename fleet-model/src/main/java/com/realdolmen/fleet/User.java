@@ -3,16 +3,22 @@ package com.realdolmen.fleet;
 import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Email;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 @Entity
 @Where(clause = "deleted = 0")
 public abstract class User extends AbstractEntity {
+    @NotNull
     @Email
+    @Column(unique = true)
     private String email;
+
+    @NotNull
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)
