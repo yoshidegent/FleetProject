@@ -12,4 +12,8 @@ public interface EmployeeService {
     int getLowestAllowedCategory(Employee employee);
 
     List<Employee> findAllEmployees();
+
+    Employee findEmployee(Long employeeId);
+
+    Employee saveOrUpdateEmployee(Employee employee);
 }

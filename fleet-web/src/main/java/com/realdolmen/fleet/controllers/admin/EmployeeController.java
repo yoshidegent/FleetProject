@@ -5,7 +5,9 @@ import com.realdolmen.fleet.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -23,5 +25,21 @@ public class EmployeeController {
         List<Employee> allEmployees = employeeService.findAllEmployees();
         model.addAttribute("employees", allEmployees);
         return "admin/employee/overview";
+    }
+
+    @RequestMapping({"/update/{id}"})
+    public String employees(Model model, @PathVariable("id") Long employeeId, @RequestParam("function") String function, @RequestParam("functionalLevel") int functionalLevel, @RequestParam(value = "active", required = false) Boolean active)
+    {
+        Employee employee = employeeService.findEmployee(employeeId);
+        employee.setFunctionalLevel(functionalLevel);
+        employee.setFunction(function);
+
+        if(active == null)
+            employee.setActive(false);
+        else
+            employee.setActive(active);
+
+        employeeService.saveOrUpdateEmployee(employee);
+        return "redirect:/admin/employee/";
     }
 }
