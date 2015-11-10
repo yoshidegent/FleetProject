@@ -52,9 +52,6 @@
                                              th:src="${editForm.pictureUrl}"/>
                                     </div>
                                     <div class="col-sm-7">
-                                        <ul>
-                                            <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
-                                        </ul>
                                         <label th:field="*{pictureUrl}">URL</label>
                                         <input id="pictureUrlInput" class="form-control" type="text"
                                                th:field="*{pictureUrl}"/>
@@ -170,7 +167,7 @@
                                                class="form-control"
                                                th:field="*{fiscalHorsePower}" required="required"/>
 
-                                        <div class="help-block with-errors"></div>
+                                        <div class="help-block with-errors" th:errors="*{fiscalHorsePower}"></div>
                                         <span class="glyphicon form-control-feedback"
                                               aria-hidden="true"></span>
                                     </div>

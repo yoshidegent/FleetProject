@@ -54,7 +54,7 @@ public class CarModelController {
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
-    public String modelPost(@ModelAttribute @Valid CarModelEditForm editForm, BindingResult bindingResult, Model model) {
+    public String modelPost(@ModelAttribute("editForm") @Valid CarModelEditForm editForm, BindingResult bindingResult, Model model) {
         /*if(carModelEditForm.getImageFile() != null && !carModelEditForm.getImageFile().isEmpty()) {
             try {
                 String fileName = carModelEditForm.getImageFile().getOriginalFilename();

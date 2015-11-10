@@ -67,7 +67,7 @@ public class CarController {
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
-    public String modelPost(@ModelAttribute @Valid CarEditForm editForm, BindingResult bindingResult, Model model) {
+    public String modelPost(@ModelAttribute("editForm") @Valid CarEditForm editForm, BindingResult bindingResult, Model model) {
         if(bindingResult.hasErrors()) {
             model.addAttribute("editForm", editForm);
             return "admin/car/edit";
