@@ -19,10 +19,10 @@ var removeClickFunction = function (e) {
 
 var checkBoxChangeFunction = function () {
     if ($(this).is(":checked")) {
-        $(this).parent().find('.optionDefaultHidden').attr('value', true);
+        $(this).parents('.optionRow').find('.optionDefaultHidden').attr('value', true);
     }
     else {
-        $(this).parent().find('.optionDefaultHidden').attr('value', false);
+        $(this).parents('.optionRow').find('.optionDefaultHidden').attr('value', false);
     }
 };
 
