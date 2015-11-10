@@ -2,10 +2,7 @@ package com.realdolmen.fleet;
 
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -27,7 +24,7 @@ public class PhysicalCar extends AbstractEntity {
     private Long mileage = 0L;
 
     @Column(unique = true)
-    @Size(min = 1, max = 8)
+    @Size(min = 9, max = 9)
     private String licensePlate;
 
     public PhysicalCar() {}

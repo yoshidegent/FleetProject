@@ -6,9 +6,9 @@ import com.realdolmen.fleet.Employee;
 import com.realdolmen.fleet.PhysicalCar;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,8 +26,7 @@ public class CarEditForm {
     @Min(0)
     private Long mileage;
     @NotNull
-    @Min(1)
-    @Max(8)
+    @Size(min = 9, max = 9)
     private String licensePlate;
     private List<Long> installedOptions = new ArrayList<>();
 
