@@ -14,7 +14,7 @@
 <body class="hold-transition skin-rd sidebar-mini">
 <div class="wrapper">
     <th:block th:replace="fragments/admin :: header"></th:block>
-    <th:block th:replace="fragments/layout :: sidebar(active='orders')"></th:block>
+    <th:block th:replace="fragments/layout :: sidebar(active='employees')"></th:block>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -24,10 +24,6 @@
                 Car Models
                 <small>Manage car models</small>
             </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Car Models</li>
-            </ol>
         </section>
 
         <!-- Main content -->
@@ -110,11 +106,11 @@
 
                                             <div class="pull-right">
                                                 <button type="button"
-                                                        class="confirmBtn btn btn-xs btn-success">
+                                                        class="confirmBtn btn btn-flat btn-xs btn-success">
                                                     <span class="glyphicon glyphicon-ok"></span>
                                                 </button>
                                                 <button type="button"
-                                                        class="cancelBtn btn btn-xs btn-danger">
+                                                        class="cancelBtn btn btn-flat btn-xs btn-danger">
                                                     <span class="glyphicon glyphicon-remove"></span>
                                                 </button>
                                             </div>

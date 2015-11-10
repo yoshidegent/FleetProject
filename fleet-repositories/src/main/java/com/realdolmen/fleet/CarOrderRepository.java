@@ -9,4 +9,5 @@ public interface CarOrderRepository extends SoftDeleteRepository<CarOrder, Long>
     List<CarOrder> findOrdersByEmployeeOrderedByOrderDate(Employee employee);
 
     List<CarOrder> findByEmployee(Employee employee);
+    Long countByStatus(CarOrder.OrderStatus orderStatus);
 }

@@ -5,10 +5,7 @@ import com.realdolmen.fleet.viewmodels.admin.carModel.CarModelEditForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -76,10 +73,15 @@ public class OrderController {
         return "redirect:" + fromMappingName("OC#overview").build();
     }
 
-    @RequestMapping("/{id}/deliver")
-    public String deliver(@PathVariable Long id) {
-        orderService.deliver(id);
+    @RequestMapping(value = "/{id}/deliver", method = RequestMethod.POST)
+    public String deliver(@PathVariable Long id, @RequestParam("licensePlate") String licensePlate) {
+        orderService.deliver(id, licensePlate);
 
         return "redirect:" + fromMappingName("OC#details").arg(1, id).build();
+    }
+
+    @RequestMapping("/pending")
+    public Long getPendingOrderAmount() {
+        return orderService.getPendingOrderAmount();
     }
 }

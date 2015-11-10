@@ -10,5 +10,7 @@ public interface OrderService {
     void saveOrder(CarOrder order);
     boolean employeeCanOrder(Employee employee);
 
-    void deliver(Long orderId);
+    void deliver(Long orderId, String licensePlate);
+
+    Long getPendingOrderAmount();
 }

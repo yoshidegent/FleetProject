@@ -16,13 +16,9 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Car Models
-                <small>Manage car models</small>
+                Orders
+                <small>Manage orders</small>
             </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Car Models</li>
-            </ol>
         </section>
 
         <!-- Main content -->
@@ -52,8 +48,11 @@
                                     <td th:text="${order.orderDate}"></td>
                                     <td th:text="${order.employee.firstName + ' ' + order.employee.lastName}"></td>
                                     <td th:text="${order.orderedCar.carModel.brand + ' ' + order.orderedCar.carModel.model}"></td>
-                                    <td><span class="label label-success" th:text="${order.status}"></span></td>
-                                    <td><p data-placement="top" data-toggle="tooltip" title="Details"><a class="btn btn-primary btn-xs" th:href="@{/admin/order/{id}(id=${order.id})}" href="#"><span class="glyphicon glyphicon-list-alt"></span></a></p></td>
+                                    <td>
+                                        <span class="label" th:text="${order.status}"
+                                            th:classappend="${order.status == T(com.realdolmen.fleet.CarOrder.OrderStatus).PENDING}? 'label-warning' : 'label-success'"></span>
+                                    </td>
+                                    <td><p data-placement="top" data-toggle="tooltip" title="Details"><a class="btn btn-primary btn-flat btn-xs" th:href="@{/admin/order/{id}(id=${order.id})}" href="#"><span class="glyphicon glyphicon-list-alt"></span></a></p></td>
                                 </tr>
                                 </tbody>
                             </table>

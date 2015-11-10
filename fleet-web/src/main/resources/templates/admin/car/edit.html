@@ -10,7 +10,7 @@
 <body class="hold-transition skin-rd sidebar-mini">
 <div class="wrapper">
     <th:block th:replace="fragments/admin :: header"></th:block>
-    <th:block th:replace="fragments/layout :: sidebar(active='models')"></th:block>
+    <th:block th:replace="fragments/layout :: sidebar(active='pool')"></th:block>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -21,10 +21,6 @@
                 <th:block th:if="${editForm.id != null}" th:text="${editForm.carModel.brand + ' ' + editForm.carModel.model}"></th:block>
                 <small>Edit</small>
             </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Car Models</li>
-            </ol>
         </section>
 
         <!-- Main content -->
@@ -35,22 +31,6 @@
                 <div class="row margin-bottom">
                     <div class="col-sm-12">
                         <input type="submit" class="pull-right btn btn-flat btn-primary" value="Save" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="box box-info">
-                            <div class="box-header with-border">
-                                <i class="fa fa-cubes"></i>
-                                <h3 class="box-title">Installed Options</h3>
-                            </div>
-                            <div class="box-body">
-                                <table class="optionTable table table-striped">
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -79,7 +59,9 @@
                                     <div class="col-sm-10">
                                         <select id="employee" class="form-control select2" th:field="*{employee}">
                                             <option value="">Unassigned</option>
-                                            <option th:each="employee : ${employees}" th:value="${employee.id}" th:text="${employee.firstName + ' ' + employee.lastName}"></option>
+                                            <option th:each="employee : ${employees}" th:value="${employee.id}"
+                                                    th:text="${employee.firstName + ' ' + employee.lastName}"
+                                                    th:attr="data-has-car=${employee.currentCar != null}"></option>
                                         </select>
 
                                         <div class="help-block with-errors"></div>
@@ -121,6 +103,22 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <i class="fa fa-cubes"></i>
+                                <h3 class="box-title">Installed Options</h3>
+                            </div>
+                            <div class="box-body">
+                                <table class="optionTable table">
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
                         <input type="submit" class="pull-right btn btn-flat btn-primary" value="Save" />
                     </div>
                 </div>
@@ -129,7 +127,6 @@
     </div>
 
     <th:block th:replace="fragments/layout :: footer"></th:block>
-
 </div>
 
 <th:block th:replace="fragments/layout :: scripts"></th:block>
@@ -140,38 +137,76 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     (function ($) {
+        var carId = /*[[${editForm.id}]]*/ '';
+        var carUrl = /*[[@{/admin/car}]]*/ '';
         var carModelUrl = /*[[@{/admin/car-model}]]*/ '';
 
         $(document).ready(function () {
             $('form').validator();
             $('select').select2();
 
+            $('#employee').change(onEmployeeChange);
+
             var $carModelSelect = $('#carModel');
             $carModelSelect.change(onCarModelChange);
             $carModelSelect.trigger('change');
         });
 
+        function onEmployeeChange() {
+            var $employeeSelect = $(this);
+            var $selectedOption = $employeeSelect.find('option:selected');
+
+            var hasCar = $selectedOption.attr('data-has-car');
+            var $helpBlock = $employeeSelect.siblings('.help-block');
+            if(hasCar !== undefined && hasCar === 'true') {
+                $helpBlock.text('This employee already has a car. Selecting this employee will dissociate their this car from them.');
+            } else {
+                $helpBlock.text('');
+            }
+        }
+
         function onCarModelChange() {
             var selectedCarModelId = $(this).find('option:selected').val();
-            $.get(carModelUrl + '/' + selectedCarModelId + '/options', onCarOptionsReceived);
+            var promiseCarOptions = $.get(carModelUrl + '/' + selectedCarModelId + '/options');
+            var promiseInstalledCarOptions;
+            if(carId === null) {
+                promiseInstalledCarOptions = $.get([]);
+            } else {
+                promiseInstalledCarOptions = $.get(carUrl + '/' + carId + '/installed');
+            }
 
-            function onCarOptionsReceived(carOptions) {
+            $.when(promiseCarOptions, promiseInstalledCarOptions).done(onCarOptionsReceived);
+            function onCarOptionsReceived(carOptionsRequest, installedCarOptionsRequest) {
+                var carOptions = carOptionsRequest[0];
+                var installedCarOptions = installedCarOptionsRequest[0];
+
                 var $optionTable = $('.optionTable tbody');
 
                 var $rows = [];
                 for(var i = 0, len = carOptions.length; i < len; i++) {
-                    var $row = $('<tr />');
+                    (function(i) {
+                        var $row = $('<tr />');
 
-                    $row.append([
-                        "<div class='checkbox checkbox-primary'>",
-                            "<input type='checkbox' class='styled styled-primary' name='installedOptions' value='" + carOptions[i].id + "' />",
+                        var installed = $.grep(installedCarOptions, function(o) { return o.id == carOptions[i].id }).length !== 0;
+
+                        var $checkboxColumn = $([
+                            "<div class='checkbox checkbox-primary'>",
+                            "<input type='checkbox' class='styled styled-primary' name='installedOptions' />",
                             "<label></label>",
-                        "</div>"
-                    ].join("\n"));
+                            "</div>"
+                        ].join("\n"));
+                        var $checkbox = $checkboxColumn.find('input');
+                        $checkbox.attr('value', carOptions[i].id);
+                        $checkbox.attr('id', 'installedOptions' + (i + 1));
+                        $checkbox.prop('checked', installed);
+                        $row.append($checkboxColumn);
 
-                    var $nameColumn = $('<td />').text(carOptions[i].name);
-                    $row.append($nameColumn);
-                    $rows.push($row);
+                        var $nameColumn = $('<td />');
+                        $nameColumn.text(carOptions[i].name);
+                        $row.append($nameColumn);
+
+                        $rows.push($row);
+                    })(i);
                 }
 
                 $optionTable.empty();
