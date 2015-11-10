@@ -1,6 +1,6 @@
 INSERT INTO `fleet`.`user` (`DTYPE`, `id`, `email`, `password`, `dateOfBirth`, `firstName`, `function`, `functionalLevel`, `hireDate`, `lastName`, `active`) VALUES ('Employee', '1', 'yoshi.degent@realdolmen.com', '$2a$04$4.QXaVbhnR7MR58foRJxROca5yY1qLvN2KkZFdo980vpCep3P5/Lm', '1993-10-19', 'Yoshi', 'Developer', '2', '2015-09-01', 'Degent', 1);
 INSERT INTO `fleet`.`user` (`DTYPE`, `id`, `email`, `password`, `dateOfBirth`, `firstName`, `function`, `functionalLevel`, `hireDate`, `lastName`, `active`) VALUES ('Employee', '2', 'dean.wyns@realdolmen.com', '$2a$04$4.QXaVbhnR7MR58foRJxROca5yY1qLvN2KkZFdo980vpCep3P5/Lm', '1994-09-30', 'Dean', 'Developer', '2', '2015-09-01', 'Wyns', 1);
-INSERT INTO `fleet`.`user` (`DTYPE`, `id`, `email`, `password`, `dateOfBirth`, `firstName`, `function`, `functionalLevel`, `hireDate`, `lastName`, `active`) VALUES ('Admin', '3', 'admin@realdolmen.com', '$2a$04$4.QXaVbhnR7MR58foRJxROca5yY1qLvN2KkZFdo980vpCep3P5/Lm', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `fleet`.`user` (`DTYPE`, `id`, `email`, `password`, `dateOfBirth`, `firstName`, `function`, `functionalLevel`, `hireDate`, `lastName`, `active`) VALUES ('Admin', '3', 'josephine.wauters@realdolmen.com', '$2a$04$4.QXaVbhnR7MR58foRJxROca5yY1qLvN2KkZFdo980vpCep3P5/Lm', '1960-02-14', 'Josephine', 'Fleet', '3', '2012-04-01', 'Wauters', 1);
 
 INSERT INTO `fleet`.`user_roles` (`User_id`, `roles`) VALUES ('1', 'ROLE_EMPLOYEE');
 INSERT INTO `fleet`.`user_roles` (`User_id`, `roles`) VALUES ('2', 'ROLE_EMPLOYEE');

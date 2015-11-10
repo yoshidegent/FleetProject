@@ -6,5 +6,5 @@ import javax.persistence.Entity;
 
 @Entity
 @Where(clause = "deleted = 0")
-public class Admin extends User {
+public class Admin extends Employee {
 }
