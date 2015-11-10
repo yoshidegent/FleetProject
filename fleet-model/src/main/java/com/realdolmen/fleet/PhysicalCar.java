@@ -24,7 +24,7 @@ public class PhysicalCar extends AbstractEntity {
     private Long mileage = 0L;
 
     @Column(unique = true)
-    @Size(min = 1, max = 8)
+    @Size(min = 1, max = 9)
     private String licensePlate;
 
     public PhysicalCar() {}
