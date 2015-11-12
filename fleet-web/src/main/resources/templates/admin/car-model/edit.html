@@ -43,7 +43,7 @@
                             </div>
                             <div class="box-body">
                                 <div class="row">
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-3">
                                         <img class="img-responsive" id="carImage"
                                              th:if="${editForm.pictureUrl == null}"
                                              th:src="@{/images/car-shadow.png}"/>
@@ -51,7 +51,7 @@
                                              th:if="${editForm.pictureUrl != null}"
                                              th:src="${editForm.pictureUrl}"/>
                                     </div>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-9">
                                         <label th:field="*{pictureUrl}">URL</label>
                                         <input id="pictureUrlInput" class="form-control" type="text"
                                                th:field="*{pictureUrl}"/>
