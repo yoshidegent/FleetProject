@@ -83,12 +83,13 @@ public class CarController {
                 Employee oldEmployee = oldCar.getEmployee();
 
                 // The car gets unassigned
-                if(newEmployee == null) {
-                    // Get the old employee and remove its current car
+                if(newEmployee == null && oldEmployee != null) {
+                    // Get the old employee (if any) and remove its current car
                     oldEmployee.setCurrentCar(null);
-                } else {
-                    if(oldEmployee != null)
-                        oldEmployee.setCurrentCar(null);
+                }
+
+                // The car gets assigned to another employee, so set that employee's current car.
+                if(newEmployee != null) {
                     newEmployee.setCurrentCar(newCar);
                 }
             }

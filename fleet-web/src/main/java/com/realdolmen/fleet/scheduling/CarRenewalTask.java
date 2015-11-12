@@ -12,7 +12,7 @@ import java.util.List;
 public class CarRenewalTask {
     @Autowired private CarService carService;
 
-    @Scheduled(cron = "0 0 * * *")
+    @Scheduled(cron = "0 0 * * * *")
     public void checkCarsForRenewal() {
         List<PhysicalCar> cars = carService.findCarsThatExceedMaxKm();
         for(PhysicalCar car : cars) {

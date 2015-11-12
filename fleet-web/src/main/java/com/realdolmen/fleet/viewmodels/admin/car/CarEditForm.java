@@ -16,15 +16,18 @@ import java.util.stream.Collectors;
 public class CarEditForm {
     private Long id;
     private Long version;
+
     @NotNull
     @Valid
     private CarModel carModel;
-    @NotNull
+
     @Valid
     private Employee employee;
+
     @NotNull
     @Min(0)
     private Long mileage;
+
     @NotNull
     @Size(min = 9, max = 9)
     private String licensePlate;

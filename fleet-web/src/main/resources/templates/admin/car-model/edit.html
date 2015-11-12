@@ -78,7 +78,7 @@
                                                th:field="*{brand}"
                                                required="required"/>
 
-                                        <div class="help-block with-errors"></div>
+                                        <div class="help-block with-errors" th:errors="*{brand}"></div>
                                         <span class="glyphicon form-control-feedback"
                                               aria-hidden="true"></span>
                                     </div>
@@ -92,7 +92,7 @@
                                                th:field="*{model}"
                                                required="required"/>
 
-                                        <div class="help-block with-errors"></div>
+                                        <div class="help-block with-errors" th:errors="*{model}"></div>
                                         <span class="glyphicon form-control-feedback"
                                               aria-hidden="true"></span>
                                     </div>
@@ -106,7 +106,7 @@
                                                th:field="*{pack}"
                                                required="required"/>
 
-                                        <div class="help-block with-errors"></div>
+                                        <div class="help-block with-errors" th:errors="*{pack}"></div>
                                         <span class="glyphicon form-control-feedback"
                                               aria-hidden="true"></span>
                                     </div>
@@ -124,7 +124,7 @@
                                                     th:text="${type.displayName}"></option>
                                         </select>
                                     </div>
-                                    <div class="help-block with-errors"></div>
+                                    <div class="help-block with-errors" th:errors="*{fuelType}"></div>
                                 </div>
 
                                 <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('category')}? 'has-error'">
@@ -136,7 +136,7 @@
                                                class="form-control"
                                                th:field="*{category}" required="required"/>
 
-                                        <div class="help-block with-errors"></div>
+                                        <div class="help-block with-errors" th:errors="*{category}"></div>
                                         <span class="glyphicon form-control-feedback"
                                               aria-hidden="true"></span>
                                     </div>
@@ -154,7 +154,7 @@
 
                                             <div class="input-group-addon">g/km</div>
                                         </div>
-                                        <div class="help-block with-errors"></div>
+                                        <div class="help-block with-errors" th:errors="*{co2Emission}"></div>
                                     </div>
                                 </div>
 
@@ -186,7 +186,7 @@
                                                    th:field="*{listPriceInclVat}"
                                                    required="required"/>
                                         </div>
-                                        <div class="help-block with-errors"></div>
+                                        <div class="help-block with-errors" th:errors="*{listPriceInclVat}"></div>
                                         <span class="glyphicon form-control-feedback"
                                               aria-hidden="true"></span>
                                     </div>
@@ -204,7 +204,7 @@
 
                                             <div class="input-group-addon">km</div>
                                         </div>
-                                        <div class="help-block with-errors"></div>
+                                        <div class="help-block with-errors" th:errors="*{idealKm}"></div>
                                     </div>
                                 </div>
 
@@ -220,7 +220,7 @@
 
                                             <div class="input-group-addon">km</div>
                                         </div>
-                                        <div class="help-block with-errors"></div>
+                                        <div class="help-block with-errors" th:errors="*{maxKm}"></div>
                                     </div>
                                 </div>
 
@@ -242,7 +242,7 @@
                                                        th:field="*{deliveryTimeDays}"
                                                        required="required"/>
 
-                                                <div class="help-block with-errors"></div>
+                                                <div class="help-block with-errors" th:errors="*{deliveryTimeMonths}"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -256,7 +256,7 @@
                                                class="form-control"
                                                th:field="*{benefitInKindPerMonth}" required="required"/>
 
-                                        <div class="help-block with-errors"></div>
+                                        <div class="help-block with-errors" th:errors="*{benefitInKindPerMonth}"></div>
                                         <span class="glyphicon form-control-feedback"
                                               aria-hidden="true"></span>
                                     </div>
@@ -270,7 +270,7 @@
                                                class="form-control"
                                                th:field="*{amountUpgradeInclVat}" />
 
-                                        <div class="help-block with-errors"></div>
+                                        <div class="help-block with-errors" th:errors="*{amountUpgradeInclVat}"></div>
                                         <span class="glyphicon form-control-feedback"
                                               aria-hidden="true"></span>
                                     </div>
@@ -284,7 +284,7 @@
                                                class="form-control"
                                                th:field="*{amountDowngradeInclVat}" />
 
-                                        <div class="help-block with-errors"></div>
+                                        <div class="help-block with-errors" th:errors="*{amountDowngradeInclVat}"></div>
                                         <span class="glyphicon form-control-feedback"
                                               aria-hidden="true"></span>
                                     </div>
@@ -301,7 +301,7 @@
                                                     th:text="${type.displayName}"></option>
                                         </select>
                                     </div>
-                                    <div class="help-block with-errors"></div>
+                                    <div class="help-block with-errors" th:errors="*{winterTyreRimType}"></div>
                                 </div>
 
                                 <input type="hidden" th:field="*{id}"/>
