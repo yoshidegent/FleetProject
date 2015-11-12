@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 import java.time.Period;
@@ -45,10 +46,19 @@ import java.util.List;
         return "home";
     }
 
-    @RequestMapping(value = "/carmodels/{category}",method = RequestMethod.GET) public String getCarModels(Model model, @PathVariable("category") int category)
-    {
+    @RequestMapping(value = "/carmodels/{category}",method = RequestMethod.GET)
+    public String getCarModels(Model model, @PathVariable("category") int category,
+                               @RequestParam(name = "type", required = false, defaultValue = "grid") String type) {
         List<CarModel> allCarModels = carService.findCarModelsByCategory(category);
         model.addAttribute("carModelList", allCarModels);
+
+        switch(type) {
+            case "grid":
+                return "fragments/carmodelgrid :: carmodelgrid";
+            case "list":
+                return "fragments/carmodelgrid :: carmodellist";
+        }
+
         return "fragments/carmodelgrid :: carmodelgrid";
     }
 }

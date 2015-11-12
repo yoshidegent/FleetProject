@@ -10,4 +10,5 @@ public interface CarModelRepository extends JpaRepository<CarModel, Long>, SoftD
     String findAllBrands();
 
     List<CarModel> findByCategory(int category);
+    List<CarModel> findByCategoryOrderByBrandAscModelAsc(int category);
 }

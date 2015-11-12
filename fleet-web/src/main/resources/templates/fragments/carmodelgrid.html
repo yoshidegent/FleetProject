@@ -2,21 +2,45 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<body>
-    <th:block th:fragment="carmodelgrid">
-        <div class="gridCellWrapper" th:each="carModel : ${carModelList}">
-            <div class="gridCell">
-                <a class="gridCellLink" th:href="@{'/carModelDetail/' + ${carModel.id}}" >
-                    <figure class="carFigure">
-                        <img th:if="${carModel.pictureUrl != null}" th:src="${carModel.pictureUrl}"/>
-                        <img th:if="${carModel.pictureUrl == null}" th:src="@{/images/car-shadow.png}"/>
-                    </figure>
-                    <div class="carModelTitle">
-                        <p th:text="${carModel.brand + ' ' + carModel.model}"></p>
-                    </div>
-                </a>
-            </div>
+
+<th:block th:fragment="carmodelgrid">
+    <div class="gridCellWrapper" th:each="carModel : ${carModelList}">
+        <div class="gridCell">
+            <a class="gridCellLink" th:href="@{'/carModelDetail/' + ${carModel.id}}" >
+                <figure class="carFigure">
+                    <img th:if="${carModel.pictureUrl != null}" th:src="${carModel.pictureUrl}"/>
+                    <img th:if="${carModel.pictureUrl == null}" th:src="@{/images/car-shadow.png}"/>
+                </figure>
+                <div class="carModelTitle">
+                    <p th:text="${carModel.brand + ' ' + carModel.model}"></p>
+                </div>
+            </a>
         </div>
-    </th:block>
-</body>
+    </div>
+</th:block>
+
+<th:block th:fragment="carmodellist">
+    <div class="box box-primary">
+        <div class="box-body">
+            <table class="table no-margin">
+                <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Pack</th>
+                    <th>Fuel Type</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="carModel : ${carModelList}">
+                    <td th:text="${carModel.brand}"></td>
+                    <td><a href="#" th:href="@{'/carModelDetail/' + ${carModel.id}}" th:text="${carModel.model}"></a></td>
+                    <td th:text="${carModel.pack}"></td>
+                    <td th:text="${carModel.fuelType}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</th:block>
 </html>

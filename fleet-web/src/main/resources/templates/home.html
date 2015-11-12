@@ -23,6 +23,15 @@
                         <input id="categoryInput" type="number" th:value="${employee.functionalLevel}" th:max="${maxCategory}" th:min="${minCategory}" disabled="true" style="text-align: right;"/>
                         <button id="incrementBtn" class="btn btn-flat btn-success btn-xs"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
                         <button id="decrementBtn" class="btn btn-flat btn-danger btn-xs"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+
+                        <div class="grid-style btn-group pull-right" role="group" data-toggle="buttons">
+                            <label class="btn btn-flat btn-default active" data-grid-style="grid">
+                                <input type="radio" name="grid-style-btn" checked="checked" /><i class="fa fa-th"></i>
+                            </label>
+                            <label class="btn btn-flat btn-default" data-grid-style="list">
+                                <input type="radio" name="grid-style-btn" /><i class="fa fa-list"></i>
+                            </label>
+                        </div>
                     </div>
                 </div>
 
@@ -47,21 +56,22 @@
             $('#incrementBtn').attr('disabled', true);
 
         var retrieveCarModels = function() {
-            console.log('retrieveCarModels');
+            var type = $('.grid-style label.active').attr('data-grid-style');
 
             var url =  /*[[@{/carmodels}]]*/'';
 
-
             if (category.val() != '') {
-                url = url + '/' + category.attr('value');
+                url = url + '/' + category.attr('value') + '?type=' + type;
             }
-
-            console.log('requestUrl: ' + url);
 
             $('#carModelGrid').load(url);
         };
 
         retrieveCarModels();
+
+        $('.grid-style label').change(function() {
+            retrieveCarModels();
+        });
 
         $('#incrementBtn').click(function(){
             $('#decrementBtn').attr('disabled', false);
