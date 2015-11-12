@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -46,6 +47,7 @@ public class OrderServiceImpl implements OrderService {
     public void deliver(Long orderId, String licensePlate) {
         CarOrder carOrder = carOrderRepository.findOne(orderId);
         carOrder.setStatus(CarOrder.OrderStatus.DELIVERED);
+        carOrder.setDeliveryDate(LocalDate.now());
 
         PhysicalCar car = carOrder.getOrderedCar();
         car.setLicensePlate(licensePlate);

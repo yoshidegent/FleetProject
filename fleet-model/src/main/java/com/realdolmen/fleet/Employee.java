@@ -3,14 +3,13 @@ package com.realdolmen.fleet;
 import com.realdolmen.fleet.converters.DateConverter;
 import org.hibernate.annotations.Where;
 
-import javax.annotation.PostConstruct;
-import javax.persistence.*;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
@@ -18,7 +17,6 @@ import java.time.temporal.ChronoUnit;
 @Entity
 @Where(clause = "deleted = 0")
 public class Employee extends User {
-
     private boolean active = true;
 
     @OneToOne

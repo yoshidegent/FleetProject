@@ -1,5 +1,6 @@
 package com.realdolmen.fleet;
 
+import com.realdolmen.fleet.converters.DateConverter;
 import com.realdolmen.fleet.converters.DateTimeConverter;
 import org.hibernate.annotations.Where;
 
@@ -41,7 +42,7 @@ public class CarOrder extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    @Transient
+    @Convert(converter = DateConverter.class)
     private LocalDate deliveryDate;
 
     protected CarOrder() {}
@@ -56,12 +57,6 @@ public class CarOrder extends AbstractEntity {
         this.employee = employee;
         this.orderDate = orderDate;
         this.status = status;
-    }
-
-    @PostConstruct
-    public void init() {
-        if(orderedCar != null)
-            deliveryDate = orderDate.plus(orderedCar.getCarModel().getDeliveryTime()).toLocalDate();
     }
 
     public PhysicalCar getOrderedCar() {

@@ -1,5 +1,6 @@
 package com.realdolmen.fleet;
 
+import com.realdolmen.fleet.mail.MailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 public class CarServiceImpl implements CarService {
     @Autowired protected CarModelRepository carModelRepository;
     @Autowired private PhysicalCarRepository physicalCarRepository;
+    @Autowired private MailUtil mailUtil;
 
     @Override
     public void saveCar(PhysicalCar car) {
@@ -31,6 +33,26 @@ public class CarServiceImpl implements CarService {
 
     @Override public PhysicalCar findCarByLicensePlate(String licensePlate) {
         return physicalCarRepository.findByLicensePlate(licensePlate);
+    }
+
+    @Override
+    public List<PhysicalCar> findCarsThatExceedMaxKm() {
+        return physicalCarRepository.findByMileageGreaterThanMaxKm();
+    }
+
+    @Override
+    public Boolean sendRenewalEmail(PhysicalCar physicalCar) {
+        physicalCar.setRenewalStatus(PhysicalCar.RenewalStatus.NEEDS_RENEWAL);
+
+        if(mailUtil.sendRenewalMessage(physicalCar)) {
+            physicalCar.setRenewalStatus(PhysicalCar.RenewalStatus.NEEDS_RENEWAL_MAIL_SENT);
+
+            saveCar(physicalCar);
+            return true;
+        }
+
+        saveCar(physicalCar);
+        return false;
     }
 
     @Override

@@ -11,6 +11,9 @@ public interface CarService {
     List<PhysicalCar> findAllCars();
     PhysicalCar findCar(Long id);
     PhysicalCar findCarByLicensePlate(String licensePlate);
+    List<PhysicalCar> findCarsThatExceedMaxKm();
+
+    Boolean sendRenewalEmail(PhysicalCar physicalCar);
 
     /**
      * Car models

@@ -11,6 +11,12 @@ import java.util.List;
 @Entity
 @Where(clause = "deleted = 0")
 public class PhysicalCar extends AbstractEntity {
+    public enum RenewalStatus {
+        NO_RENEWAL,
+        NEEDS_RENEWAL,
+        NEEDS_RENEWAL_MAIL_SENT
+    }
+
     @ManyToOne
     private CarModel carModel;
 
@@ -26,6 +32,9 @@ public class PhysicalCar extends AbstractEntity {
     @Column(unique = true)
     @Size(min = 9, max = 9)
     private String licensePlate;
+
+    @Enumerated(EnumType.STRING)
+    private RenewalStatus renewalStatus = RenewalStatus.NO_RENEWAL;
 
     public PhysicalCar() {}
 
@@ -75,5 +84,13 @@ public class PhysicalCar extends AbstractEntity {
 
     public void setLicensePlate(String licensePlate) {
         this.licensePlate = licensePlate;
+    }
+
+    public RenewalStatus getRenewalStatus() {
+        return renewalStatus;
+    }
+
+    public void setRenewalStatus(RenewalStatus renewalStatus) {
+        this.renewalStatus = renewalStatus;
     }
 }

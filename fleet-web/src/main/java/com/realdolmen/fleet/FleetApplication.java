@@ -5,15 +5,12 @@ import com.realdolmen.fleet.spreadsheet.SpreadsheetService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
-import javax.persistence.Persistence;
-import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @SpringBootApplication
+@EnableScheduling
 public class FleetApplication {
 
     public static void main(String[] args) {

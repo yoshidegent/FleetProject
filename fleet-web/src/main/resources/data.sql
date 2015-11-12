@@ -23,13 +23,13 @@ INSERT INTO `carmodel` VALUES (1,0,0,3924.43,NULL,104.17,'Audi',2,89,'P5M',9,'DI
 
 -- INSERT INTO `carmodel_optionsdefaultmap` VALUES (45,'\0',1),(45,'',2),(45,'',3),(46,'',2),(46,'',3),(47,'',2),(47,'',3),(48,'\0',1),(48,'',2),(48,'',3),(49,'\0',1),(49,'',2),(49,'',3),(50,'\0',1),(50,'',2),(50,'',3),(51,'\0',1),(51,'',2),(51,'',3),(52,'\0',1),(52,'',2),(52,'',3),(53,'',2),(53,'',3),(54,'\0',1),(54,'',2),(54,'',3),(55,'\0',1),(55,'',2),(55,'',3),(56,'\0',1),(56,'',2),(56,'',3),(57,'\0',1),(57,'',2),(57,'',3),(58,'\0',1),(58,'',2),(58,'',3),(59,'\0',1),(59,'',2),(59,'',3),(60,'\0',1),(60,'',2),(60,'',3),(61,'\0',1),(61,'',2),(61,'',3),(62,'\0',1),(62,'',2),(62,'',3),(63,'\0',1),(63,'',2),(63,'',3),(64,'\0',1),(64,'',2),(64,'',3),(65,'\0',1),(65,'',2),(65,'',3),(66,'\0',1),(66,'',2),(66,'',3),(67,'',2),(67,'',3),(68,'\0',1),(68,'',2),(68,'',3),(69,'\0',1),(69,'',2),(69,'',3),(70,'\0',1),(70,'',2),(70,'',3),(71,'\0',1),(71,'',2),(71,'',3),(72,'\0',1),(72,'',2),(72,'',3),(73,'\0',1),(73,'',2),(73,'',3),(74,'\0',1),(74,'',2),(74,'',3),(75,'\0',1),(75,'',2),(75,'',3),(76,'\0',1),(76,'',2),(76,'',3),(77,'\0',1),(77,'',2),(77,'',3),(78,'\0',1),(78,'',2),(78,'',3),(79,'\0',1),(79,'',2),(79,'',3),(80,'\0',1),(80,'',2),(80,'',3),(81,'\0',1),(81,'',2),(81,'',3),(82,'\0',1),(82,'',2),(82,'',3),(83,'\0',1),(83,'',2),(83,'',3),(84,'\0',1),(84,'',2),(84,'',3),(85,'\0',1),(85,'',2),(85,'',3),(86,'\0',1),(86,'',2),(86,'',3),(87,'\0',1),(87,'',2),(87,'',3),(88,'\0',1),(88,'',2),(88,'',3);
 
-INSERT INTO `fleet`.`physicalcar` (`id`, `licensePlate`, `mileage`, `carModel_id`) VALUES ('1', '1-LCF-840', '0', '1');
-INSERT INTO `fleet`.`physicalcar` (`id`, `licensePlate`, `mileage`, `carModel_id`) VALUES ('2', '1-LCP-621', '0', '1');
-INSERT INTO `fleet`.`physicalcar` (`id`, `licensePlate`, `mileage`, `carModel_id`) VALUES ('3', '1-AAA-111', '0', '2');
-INSERT INTO `fleet`.`physicalcar` (`id`, `licensePlate`, `mileage`, `carModel_id`) VALUES ('4', '1-BBB-111', '1200', '3');
-INSERT INTO `fleet`.`physicalcar` (`id`, `licensePlate`, `mileage`, `carModel_id`) VALUES ('5', '1-CCC-222', '5000', '4');
-INSERT INTO `fleet`.`physicalcar` (`id`, `licensePlate`, `mileage`, `carModel_id`) VALUES ('6', '1-FFF-888', '123215', '8');
-INSERT INTO `fleet`.`physicalcar` (`id`, `licensePlate`, `mileage`, `carModel_id`) VALUES ('7', '1-DDD-101', '555', '7');
+INSERT INTO `fleet`.`physicalcar` (`id`, `licensePlate`, `mileage`, `renewalStatus`, `carModel_id`) VALUES ('1', '1-LCF-840', '0', 'NO_RENEWAL', '1');
+INSERT INTO `fleet`.`physicalcar` (`id`, `licensePlate`, `mileage`, `renewalStatus`, `carModel_id`) VALUES ('2', '1-LCP-621', '0', 'NO_RENEWAL', '1');
+INSERT INTO `fleet`.`physicalcar` (`id`, `licensePlate`, `mileage`, `renewalStatus`, `carModel_id`) VALUES ('3', '1-AAA-111', '0', 'NO_RENEWAL', '2');
+INSERT INTO `fleet`.`physicalcar` (`id`, `licensePlate`, `mileage`, `renewalStatus`, `carModel_id`) VALUES ('4', '1-BBB-111', '1200', 'NO_RENEWAL', '3');
+INSERT INTO `fleet`.`physicalcar` (`id`, `licensePlate`, `mileage`, `renewalStatus`, `carModel_id`) VALUES ('5', '1-CCC-222', '5000', 'NO_RENEWAL', '4');
+INSERT INTO `fleet`.`physicalcar` (`id`, `licensePlate`, `mileage`, `renewalStatus`, `carModel_id`) VALUES ('6', '1-FFF-888', '123215', 'NO_RENEWAL', '8');
+INSERT INTO `fleet`.`physicalcar` (`id`, `licensePlate`, `mileage`, `renewalStatus`, `carModel_id`) VALUES ('7', '1-DDD-101', '555', 'NO_RENEWAL', '7');
 
 INSERT INTO `fleet`.`physicalcar_caroption` (`PhysicalCar_id`, `selectedCarOptions_id`) VALUES ('1', '1');
 INSERT INTO `fleet`.`physicalcar_caroption` (`PhysicalCar_id`, `selectedCarOptions_id`) VALUES ('1', '2');
