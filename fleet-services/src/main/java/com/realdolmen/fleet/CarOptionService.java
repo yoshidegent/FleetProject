@@ -1,5 +1,7 @@
 package com.realdolmen.fleet;
 
+import org.springframework.context.annotation.Profile;
+
 import java.util.List;
 
 public interface CarOptionService {
@@ -27,6 +29,8 @@ public interface CarOptionService {
     void editOptionsById(PhysicalCar car, List<Long> optionIds);
     void addDefaultOptionsToCar(PhysicalCar car);
 
+    @Profile("test")
     void setCarOptionRepository(CarOptionRepository carOptionRepository);
+    @Profile("test")
     CarOptionRepository getCarOptionRepository();
 }
