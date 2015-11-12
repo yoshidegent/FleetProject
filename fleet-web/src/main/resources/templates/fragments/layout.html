@@ -90,6 +90,11 @@
                             <th:block th:text="${userEmployee.firstName + ' ' + userEmployee.lastName}"></th:block>
                         </p>
                     </li>
+                    <li class="user-body">
+                        <th:block th:if="${userEmployee != null and userEmployee.currentCar != null}">
+                            <th:block th:text="${userEmployee.currentCar.carModel.brand + ' ' + userEmployee.currentCar.carModel.model}"></th:block>
+                        </th:block>
+                    </li>
                     <!-- Menu Footer-->
                     <li class="user-footer">
                         <div sec:authorize="hasRole('ADMIN')" class="pull-left">
