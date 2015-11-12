@@ -70,246 +70,252 @@
                                 <h3 class="box-title">Details</h3>
                             </div>
                             <div class="box-body">
-                                <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('brand')}? 'has-error'">
-                                    <label class="col-sm-2 control-label" for="brand">Brand</label>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('brand')}? 'has-error'">
+                                            <label class="col-sm-2 control-label" for="brand">Brand</label>
 
-                                    <div class="col-sm-10">
-                                        <input id="brand" type="text" class="form-control"
-                                               th:field="*{brand}"
-                                               required="required"/>
+                                            <div class="col-sm-10">
+                                                <input id="brand" type="text" class="form-control"
+                                                       th:field="*{brand}"
+                                                       required="required"/>
 
-                                        <div class="help-block with-errors" th:errors="*{brand}"></div>
+                                                <div class="help-block with-errors" th:errors="*{brand}"></div>
                                         <span class="glyphicon form-control-feedback"
                                               aria-hidden="true"></span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('model')}? 'has-error'">
-                                    <label class="col-sm-2 control-label" for="model">Model</label>
-
-                                    <div class="col-sm-10">
-                                        <input id="model" type="text" class="form-control"
-                                               th:field="*{model}"
-                                               required="required"/>
-
-                                        <div class="help-block with-errors" th:errors="*{model}"></div>
-                                        <span class="glyphicon form-control-feedback"
-                                              aria-hidden="true"></span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('pack')}? 'has-error'">
-                                    <label class="col-sm-2 control-label" for="pack">Pack</label>
-
-                                    <div class="col-sm-10">
-                                        <input id="pack" type="text" class="form-control"
-                                               th:field="*{pack}"
-                                               required="required"/>
-
-                                        <div class="help-block with-errors" th:errors="*{pack}"></div>
-                                        <span class="glyphicon form-control-feedback"
-                                              aria-hidden="true"></span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('fuelType')}? 'has-error'">
-                                    <label class="col-sm-2 control-label" for="fuelType">Fuel
-                                        type</label>
-
-                                    <div class="col-sm-10">
-                                        <select id="fuelType" class="form-control"
-                                                th:field="*{fuelType}">
-                                            <option th:each="type : ${T(com.realdolmen.fleet.CarModel.FuelType).values()}"
-                                                    th:value="${type}"
-                                                    th:text="${type.displayName}"></option>
-                                        </select>
-                                    </div>
-                                    <div class="help-block with-errors" th:errors="*{fuelType}"></div>
-                                </div>
-
-                                <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('category')}? 'has-error'">
-                                    <label class="col-sm-2 control-label"
-                                           for="category">Category</label>
-
-                                    <div class="col-sm-10">
-                                        <input id="category" type="number" min="2" max="7"
-                                               class="form-control"
-                                               th:field="*{category}" required="required"/>
-
-                                        <div class="help-block with-errors" th:errors="*{category}"></div>
-                                        <span class="glyphicon form-control-feedback"
-                                              aria-hidden="true"></span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('co2Emission')}? 'has-error'">
-                                    <label class="col-sm-2 control-label"
-                                           for="emission">Emission</label>
-
-                                    <div class="col-sm-10">
-                                        <div class="input-group">
-                                            <input id="emission" type="number" min="0"
-                                                   class="form-control"
-                                                   th:field="*{co2Emission}" required="required"/>
-
-                                            <div class="input-group-addon">g/km</div>
-                                        </div>
-                                        <div class="help-block with-errors" th:errors="*{co2Emission}"></div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('fiscalHorsePower')}? 'has-error'">
-                                    <label class="col-sm-2 control-label" for="fiscalHorsePower">Fiscal
-                                        HP</label>
-
-                                    <div class="col-sm-10">
-                                        <input id="fiscalHorsePower" type="number" min="0"
-                                               class="form-control"
-                                               th:field="*{fiscalHorsePower}" required="required"/>
-
-                                        <div class="help-block with-errors" th:errors="*{fiscalHorsePower}"></div>
-                                        <span class="glyphicon form-control-feedback"
-                                              aria-hidden="true"></span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('listPriceInclVat')}? 'has-error'">
-                                    <label class="col-sm-2 control-label" for="listPrice">List
-                                        price</label>
-
-                                    <div class="col-sm-10">
-                                        <div class="input-group">
-                                            <div class="input-group-addon">€</div>
-                                            <input id="listPrice" type="number" step="0.01"
-                                                   min="0.00"
-                                                   class="form-control"
-                                                   th:field="*{listPriceInclVat}"
-                                                   required="required"/>
-                                        </div>
-                                        <div class="help-block with-errors" th:errors="*{listPriceInclVat}"></div>
-                                        <span class="glyphicon form-control-feedback"
-                                              aria-hidden="true"></span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('idealKm')}? 'has-error'">
-                                    <label class="col-sm-2 control-label" for="idealKm">Ideal
-                                        km</label>
-
-                                    <div class="col-sm-10">
-                                        <div class="input-group">
-                                            <input id="idealKm" type="number" min="0"
-                                                   class="form-control"
-                                                   th:field="*{idealKm}" required="required"/>
-
-                                            <div class="input-group-addon">km</div>
-                                        </div>
-                                        <div class="help-block with-errors" th:errors="*{idealKm}"></div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('maxKm')}? 'has-error'">
-                                    <label class="col-sm-2 control-label" for="maxKm">Max.
-                                        km</label>
-
-                                    <div class="col-sm-10">
-                                        <div class="input-group">
-                                            <input id="maxKm" type="number" min="0"
-                                                   class="form-control"
-                                                   th:field="*{maxKm}" required="required"/>
-
-                                            <div class="input-group-addon">km</div>
-                                        </div>
-                                        <div class="help-block with-errors" th:errors="*{maxKm}"></div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('deliveryTimeMonths') or #fields.hasErrors('deliveryTimeDays')}? 'has-error'">
-                                    <label class="col-sm-2 control-label" for="deliveryTimeMonths">Delivery
-                                        time</label>
-
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="input-group">
-                                                    <input id="deliveryTimeMonths" type="number" min="0"
-                                                           class="form-control"
-                                                           th:field="*{deliveryTimeMonths}"
-                                                           required="required"/>
-
-                                                    <div class="input-group-addon">months</div>
-                                                </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                        </div>
+
+                                        <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('model')}? 'has-error'">
+                                            <label class="col-sm-2 control-label" for="model">Model</label>
+
+                                            <div class="col-sm-10">
+                                                <input id="model" type="text" class="form-control"
+                                                       th:field="*{model}"
+                                                       required="required"/>
+
+                                                <div class="help-block with-errors" th:errors="*{model}"></div>
+                                        <span class="glyphicon form-control-feedback"
+                                              aria-hidden="true"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('pack')}? 'has-error'">
+                                            <label class="col-sm-2 control-label" for="pack">Pack</label>
+
+                                            <div class="col-sm-10">
+                                                <input id="pack" type="text" class="form-control"
+                                                       th:field="*{pack}"
+                                                       required="required"/>
+
+                                                <div class="help-block with-errors" th:errors="*{pack}"></div>
+                                        <span class="glyphicon form-control-feedback"
+                                              aria-hidden="true"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('fuelType')}? 'has-error'">
+                                            <label class="col-sm-2 control-label" for="fuelType">Fuel
+                                                type</label>
+
+                                            <div class="col-sm-10">
+                                                <select id="fuelType" class="form-control"
+                                                        th:field="*{fuelType}">
+                                                    <option th:each="type : ${T(com.realdolmen.fleet.CarModel.FuelType).values()}"
+                                                            th:value="${type}"
+                                                            th:text="${type.displayName}"></option>
+                                                </select>
+                                            </div>
+                                            <div class="help-block with-errors" th:errors="*{fuelType}"></div>
+                                        </div>
+
+                                        <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('category')}? 'has-error'">
+                                            <label class="col-sm-2 control-label"
+                                                   for="category">Category</label>
+
+                                            <div class="col-sm-10">
+                                                <input id="category" type="number" min="2" max="7"
+                                                       class="form-control"
+                                                       th:field="*{category}" required="required"/>
+
+                                                <div class="help-block with-errors" th:errors="*{category}"></div>
+                                        <span class="glyphicon form-control-feedback"
+                                              aria-hidden="true"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('co2Emission')}? 'has-error'">
+                                            <label class="col-sm-2 control-label"
+                                                   for="emission">Emission</label>
+
+                                            <div class="col-sm-10">
                                                 <div class="input-group">
-                                                    <input id="deliveryTimeDays" type="number" min="0"
+                                                    <input id="emission" type="number" min="0"
                                                            class="form-control"
-                                                           th:field="*{deliveryTimeDays}"
-                                                           required="required"/>
+                                                           th:field="*{co2Emission}" required="required"/>
 
-                                                    <div class="input-group-addon">days</div>
+                                                    <div class="input-group-addon">g/km</div>
                                                 </div>
+                                                <div class="help-block with-errors" th:errors="*{co2Emission}"></div>
+                                            </div>
+                                        </div>
 
-                                                <div class="help-block with-errors" th:errors="*{deliveryTimeMonths}"></div>
+                                        <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('fiscalHorsePower')}? 'has-error'">
+                                            <label class="col-sm-2 control-label" for="fiscalHorsePower">Fiscal
+                                                HP</label>
+
+                                            <div class="col-sm-10">
+                                                <input id="fiscalHorsePower" type="number" min="0"
+                                                       class="form-control"
+                                                       th:field="*{fiscalHorsePower}" required="required"/>
+
+                                                <div class="help-block with-errors" th:errors="*{fiscalHorsePower}"></div>
+                                        <span class="glyphicon form-control-feedback"
+                                              aria-hidden="true"></span>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('benefitInKindPerMonth')}? 'has-error'">
-                                    <label class="col-sm-2 control-label" for="benefit">Benefit in kind per month</label>
+                                    <div class="col-sm-6">
+                                        <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('listPriceInclVat')}? 'has-error'">
+                                            <label class="col-sm-2 control-label" for="listPrice">List
+                                                price</label>
 
-                                    <div class="col-sm-10">
-                                        <input id="benefit" type="number" min="0" step="0.01"
-                                               class="form-control"
-                                               th:field="*{benefitInKindPerMonth}" required="required"/>
+                                            <div class="col-sm-10">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">€</div>
+                                                    <input id="listPrice" type="number" step="0.01"
+                                                           min="0.00"
+                                                           class="form-control"
+                                                           th:field="*{listPriceInclVat}"
+                                                           required="required"/>
+                                                </div>
+                                                <div class="help-block with-errors" th:errors="*{listPriceInclVat}"></div>
+                                            <span class="glyphicon form-control-feedback"
+                                                  aria-hidden="true"></span>
+                                            </div>
+                                        </div>
 
-                                        <div class="help-block with-errors" th:errors="*{benefitInKindPerMonth}"></div>
-                                        <span class="glyphicon form-control-feedback"
-                                              aria-hidden="true"></span>
+                                        <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('idealKm')}? 'has-error'">
+                                            <label class="col-sm-2 control-label" for="idealKm">Ideal
+                                                km</label>
+
+                                            <div class="col-sm-10">
+                                                <div class="input-group">
+                                                    <input id="idealKm" type="number" min="0"
+                                                           class="form-control"
+                                                           th:field="*{idealKm}" required="required"/>
+
+                                                    <div class="input-group-addon">km</div>
+                                                </div>
+                                                <div class="help-block with-errors" th:errors="*{idealKm}"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('maxKm')}? 'has-error'">
+                                            <label class="col-sm-2 control-label" for="maxKm">Max.
+                                                km</label>
+
+                                            <div class="col-sm-10">
+                                                <div class="input-group">
+                                                    <input id="maxKm" type="number" min="0"
+                                                           class="form-control"
+                                                           th:field="*{maxKm}" required="required"/>
+
+                                                    <div class="input-group-addon">km</div>
+                                                </div>
+                                                <div class="help-block with-errors" th:errors="*{maxKm}"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('deliveryTimeMonths') or #fields.hasErrors('deliveryTimeDays')}? 'has-error'">
+                                            <label class="col-sm-2 control-label" for="deliveryTimeMonths">Delivery
+                                                time</label>
+
+                                            <div class="col-sm-10">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="input-group">
+                                                            <input id="deliveryTimeMonths" type="number" min="0"
+                                                                   class="form-control"
+                                                                   th:field="*{deliveryTimeMonths}"
+                                                                   required="required"/>
+
+                                                            <div class="input-group-addon">months</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="input-group">
+                                                            <input id="deliveryTimeDays" type="number" min="0"
+                                                                   class="form-control"
+                                                                   th:field="*{deliveryTimeDays}"
+                                                                   required="required"/>
+
+                                                            <div class="input-group-addon">days</div>
+                                                        </div>
+
+                                                        <div class="help-block with-errors" th:errors="*{deliveryTimeMonths}"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('benefitInKindPerMonth')}? 'has-error'">
+                                            <label class="col-sm-2 control-label" for="benefit">Benefit in kind per month</label>
+
+                                            <div class="col-sm-10">
+                                                <input id="benefit" type="number" min="0" step="0.01"
+                                                       class="form-control"
+                                                       th:field="*{benefitInKindPerMonth}" required="required"/>
+
+                                                <div class="help-block with-errors" th:errors="*{benefitInKindPerMonth}"></div>
+                                            <span class="glyphicon form-control-feedback"
+                                                  aria-hidden="true"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('amountUpgradeInclVat')}? 'has-error'">
+                                            <label class="col-sm-2 control-label" for="upgradeAmount">Upgrade amount</label>
+
+                                            <div class="col-sm-10">
+                                                <input id="upgradeAmount" type="number" min="0" step="0.01"
+                                                       class="form-control"
+                                                       th:field="*{amountUpgradeInclVat}" />
+
+                                                <div class="help-block with-errors" th:errors="*{amountUpgradeInclVat}"></div>
+                                            <span class="glyphicon form-control-feedback"
+                                                  aria-hidden="true"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('amountDowngradeInclVat')}? 'has-error'">
+                                            <label class="col-sm-2 control-label" for="downgradeAmount">Downgrade amount</label>
+
+                                            <div class="col-sm-10">
+                                                <input id="downgradeAmount" type="number" min="0" step="0.01"
+                                                       class="form-control"
+                                                       th:field="*{amountDowngradeInclVat}" />
+
+                                                <div class="help-block with-errors" th:errors="*{amountDowngradeInclVat}"></div>
+                                            <span class="glyphicon form-control-feedback"
+                                                  aria-hidden="true"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('winterTyreRimType')}? 'has-error'">
+                                            <label class="col-sm-2 control-label" for="winterRimType">Winter Rim Type</label>
+
+                                            <div class="col-sm-10">
+                                                <select id="winterRimType" class="form-control"
+                                                        th:field="*{winterTyreRimType}">
+                                                    <option th:each="type : ${T(com.realdolmen.fleet.CarModel.RimType).values()}"
+                                                            th:value="${type}"
+                                                            th:text="${type.displayName}"></option>
+                                                </select>
+                                            </div>
+                                            <div class="help-block with-errors" th:errors="*{winterTyreRimType}"></div>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('amountUpgradeInclVat')}? 'has-error'">
-                                    <label class="col-sm-2 control-label" for="upgradeAmount">Upgrade amount</label>
-
-                                    <div class="col-sm-10">
-                                        <input id="upgradeAmount" type="number" min="0" step="0.01"
-                                               class="form-control"
-                                               th:field="*{amountUpgradeInclVat}" />
-
-                                        <div class="help-block with-errors" th:errors="*{amountUpgradeInclVat}"></div>
-                                        <span class="glyphicon form-control-feedback"
-                                              aria-hidden="true"></span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('amountDowngradeInclVat')}? 'has-error'">
-                                    <label class="col-sm-2 control-label" for="downgradeAmount">Downgrade amount</label>
-
-                                    <div class="col-sm-10">
-                                        <input id="downgradeAmount" type="number" min="0" step="0.01"
-                                               class="form-control"
-                                               th:field="*{amountDowngradeInclVat}" />
-
-                                        <div class="help-block with-errors" th:errors="*{amountDowngradeInclVat}"></div>
-                                        <span class="glyphicon form-control-feedback"
-                                              aria-hidden="true"></span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group has-feedback" th:classappend="${#fields.hasErrors('winterTyreRimType')}? 'has-error'">
-                                    <label class="col-sm-2 control-label" for="winterRimType">Winter Rim Type</label>
-
-                                    <div class="col-sm-10">
-                                        <select id="winterRimType" class="form-control"
-                                                th:field="*{winterTyreRimType}">
-                                            <option th:each="type : ${T(com.realdolmen.fleet.CarModel.RimType).values()}"
-                                                    th:value="${type}"
-                                                    th:text="${type.displayName}"></option>
-                                        </select>
-                                    </div>
-                                    <div class="help-block with-errors" th:errors="*{winterTyreRimType}"></div>
                                 </div>
 
                                 <input type="hidden" th:field="*{id}"/>
