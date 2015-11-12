@@ -12,11 +12,7 @@
             <evaluate expression="flashScope.principal.getUser()" result="flowScope.employee"
                       result-type="com.realdolmen.fleet.Employee"/>
         </on-entry>
-        <if test="flowScope.employee == null" then="cancel" else="checkOrderPossible" />
-    </decision-state>
-
-    <decision-state id="checkOrderPossible">
-        <if test="orderServiceImpl.employeeCanOrder(flowScope.employee)" then="checkModelIdExists" else="cancel" />
+        <if test="flowScope.employee == null" then="cancel" else="checkModelIdExists" />
     </decision-state>
 
     <decision-state id="checkModelIdExists">
@@ -24,7 +20,11 @@
             <evaluate expression="carServiceImpl.findCarModel(id)"
                       result="flowScope.carModel" result-type="com.realdolmen.fleet.CarModel" />
         </on-entry>
-        <if test="flowScope.carModel == null" then="cancel" else="optionSelection" />
+        <if test="flowScope.carModel == null" then="cancel" else="checkOrderPossible" />
+    </decision-state>
+
+    <decision-state id="checkOrderPossible">
+        <if test="orderServiceImpl.employeeCanOrder(flowScope.employee, flowScope.carModel)" then="optionSelection" else="cancel" />
     </decision-state>
 
     <view-state id="optionSelection" model="optionSelectionList" view="order/option-selection">

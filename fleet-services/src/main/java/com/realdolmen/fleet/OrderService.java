@@ -11,7 +11,7 @@ public interface OrderService {
     List<CarOrder> findPendingOrders();
 
     void saveOrder(CarOrder order);
-    boolean employeeCanOrder(Employee employee);
+    boolean employeeCanOrder(Employee employee, CarModel carModel);
 
     void deliver(Long orderId, String licensePlate);
 
