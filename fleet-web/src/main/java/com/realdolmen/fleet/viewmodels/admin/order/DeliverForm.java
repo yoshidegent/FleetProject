@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 
 public class DeliverForm {
     @NotNull
-    @Size(min = 1, max = 8)
+    @Size(min = 9, max = 9)
     private String licensePlate;
 
     public String getLicensePlate() {

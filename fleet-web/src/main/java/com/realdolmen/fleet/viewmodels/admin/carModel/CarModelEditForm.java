@@ -73,16 +73,20 @@ public class CarModelEditForm {
 
     @NotNull
     @Digits(integer = 8, fraction = 2)
+    @Min(0)
     private BigDecimal listPriceInclVat;
 
     @Digits(integer = 8, fraction = 2)
+    @Min(0)
     private BigDecimal amountUpgradeInclVat;
 
     @Digits(integer = 8, fraction = 2)
+    @Min(0)
     private BigDecimal amountDowngradeInclVat;
 
     @NotNull
     @Digits(integer = 8, fraction = 2)
+    @Min(0)
     private BigDecimal benefitInKindPerMonth;
 
     private List<Long> optionIds = new ArrayList<>();

@@ -4,6 +4,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class PhysicalCar extends AbstractEntity {
 
     @Column(unique = true)
     @Size(min = 9, max = 9)
+    @Pattern(regexp = "^1-[a-zA-Z]{3}-\\d{3}$")
     private String licensePlate;
 
     @Enumerated(EnumType.STRING)

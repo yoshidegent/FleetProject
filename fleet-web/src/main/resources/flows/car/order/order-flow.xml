@@ -38,19 +38,19 @@
                       result-type="com.realdolmen.fleet.authentication.FleetPrincipal" />
             <evaluate expression="flashScope.principal.getUser()" result="flowScope.carOrder.employee"
                       result-type="com.realdolmen.fleet.Employee" />
-            <set name="flowScope.carOrder.status" value="T(com.realdolmen.fleet.CarOrder.OrderStatus).valueOf('PENDING')" />
+            <set name="flowScope.carOrder.status" value="T(com.realdolmen.fleet.CarOrder.OrderStatus).PENDING" />
 
-            <evaluate expression="new com.realdolmen.fleet.viewmodels.order.OptionSelectionListModel(carServiceImpl.getAvailableOptionsForModel(flowScope.carModel))"
+            <evaluate expression="new com.realdolmen.fleet.viewmodels.order.OptionSelectionListModel(carOptionServiceImpl.findAvailableOptionsForCarModel(flowScope.carModel))"
                       result="viewScope.optionSelectionList"
                       result-type="com.realdolmen.fleet.viewmodels.order.OptionSelectionListModel" />
 
-            <evaluate expression="carServiceImpl.getDefaultOptionsForModel(flowScope.carModel)"
+            <evaluate expression="carOptionServiceImpl.findDefaultOptionsForCarModel(flowScope.carModel)"
                       result="viewScope.defaultOptions" />
         </on-entry>
 
         <transition to="summary" on="submit">
-            <evaluate expression="carServiceImpl.addOptionsToCar(carOrder.orderedCar, viewScope.optionSelectionList.selection)" />
-            <evaluate expression="carServiceImpl.addDefaultOptionsToCar(carOrder.orderedCar)" />
+            <evaluate expression="carOptionServiceImpl.addOptionsToCar(carOrder.orderedCar, viewScope.optionSelectionList.selection)" />
+            <evaluate expression="carOptionServiceImpl.addDefaultOptionsToCar(carOrder.orderedCar)" />
         </transition>
     </view-state>
 

@@ -21,6 +21,13 @@
             </h1>
         </section>
 
+        <div class="margin" th:if="${success}">
+            <div class="callout callout-success">
+                <h4><i class="fa fa-check"></i> Success</h4>
+                <th:block th:text="${success}"></th:block>
+            </div>
+        </div>
+
         <!-- Main content -->
         <section class="content">
             <div class="row">
@@ -35,7 +42,7 @@
                         </div>
 
                         <div class="box-body">
-                            <table class="table table-bordered table-hover">
+                            <table class="table table-hover no-margin">
                                 <thead>
                                 <tr>
                                     <th><input type="checkbox" class="select-all"/></th>

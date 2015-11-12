@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -36,6 +37,12 @@ public class CarModelController {
     public String editGet(Model model, @PathVariable("id") Long id) {
         CarModel carModel = carService.findCarModel(id);
 
+        if(model.containsAttribute("editForm")) {
+            model.addAttribute("optionMap", carModel.getOptionsDefaultMap());
+            model.addAttribute("globalOptions", carOptionService.findGlobalCarOptionsExcludeActiveOnes(carModel));
+            return "admin/car-model/edit";
+        }
+
         CarModelEditForm carModelEditForm = new CarModelEditForm();
         carModelEditForm.mapFrom(carModel);
         model.addAttribute("editForm", carModelEditForm);
@@ -54,7 +61,8 @@ public class CarModelController {
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
-    public String modelPost(@ModelAttribute("editForm") @Valid CarModelEditForm editForm, BindingResult bindingResult, Model model) {
+    public String modelPost(@ModelAttribute("editForm") @Valid CarModelEditForm editForm, BindingResult bindingResult,
+                            Model model, RedirectAttributes redirectAttributes) {
         /*if(carModelEditForm.getImageFile() != null && !carModelEditForm.getImageFile().isEmpty()) {
             try {
                 String fileName = carModelEditForm.getImageFile().getOriginalFilename();
@@ -72,8 +80,10 @@ public class CarModelController {
         }*/
 
         if(bindingResult.hasErrors()) {
-            model.addAttribute("editForm", editForm);
-            return "admin/car-model/edit";
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.editForm", bindingResult);
+            redirectAttributes.addFlashAttribute("editForm", editForm);
+
+            return "redirect:" + fromMappingName("CMC#editGet").arg(1, editForm.getId()).build();
         }
 
         Map<CarOption, Boolean> carOptionDefaultMap = new HashMap<>();
@@ -90,9 +100,9 @@ public class CarModelController {
         }
 
         carModel.setOptionsDefaultMap(carOptionDefaultMap);
-
         carService.saveCarModel(carModel);
 
+        redirectAttributes.addFlashAttribute("success", "Your changes were successfully saved.");
         return "redirect:" + fromMappingName("CMC#overview").build();
     }
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -38,11 +39,13 @@ public class CarController {
 
     @RequestMapping("/edit/{id}")
     public String editGet(Model model, @PathVariable("id") Long id) {
-        PhysicalCar car = carService.findCar(id);
+        if(!model.containsAttribute("editForm")) {
+            PhysicalCar car = carService.findCar(id);
 
-        CarEditForm editForm = new CarEditForm();
-        editForm.mapFrom(car);
-        model.addAttribute("editForm", editForm);
+            CarEditForm editForm = new CarEditForm();
+            editForm.mapFrom(car);
+            model.addAttribute("editForm", editForm);
+        }
 
         List<CarModel> carModels = carService.findAllCarModels();
         model.addAttribute("carModels", carModels);
@@ -67,10 +70,12 @@ public class CarController {
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
-    public String modelPost(@ModelAttribute("editForm") @Valid CarEditForm editForm, BindingResult bindingResult, Model model) {
+    public String modelPost(@ModelAttribute("editForm") @Valid CarEditForm editForm, BindingResult bindingResult,
+                            Model model, RedirectAttributes redirectAttributes) {
         if(bindingResult.hasErrors()) {
-            model.addAttribute("editForm", editForm);
-            return "admin/car/edit";
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.editForm", bindingResult);
+            redirectAttributes.addFlashAttribute("editForm", editForm);
+            return "redirect:" + fromMappingName("CC#editGet").arg(1, editForm.getId()).build();
         }
 
         PhysicalCar newCar = editForm.physicalCar();
@@ -103,6 +108,7 @@ public class CarController {
         carOptionService.editOptionsById(newCar, installedOptionIds);
         carService.saveCar(newCar);
 
+        redirectAttributes.addFlashAttribute("success", "Your changes were successfully saved.");
         return "redirect:" + fromMappingName("CC#overview").build();
     }
 

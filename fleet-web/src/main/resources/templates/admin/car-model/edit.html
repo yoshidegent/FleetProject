@@ -231,16 +231,24 @@
                                     <div class="col-sm-10">
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <input id="deliveryTimeMonths" type="number" min="0"
-                                                       class="form-control"
-                                                       th:field="*{deliveryTimeMonths}"
-                                                       required="required"/>
+                                                <div class="input-group">
+                                                    <input id="deliveryTimeMonths" type="number" min="0"
+                                                           class="form-control"
+                                                           th:field="*{deliveryTimeMonths}"
+                                                           required="required"/>
+
+                                                    <div class="input-group-addon">months</div>
+                                                </div>
                                             </div>
                                             <div class="col-sm-6">
-                                                <input id="deliveryTimeDays" type="number" min="0"
-                                                       class="form-control"
-                                                       th:field="*{deliveryTimeDays}"
-                                                       required="required"/>
+                                                <div class="input-group">
+                                                    <input id="deliveryTimeDays" type="number" min="0"
+                                                           class="form-control"
+                                                           th:field="*{deliveryTimeDays}"
+                                                           required="required"/>
+
+                                                    <div class="input-group-addon">days</div>
+                                                </div>
 
                                                 <div class="help-block with-errors" th:errors="*{deliveryTimeMonths}"></div>
                                             </div>

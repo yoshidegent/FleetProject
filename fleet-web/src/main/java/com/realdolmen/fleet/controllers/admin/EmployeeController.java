@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -28,7 +29,10 @@ public class EmployeeController {
     }
 
     @RequestMapping({"/update/{id}"})
-    public String employees(Model model, @PathVariable("id") Long employeeId, @RequestParam("function") String function, @RequestParam("functionalLevel") int functionalLevel, @RequestParam(value = "active", required = false) Boolean active)
+    public String employees(Model model, @PathVariable("id") Long employeeId, @RequestParam("function") String function,
+                            @RequestParam("functionalLevel") int functionalLevel,
+                            @RequestParam(value = "active", required = false) Boolean active,
+                            RedirectAttributes redirectAttributes)
     {
         Employee employee = employeeService.findEmployee(employeeId);
         employee.setFunctionalLevel(functionalLevel);
@@ -40,6 +44,8 @@ public class EmployeeController {
             employee.setActive(active);
 
         employeeService.saveOrUpdateEmployee(employee);
+
+        redirectAttributes.addFlashAttribute("success", "Your changes were successfully saved.");
         return "redirect:/admin/employee/";
     }
 }

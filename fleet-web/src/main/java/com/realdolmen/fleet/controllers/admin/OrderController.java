@@ -41,16 +41,17 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/{id}/deliver", method = RequestMethod.POST)
-    public String deliver(@PathVariable Long id, @ModelAttribute @Valid DeliverForm deliverForm, BindingResult bindingResult, RedirectAttributes attr) {
-        if(!bindingResult.hasErrors()) {
-            orderService.deliver(id, deliverForm.getLicensePlate());
+    public String deliver(@PathVariable Long id, @ModelAttribute("deliverForm") @Valid DeliverForm deliverForm,
+                          BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if(bindingResult.hasErrors()) {
+            // Error messages don't seem to work with flash attributes...
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.deliverForm", bindingResult);
+            redirectAttributes.addFlashAttribute("deliverForm", deliverForm);
+            return "redirect:" + fromMappingName("OC#details").arg(1, id).build();
         }
 
+        orderService.deliver(id, deliverForm.getLicensePlate());
+        redirectAttributes.addFlashAttribute("success", "The order's status was successfully changed to delivered.");
         return "redirect:" + fromMappingName("OC#details").arg(1, id).build();
-    }
-
-    @RequestMapping("/pending")
-    public Long getPendingOrderAmount() {
-        return orderService.getPendingOrderAmount();
     }
 }

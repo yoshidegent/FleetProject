@@ -88,16 +88,20 @@ public class CarModel extends AbstractEntity {
 
     @NotNull
     @Digits(integer = 8, fraction = 2)
+    @Min(0)
     private BigDecimal listPriceInclVat;
 
     @Digits(integer = 8, fraction = 2)
+    @Min(0)
     private BigDecimal amountUpgradeInclVat;
 
     @Digits(integer = 8, fraction = 2)
+    @Min(0)
     private BigDecimal amountDowngradeInclVat;
 
     @NotNull
     @Digits(integer = 8, fraction = 2)
+    @Min(0)
     private BigDecimal benefitInKindPerMonth;
 
     @ElementCollection(fetch = FetchType.EAGER)

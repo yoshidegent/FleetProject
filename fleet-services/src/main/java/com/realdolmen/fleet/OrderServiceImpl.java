@@ -29,6 +29,21 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<CarOrder> findLatest10() {
+        return carOrderRepository.findFirst10ByOrderByOrderDateDesc();
+    }
+
+    @Override
+    public List<CarOrder> find10OldestPendingOrders() {
+        return carOrderRepository.findFirst10ByStatusOrderByOrderDateAsc(CarOrder.OrderStatus.PENDING);
+    }
+
+    @Override
+    public List<CarOrder> findPendingOrders() {
+        return carOrderRepository.findByStatus(CarOrder.OrderStatus.PENDING);
+    }
+
+    @Override
     public void saveOrder(CarOrder order) {
         order.setOrderDate(LocalDateTime.now());
         carOrderRepository.save(order);

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 public class PendingOrdersResolver {
     @Autowired private OrderService orderService;
 
-    @ModelAttribute("pendingOrders")
-    public Long pendingOrders() {
+    @ModelAttribute("pendingOrdersAmount")
+    public Long pendingOrdersAmount() {
         return orderService.getPendingOrderAmount();
     }
 }
