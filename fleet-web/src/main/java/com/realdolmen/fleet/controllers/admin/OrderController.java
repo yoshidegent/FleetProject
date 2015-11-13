@@ -4,9 +4,11 @@ import com.realdolmen.fleet.CarOrder;
 import com.realdolmen.fleet.OrderService;
 import com.realdolmen.fleet.viewmodels.admin.order.DeliverForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +37,9 @@ public class OrderController {
     public String details(Model model, @PathVariable("id") Long id) {
         CarOrder carOrder = orderService.findOne(id);
         model.addAttribute("order", carOrder);
-        model.addAttribute("deliverForm", new DeliverForm());
+
+        if(!model.containsAttribute("deliverForm"))
+            model.addAttribute("deliverForm", new DeliverForm());
 
         return "admin/order/detail";
     }
@@ -44,17 +48,19 @@ public class OrderController {
     public String deliver(@PathVariable Long id, @ModelAttribute("deliverForm") @Valid DeliverForm deliverForm,
                           BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if(bindingResult.hasErrors()) {
-            // This does not seem to work here for some reason
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.deliverForm", bindingResult);
             redirectAttributes.addFlashAttribute("deliverForm", deliverForm);
             return "redirect:" + fromMappingName("OC#details").arg(1, id).build();
         }
 
-        //try {
+        try {
             orderService.deliver(id, deliverForm.getLicensePlate());
-        /*} catch(Exception e) {
-
-        }*/
+        } catch(DataAccessException e) {
+            bindingResult.rejectValue("licensePlate", null, "This license plate is already in use");
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.deliverForm", bindingResult);
+            redirectAttributes.addFlashAttribute("deliverForm", deliverForm);
+            return "redirect:" + fromMappingName("OC#details").arg(1, id).build();
+        }
 
         redirectAttributes.addFlashAttribute("success", "The order's status was successfully changed to delivered.");
         return "redirect:" + fromMappingName("OC#details").arg(1, id).build();

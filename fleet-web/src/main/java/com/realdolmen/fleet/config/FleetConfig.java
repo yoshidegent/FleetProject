@@ -2,12 +2,9 @@ package com.realdolmen.fleet.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
-import org.springframework.orm.hibernate4.HibernateExceptionTranslator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -37,20 +34,5 @@ public class FleetConfig {
         em.setJpaProperties(properties);
 
         return em;
-    }
-
-    @Bean
-    public HibernateExceptionTranslator hibernateExceptionTranslator() {
-        return new HibernateExceptionTranslator();
-    }
-
-    @Bean
-    public HibernateJpaDialect hibernateJpaDialect() {
-        return new HibernateJpaDialect();
-    }
-
-    @Bean
-    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
-        return new PersistenceExceptionTranslationPostProcessor();
     }
 }

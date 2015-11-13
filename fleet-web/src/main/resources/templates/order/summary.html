@@ -16,6 +16,14 @@
                 </h1>
             </section>
 
+            <div class="row margin-bottom">
+                <div class="col-sm-12">
+                    <form method="post" th:action="${''}" class="pull-right">
+                        <input class="pull-right btn btn-flat btn-primary" type="submit" name="_eventId_submit" value="Confirm" />
+                    </form>
+                </div>
+            </div>
+
             <section class="content">
                 <div class="row">
                     <div class="col-sm-8">
@@ -25,18 +33,7 @@
                                 <h3 class="box-title">Order Summary</h3>
                             </div>
                             <div class="box-body">
-                                <h4>Selected Options</h4>
-                                <table class="table">
-                                    <tbody>
-                                    <tr th:each="option : ${carOrder.orderedCar.selectedCarOptions}">
-                                        <td th:text="${option.name}"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
 
-                                <form method="post" th:action="${''}">
-                                    <input class="pull-right btn btn-flat btn-primary" type="submit" name="_eventId_submit" value="Confirm" />
-                                </form>
                             </div>
                         </div>
                     </div>
@@ -49,7 +46,34 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="box box-default">
+                            <div class="box-header with-border">
+                                <i class="fa fa-cubes"></i>
+                                <h3 class="box-title">Selected Options</h3>
+                            </div>
+                            <div class="box-body">
+                                <table class="table">
+                                    <tbody>
+                                    <tr th:each="option : ${carOrder.orderedCar.selectedCarOptions}">
+                                        <td th:text="${option.name}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <form method="post" th:action="${''}" class="pull-right">
+                        <input class="pull-right btn btn-flat btn-primary" type="submit" name="_eventId_submit" value="Confirm" />
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 

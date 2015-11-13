@@ -94,9 +94,7 @@
                                 <div class="form-group" th:classappend="${#fields.hasErrors('licensePlate')}? 'has-error'">
                                     <label th:field="*{licensePlate}">License Plate</label>
                                     <input type="text" th:field="*{licensePlate}" data-inputmask="'mask': '[1-]AAA-999'" />
-                                </div>
-                                <div>
-                                    <p th:errors="*{licensePlate}"></p>
+                                    <div class="help-block with-errors" th:errors="*{licensePlate}"></div>
                                 </div>
 
                                 <div class="form-group">

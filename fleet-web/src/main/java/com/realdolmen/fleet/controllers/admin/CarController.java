@@ -3,6 +3,7 @@ package com.realdolmen.fleet.controllers.admin;
 import com.realdolmen.fleet.*;
 import com.realdolmen.fleet.viewmodels.admin.car.CarEditForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -106,7 +107,15 @@ public class CarController {
 
         List<Long> installedOptionIds = editForm.getInstalledOptions();
         carOptionService.editOptionsById(newCar, installedOptionIds);
-        carService.saveCar(newCar);
+
+        try {
+            carService.saveCar(newCar);
+        } catch(DataAccessException e) {
+            bindingResult.rejectValue("licensePlate", null, "This license plate is already in use");
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.editForm", bindingResult);
+            redirectAttributes.addFlashAttribute("editForm", editForm);
+            return "redirect:" + fromMappingName("CC#editGet").arg(1, editForm.getId()).build();
+        }
 
         redirectAttributes.addFlashAttribute("success", "Your changes were successfully saved.");
         return "redirect:" + fromMappingName("CC#overview").build();

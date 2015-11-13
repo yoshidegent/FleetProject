@@ -31,7 +31,6 @@ public class PhysicalCar extends AbstractEntity {
     private Long mileage = 0L;
 
     @Column(unique = true)
-    @Size(min = 9, max = 9)
     @Pattern(regexp = "^1-[a-zA-Z]{3}-\\d{3}$")
     private String licensePlate;
 
