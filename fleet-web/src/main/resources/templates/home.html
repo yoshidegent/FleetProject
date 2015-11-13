@@ -16,6 +16,14 @@
                 </h1>
             </section>
 
+            <div class="margin">
+                <div class="alert alert-warning alert-dismissible" th:if="${param.error != null}">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-warning"></i> Error</h4>
+                    <th:block th:text="${param.error[0]}"></th:block>
+                </div>
+            </div>
+
             <section class="content">
                 <div class="box box-default">
                     <div class="box-body">

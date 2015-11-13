@@ -21,7 +21,6 @@ public class FleetApplication {
             app.getClass().getResourceAsStream("/excel/RealDolmenWagenparktabelMei2015.xlsx"), 0);
 
         CarService carService = app.getBean(CarService.class);
-
         carService.saveCarModels(carModels);
     }
 }

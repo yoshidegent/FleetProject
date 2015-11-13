@@ -44,13 +44,18 @@ public class OrderController {
     public String deliver(@PathVariable Long id, @ModelAttribute("deliverForm") @Valid DeliverForm deliverForm,
                           BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if(bindingResult.hasErrors()) {
-            // Error messages don't seem to work with flash attributes...
+            // This does not seem to work here for some reason
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.deliverForm", bindingResult);
             redirectAttributes.addFlashAttribute("deliverForm", deliverForm);
             return "redirect:" + fromMappingName("OC#details").arg(1, id).build();
         }
 
-        orderService.deliver(id, deliverForm.getLicensePlate());
+        //try {
+            orderService.deliver(id, deliverForm.getLicensePlate());
+        /*} catch(Exception e) {
+
+        }*/
+
         redirectAttributes.addFlashAttribute("success", "The order's status was successfully changed to delivered.");
         return "redirect:" + fromMappingName("OC#details").arg(1, id).build();
     }

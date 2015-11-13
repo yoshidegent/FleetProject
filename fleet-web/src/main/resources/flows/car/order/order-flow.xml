@@ -24,7 +24,7 @@
     </decision-state>
 
     <decision-state id="checkOrderPossible">
-        <if test="orderServiceImpl.employeeCanOrder(flowScope.employee, flowScope.carModel)" then="optionSelection" else="cancel" />
+        <if test="orderServiceImpl.employeeCanOrder(flowScope.employee, flowScope.carModel)" then="optionSelection" else="denied" />
     </decision-state>
 
     <view-state id="optionSelection" model="optionSelectionList" view="order/option-selection">
@@ -65,9 +65,11 @@
 
     <end-state id="end" view="order/end" />
 
-    <view-state id="cancel" view="externalRedirect:/" />
+    <end-state id="cancel" view="externalRedirect:/" />
+    <end-state id="denied" view="externalRedirect:/?error=You are not allowed to order this car" />
 
     <global-transitions>
         <transition to="cancel" on="cancel" />
+        <transition to="denied" on="denied" />
     </global-transitions>
 </flow>
