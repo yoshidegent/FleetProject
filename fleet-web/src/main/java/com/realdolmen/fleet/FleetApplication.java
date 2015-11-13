@@ -15,12 +15,12 @@ public class FleetApplication {
         ApplicationContext app = SpringApplication.run(FleetApplication.class, args);
 
         //Import the carModels from excel
-        SpreadsheetService<CarModel> spreadsheetService = app.getBean(
+        /*SpreadsheetService<CarModel> spreadsheetService = app.getBean(
             ExcelSpreadsheetServiceImpl.class);
         List<CarModel> carModels = spreadsheetService.parse(
             app.getClass().getResourceAsStream("/excel/RealDolmenWagenparktabelMei2015.xlsx"), 0);
 
         CarService carService = app.getBean(CarService.class);
-        carService.saveCarModels(carModels);
+        carService.saveCarModels(carModels);*/
     }
 }
