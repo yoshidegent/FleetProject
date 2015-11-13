@@ -16,14 +16,6 @@
                 </h1>
             </section>
 
-            <div class="row margin-bottom">
-                <div class="col-sm-12">
-                    <form method="post" th:action="${''}" class="pull-right">
-                        <input class="pull-right btn btn-flat btn-primary" type="submit" name="_eventId_submit" value="Confirm" />
-                    </form>
-                </div>
-            </div>
-
             <section class="content">
                 <div class="row">
                     <div class="col-sm-8">
@@ -33,7 +25,35 @@
                                 <h3 class="box-title">Order Summary</h3>
                             </div>
                             <div class="box-body">
+                                <dl class="dl-horizontal">
+                                    <dt>Category</dt>
+                                    <dd th:text="${carOrder.orderedCar.carModel.category}"></dd>
 
+                                    <dt>Brand</dt>
+                                    <dd th:text="${carOrder.orderedCar.carModel.brand}"></dd>
+
+                                    <dt>Type</dt>
+                                    <dd th:text="${carOrder.orderedCar.carModel.model}"></dd>
+
+                                    <dt>Pack</dt>
+                                    <dd th:text="${carOrder.orderedCar.carModel.pack}"></dd>
+
+                                    <dt>Fuel type</dt>
+                                    <dd th:text="${carOrder.orderedCar.carModel.fuelType.displayName}"></dd>
+
+                                    <dt>Delivery time</dt>
+                                    <dd>
+                                        <span th:if="${carOrder.orderedCar.carModel.deliveryTime.months != 0}" th:text="${carOrder.orderedCar.carModel.deliveryTime.months + ' month(s)'}"></span>
+                                        <span th:if="${carOrder.orderedCar.carModel.deliveryTime.days != 0 and carOrder.orderedCar.carModel.deliveryTime.months != 0}"> and </span>
+                                        <span th:if="${carOrder.orderedCar.carModel.deliveryTime.days != 0}" th:text="${carOrder.orderedCar.carModel.deliveryTime.days + ' day(s)'}"></span>
+                                    </dd>
+
+                                    <dt>Ideal km</dt>
+                                    <dd th:text="${carOrder.orderedCar.carModel.idealKm}"></dd>
+
+                                    <dt>Max. km</dt>
+                                    <dd th:text="${carOrder.orderedCar.carModel.maxKm}"></dd>
+                                </dl>
                             </div>
                         </div>
                     </div>
@@ -63,17 +83,13 @@
                                 </table>
                             </div>
                         </div>
+
+                        <form method="post" th:action="${''}" class="pull-right">
+                            <input class="pull-right btn btn-flat btn-primary" type="submit" name="_eventId_submit" value="Confirm" />
+                        </form>
                     </div>
                 </div>
             </section>
-
-            <div class="row">
-                <div class="col-sm-12">
-                    <form method="post" th:action="${''}" class="pull-right">
-                        <input class="pull-right btn btn-flat btn-primary" type="submit" name="_eventId_submit" value="Confirm" />
-                    </form>
-                </div>
-            </div>
         </div>
     </div>
 

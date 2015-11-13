@@ -69,9 +69,13 @@
                                 <h3>€ <th:block th:text="${carModel.benefitInKindPerMonth}"></th:block> <small style="color: #fff">/ month</small></h3>
                                 <p>
                                     <!-- TODO: fix display based on upgrade/downgrade -->
-                                    € <th:block th:text="${carModel.amountDowngradeInclVat}"></th:block><br />
-                                    € <th:block th:text="${carModel.amountUpgradeInclVat}"></th:block><br />
-                                    € <th:block th:text="${carModel.listPriceInclVat}"></th:block><br />
+                                    <th:block th:if="${carModel.amountDowngradeInclVat != null}">
+                                        Downgrade Amount: € <th:block th:text="${carModel.amountDowngradeInclVat}"></th:block><br />
+                                    </th:block>
+                                    <th:block th:if="${carModel.amountUpgradeInclVat != null}">
+                                        Upgrade Amount: € <th:block th:text="${carModel.amountUpgradeInclVat}"></th:block><br />
+                                    </th:block>
+                                    List Price: € <th:block th:text="${carModel.listPriceInclVat}"></th:block><br />
                                 </p>
                             </div>
                             <div class="icon">
