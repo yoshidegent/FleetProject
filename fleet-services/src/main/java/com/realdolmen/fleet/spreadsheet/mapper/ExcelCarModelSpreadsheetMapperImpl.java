@@ -89,21 +89,21 @@ public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<Car
                     break;
 
                 case 14:
-                    carModel.setListPriceInclVat(new BigDecimal(value));
+                    carModel.setListPriceInclVat(new BigDecimal(value).setScale(2, BigDecimal.ROUND_HALF_EVEN));
                     break;
 
                 case 16:
                     if(value.isEmpty())
                         carModel.setAmountUpgradeInclVat(null);
                     else
-                        carModel.setAmountUpgradeInclVat(new BigDecimal(value));
+                        carModel.setAmountUpgradeInclVat(new BigDecimal(value).setScale(2, BigDecimal.ROUND_HALF_EVEN));
                     break;
 
                 case 17:
                     if(value.isEmpty())
                         carModel.setAmountDowngradeInclVat(null);
                     else
-                        carModel.setAmountDowngradeInclVat(new BigDecimal(value));
+                        carModel.setAmountDowngradeInclVat(new BigDecimal(value).setScale(2, BigDecimal.ROUND_HALF_EVEN));
                     break;
 
                 //benefit in kind/month
@@ -111,7 +111,7 @@ public class ExcelCarModelSpreadsheetMapperImpl implements SpreadsheetMapper<Car
                     if(value.isEmpty())
                         carModel.setBenefitInKindPerMonth(null);
                     else
-                        carModel.setBenefitInKindPerMonth(new BigDecimal(value));
+                        carModel.setBenefitInKindPerMonth(new BigDecimal(value).setScale(2, BigDecimal.ROUND_HALF_EVEN));
                     break;
 
                 //Possibility of towing bracket

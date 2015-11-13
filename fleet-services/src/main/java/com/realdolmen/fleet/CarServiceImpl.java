@@ -71,7 +71,8 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override public List<CarModel> findCarModelsByCategory(int category) {
-        return carModelRepository.findByCategory(category);
+        //return carModelRepository.findByCategory(category);
+        return carModelRepository.findByCategoryOrderByBrandAscModelAsc(category);
     }
 
     @Override

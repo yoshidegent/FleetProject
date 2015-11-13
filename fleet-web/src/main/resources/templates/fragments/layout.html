@@ -51,7 +51,7 @@
         <nav class="navbar navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
-                    <a href="#" class="navbar-brand">Fleet</a>
+                    <a href="#" th:href="@{/}" class="navbar-brand">Fleet</a>
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                         <i class="fa fa-bars"></i>
                     </button>
@@ -89,6 +89,11 @@
                         <p th:if="${userEmployee != null}">
                             <th:block th:text="${userEmployee.firstName + ' ' + userEmployee.lastName}"></th:block>
                         </p>
+                    </li>
+                    <li class="user-body">
+                        <th:block th:if="${userEmployee != null and userEmployee.currentCar != null}">
+                            <th:block th:text="${userEmployee.currentCar.carModel.brand + ' ' + userEmployee.currentCar.carModel.model}"></th:block>
+                        </th:block>
                     </li>
                     <!-- Menu Footer-->
                     <li class="user-footer">

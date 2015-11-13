@@ -12,6 +12,7 @@ import java.util.List;
 @Transactional
 public class OrderServiceImpl implements OrderService {
     @Autowired private CarOrderRepository carOrderRepository;
+    @Autowired private EmployeeRepository employeeRepository;
 
     @Override
     public CarOrder findOne(Long id) {
@@ -50,12 +51,41 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean employeeCanOrder(Employee employee) {
-        // TODO: add more checks
-        return carOrderRepository.findByEmployee(employee)
+    public boolean employeeCanOrder(Employee employee, CarModel carModel) {
+        if(employee == null)
+            return false;
+
+        // Apparently the logged in user (this employee) does not get updated in memory, because it stays stored in session.
+        // That's why we need to look them up by their id.
+        employee = employeeRepository.findOne(employee.getId());
+
+        // First check if the category is possible
+        boolean categoryCorrect = false;
+        int carModelCategory = carModel.getCategory();
+        if(carModelCategory == employee.getFunctionalLevel() ||
+                carModelCategory - 1 == employee.getFunctionalLevel() ||
+                carModelCategory + 1 == employee.getFunctionalLevel())
+            categoryCorrect = true;
+
+        if(!categoryCorrect)
+            return false;
+
+        // Then check for existing orders
+        boolean hasPendingOrders = carOrderRepository.findByEmployee(employee)
                 .stream()
                 .filter(o -> o.getStatus() == CarOrder.OrderStatus.PENDING)
-                .count() == 0;
+                .count() > 0;
+        if(hasPendingOrders)
+            return false;
+
+        PhysicalCar currentCar = employee.getCurrentCar();
+        // If the employee has no car, or if the car needs renewal (his mileage exceeds max. kilometers)
+        if(currentCar == null || currentCar.getRenewalStatus() == PhysicalCar.RenewalStatus.NEEDS_RENEWAL ||
+                currentCar.getRenewalStatus() == PhysicalCar.RenewalStatus.NEEDS_RENEWAL_MAIL_SENT)
+            return true;
+
+        // The employee has a car assigned that needs no renewal, so they can't order
+        return false;
     }
 
     @Override
@@ -66,7 +96,9 @@ public class OrderServiceImpl implements OrderService {
 
         PhysicalCar car = carOrder.getOrderedCar();
         car.setLicensePlate(licensePlate);
-        carOrder.getEmployee().setCurrentCar(car);
+
+        Employee employee = carOrder.getEmployee();
+        employee.setCurrentCar(car);
     }
 
     @Override
